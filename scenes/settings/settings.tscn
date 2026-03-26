@@ -1,0 +1,107 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/settings/settings.gd" id="1_script"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_header"]
+font_size = 40
+font_color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.95, 0.95, 0.96, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(500, 0)
+theme_override_constants/separation = 30
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Налаштування"
+label_settings = SubResource("LabelSettings_header")
+
+[node name="MusicBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MusicLabel" type="Label" parent="CenterContainer/VBoxContainer/MusicBox"]
+layout_mode = 2
+text = "Гучнiсть музики"
+
+[node name="MusicSlider" type="HSlider" parent="CenterContainer/VBoxContainer/MusicBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 24)
+min_value = 0.0
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="SfxBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SfxLabel" type="Label" parent="CenterContainer/VBoxContainer/SfxBox"]
+layout_mode = 2
+text = "Гучнiсть звукiв"
+
+[node name="SfxSlider" type="HSlider" parent="CenterContainer/VBoxContainer/SfxBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 24)
+min_value = 0.0
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="TextSpeedBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextSpeedLabel" type="Label" parent="CenterContainer/VBoxContainer/TextSpeedBox"]
+layout_mode = 2
+text = "Швидкiсть тексту"
+
+[node name="TextSpeedSlider" type="HSlider" parent="CenterContainer/VBoxContainer/TextSpeedBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 24)
+min_value = 0.01
+max_value = 0.08
+step = 0.005
+value = 0.03
+
+[node name="FullscreenCheck" type="CheckBox" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Повноекранний режим"
+
+[node name="BtnBack" type="Button" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(200, 45)
+size_flags_horizontal = 4
+text = "Назад"

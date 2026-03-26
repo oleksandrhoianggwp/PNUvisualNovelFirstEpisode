@@ -197,6 +197,10 @@ func _load_settings_local() -> void:
 		return
 	for key in settings:
 		settings[key] = config.get_value("settings", key, settings[key])
+	# Migrate old "fullscreen" boolean to new "display_mode" int
+	if config.has_section_key("settings", "fullscreen") and not config.has_section_key("settings", "display_mode"):
+		var was_fullscreen = config.get_value("settings", "fullscreen", false)
+		settings["display_mode"] = 1 if was_fullscreen else 0
 
 
 func _load_settings_from_db() -> void:

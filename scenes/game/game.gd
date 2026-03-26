@@ -67,14 +67,21 @@ func _advance_dialogue() -> void:
 		return
 
 	# Skip empty text entries (spacers/jumps)
-	var next_entry = dialogue_data[current_index]
-	if next_entry.get("text", "") == "" and not next_entry.has("choices"):
-		if next_entry.has("target"):
-			current_index = next_entry["target"]
+	while current_index < dialogue_data.size():
+		var next_entry = dialogue_data[current_index]
+		if next_entry.get("text", "") == "" and not next_entry.has("choices"):
+			if next_entry.has("target"):
+				current_index = next_entry["target"]
+			else:
+				current_index += 1
 			GameManager.current_dialogue_index = current_index
 		else:
-			current_index += 1
-			GameManager.current_dialogue_index = current_index
+			break
+
+	if current_index >= dialogue_data.size():
+		GameManager.save_game()
+		get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
+		return
 
 	_show_dialogue()
 
@@ -300,10 +307,11 @@ func _show_choices(choices: Array) -> void:
 		btn.pressed.connect(func():
 			choices_made[str(choice_id)] = target_index
 			GameManager.choices_made = choices_made.duplicate()
-			GameManager.save_game()
 			choice_container.visible = false
-			current_index = target_index - 1
-			_advance_dialogue()
+			current_index = target_index
+			GameManager.current_dialogue_index = current_index
+			GameManager.save_game()
+			_show_dialogue()
 		)
 
 		# Staggered fade-in animation

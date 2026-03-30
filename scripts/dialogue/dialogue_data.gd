@@ -147,8 +147,8 @@ const DIALOGUES: Array = [
 		"speaker": "Дарія", "type": "dialogue",
 		"text": "Боже, як незручно! Я стаю надто незграбною з таким великим багажем..",
 		"choices": [
-			{"text": "Попросити вибачення", "target": 20},
-			{"text": "Мовчки пройти повз", "target": 25}
+			{"text": "Попросити вибачення", "target": 20, "effects": {"reputation": 1}},
+			{"text": "Мовчки пройти повз", "target": 25, "effects": {"reputation": -1}}
 		]
 	},
 
@@ -427,8 +427,8 @@ const DIALOGUES: Array = [
 		"speaker": "", "type": "narrator",
 		"text": "",
 		"choices": [
-			{"text": "Усміхнутись та підтримати жарт", "target": 60},
-			{"text": "Сказати, що жарт виявився недоречним", "target": 64}
+			{"text": "Усміхнутись та підтримати жарт", "target": 60, "effects": {"maria": 1}},
+			{"text": "Сказати, що жарт виявився недоречним", "target": 64, "effects": {"maria": -1}}
 		]
 	},
 
@@ -615,7 +615,8 @@ const DIALOGUES: Array = [
 		"bg": "06b_dorm_room_92_light",
 		"left": "daria_main/daria_smile", "right": "anna/anna_neutral",
 		"speaker": "", "type": "system",
-		"text": "Анна рада побачити розуміння з Вашого боку."
+		"text": "Анна рада побачити розуміння з Вашого боку.",
+		"effects": {"anna": 1}
 	},
 	{ # 89
 		"bg": "06b_dorm_room_92_light",
@@ -1053,7 +1054,7 @@ const DIALOGUES: Array = [
 		"speaker": "", "type": "narrator",
 		"text": "",
 		"choices": [
-			{"text": "Підняти руку, щоб привернути увагу", "target": 158},
+			{"text": "Підняти руку, щоб привернути увагу", "target": 158, "effects": {"melania": 1, "reputation": 1}},
 			{"text": "Мовчки спостерігати", "target": 162}
 		]
 	},
@@ -1471,6 +1472,18 @@ const DIALOGUES: Array = [
 		"bg": "03_dorm_exterior_evening",
 		"left": "", "right": "",
 		"speaker": "", "type": "narrator",
-		"text": "Кінець Епізоду 1."
+		"text": "Перший день Дарії в університеті добіг кінця. Нові знайомства, нові емоції, нові страхи та надії — все це лише початок великої історії."
+	},
+	{ # 222
+		"bg": "03_dorm_exterior_evening",
+		"left": "", "right": "",
+		"speaker": "", "type": "system",
+		"text": "Епізод 1 завершено. Ваші вибори вплинуть на подальший розвиток подій."
+	},
+	{ # 223
+		"bg": "03_dorm_exterior_evening",
+		"left": "", "right": "",
+		"speaker": "", "type": "narrator",
+		"text": "Далі буде..."
 	},
 ]

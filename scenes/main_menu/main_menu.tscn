@@ -1,20 +1,20 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://dr85y6ubq3wqt"]
 
-[ext_resource type="Texture2D" path="res://Picture/background/PhoneMainMenu.png" id="1_bg"]
-[ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://chl0hf0yge4kq" path="res://Picture/background/PhoneMainMenu.png" id="1_bg"]
+[ext_resource type="Script" uid="uid://ox5f8s3trq4w" path="res://scenes/main_menu/main_menu.gd" id="2_script"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font_size = 64
-font_color = Color(0.92, 0.94, 1.0, 1)
-shadow_color = Color(0, 0, 0, 0.6)
+font_color = Color(0.92, 0.94, 1, 1)
 shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.6)
 shadow_offset = Vector2(0, 3)
 
 [sub_resource type="LabelSettings" id="LabelSettings_subtitle"]
 font_size = 28
 font_color = Color(0.7, 0.75, 0.85, 1)
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=630206074]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_script")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1488271879]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +34,7 @@ texture = ExtResource("1_bg")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Overlay" type="ColorRect" parent="."]
+[node name="Overlay" type="ColorRect" parent="." unique_id=244162774]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,7 +43,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.45)
 
-[node name="TitleContainer" type="VBoxContainer" parent="."]
+[node name="TitleContainer" type="VBoxContainer" parent="." unique_id=987167284]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -55,19 +55,19 @@ offset_bottom = 260.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="Title" type="Label" parent="TitleContainer"]
+[node name="Title" type="Label" parent="TitleContainer" unique_id=1207705949]
 layout_mode = 2
-horizontal_alignment = 1
 text = "Between Classes"
 label_settings = SubResource("LabelSettings_title")
-
-[node name="Subtitle" type="Label" parent="TitleContainer"]
-layout_mode = 2
 horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="TitleContainer" unique_id=1227506920]
+layout_mode = 2
 text = "Episode 1"
 label_settings = SubResource("LabelSettings_subtitle")
+horizontal_alignment = 1
 
-[node name="ButtonsContainer" type="VBoxContainer" parent="."]
+[node name="ButtonsContainer" type="VBoxContainer" parent="." unique_id=852111538]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -82,28 +82,28 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 16
 
-[node name="BtnNewGame" type="Button" parent="ButtonsContainer"]
+[node name="BtnNewGame" type="Button" parent="ButtonsContainer" unique_id=2035283303]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(300, 52)
+layout_mode = 2
 text = "Нова гра"
 
-[node name="BtnContinue" type="Button" parent="ButtonsContainer"]
+[node name="BtnContinue" type="Button" parent="ButtonsContainer" unique_id=2063253946]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(300, 52)
+layout_mode = 2
 text = "Продовжити"
 
-[node name="BtnSettings" type="Button" parent="ButtonsContainer"]
+[node name="BtnSettings" type="Button" parent="ButtonsContainer" unique_id=828240939]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(300, 52)
+layout_mode = 2
 text = "Налаштування"
 
-[node name="BtnExit" type="Button" parent="ButtonsContainer"]
+[node name="BtnExit" type="Button" parent="ButtonsContainer" unique_id=1572187563]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(300, 52)
+layout_mode = 2
 text = "Вихід"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1827412414]

@@ -64,13 +64,35 @@ const RELATIONSHIP_NAMES = {
 }
 
 var db = null
+var _music_player: AudioStreamPlayer
+var _current_music: String = ""
 
 
 func _ready() -> void:
+	_music_player = AudioStreamPlayer.new()
+	_music_player.bus = "Master"
+	add_child(_music_player)
 	_build_resolutions()
 	_init_db()
 	load_settings()
 	call_deferred("apply_settings")
+
+
+func play_music(path: String) -> void:
+	if path == _current_music and _music_player.playing:
+		return
+	if not ResourceLoader.exists(path):
+		push_warning("Music file not found: " + path)
+		return
+	_current_music = path
+	_music_player.stream = load(path)
+	_music_player.volume_db = linear_to_db(settings["music_volume"])
+	_music_player.play()
+
+
+func stop_music() -> void:
+	_music_player.stop()
+	_current_music = ""
 
 
 func _build_resolutions() -> void:

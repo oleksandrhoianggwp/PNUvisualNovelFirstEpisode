@@ -11,6 +11,7 @@ var _showing_slots: bool = false
 
 
 func _ready() -> void:
+	GameManager.play_music("res://music/main menu/main_menu.mp3")
 	btn_continue.visible = GameManager.has_any_save()
 	btn_continue.text = "Завантажити"
 
@@ -100,7 +101,7 @@ func _on_load_slots() -> void:
 		btn.name = "Slot" + str(i)
 
 		if info["empty"]:
-			btn.text = "Слот " + str(i + 1) + " — Порожній"
+			btn.text = "○ Слот " + str(i + 1) + " — Порожній"
 			btn.disabled = true
 		else:
 			var scene = info.get("scene_name", "?")
@@ -108,7 +109,7 @@ func _on_load_slots() -> void:
 			if saved_at.length() > 16:
 				saved_at = saved_at.substr(0, 16)
 			var rep = info.get("reputation", 0)
-			btn.text = "Слот " + str(i + 1) + " — " + scene + "  [Реп: " + str(rep) + "]\n" + saved_at
+			btn.text = "◉ Слот " + str(i + 1) + " — " + scene + "  [★ " + str(rep) + "]\n" + saved_at
 
 		btn.custom_minimum_size = Vector2(300, 55)
 		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

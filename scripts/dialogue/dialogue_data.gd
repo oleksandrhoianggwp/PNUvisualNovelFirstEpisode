@@ -149,7 +149,8 @@ const DIALOGUES: Array = [
 		"choices": [
 			{"text": "Попросити вибачення", "target": 20, "effects": {"reputation": 1}},
 			{"text": "Мовчки пройти повз", "target": 25, "effects": {"reputation": -1}}
-		]
+		],
+		"timer": 8
 	},
 
 	# --- Choice 1, Branch A: Apologize (ID 20-24) ---
@@ -285,7 +286,8 @@ const DIALOGUES: Array = [
 		"choices": [
 			{"text": "Наліво", "target": 39},
 			{"text": "Направо", "target": 43}
-		]
+		],
+		"timer": 5
 	},
 
 	# --- Choice 2, Branch A: Left (ID 39-42) ---
@@ -429,7 +431,8 @@ const DIALOGUES: Array = [
 		"choices": [
 			{"text": "Усміхнутись та підтримати жарт", "target": 60, "effects": {"maria": 1}},
 			{"text": "Сказати, що жарт виявився недоречним", "target": 64, "effects": {"maria": -1}}
-		]
+		],
+		"timer": 10
 	},
 
 	# --- Choice 3, Branch A: Smile (ID 60-63) ---
@@ -936,67 +939,67 @@ const DIALOGUES: Array = [
 	},
 	{ # 139
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_neutral", "right": "",
+		"left": "daria_main/daria_neutral", "right": "marta/marta_smile",
 		"speaker": "Марта", "type": "dialogue",
 		"text": "Ти, певно, Дарія?"
 	},
 	{ # 140
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_smile", "right": "",
+		"left": "daria_main/daria_smile", "right": "marta/marta_smile",
 		"speaker": "", "type": "narrator",
 		"text": "Не могло бути щасливішого моменту зараз, ніж почути це. З відчутним полегшенням вона рушила до цієї групи."
 	},
 	{ # 141
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_smile", "right": "",
+		"left": "daria_main/daria_smile", "right": "marta/marta_smile",
 		"speaker": "Марта", "type": "dialogue",
 		"text": "Привіт, мене звати Марта. Я староста групи."
 	},
 	{ # 142
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_smile", "right": "",
+		"left": "daria_main/daria_smile", "right": "marta/marta_smile",
 		"speaker": "", "type": "narrator",
 		"text": "Марта протягнула руку для привітання. Дівчина здавалась Дарії милою, привітною. Слідом за Мартою привітались і інші."
 	},
 	{ # 143
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_neutral", "right": "",
+		"left": "daria_main/daria_neutral", "right": "marta/marta_smile",
 		"speaker": "Марта", "type": "dialogue",
 		"text": "Чого ви очікуєте від першого дня в університеті?"
 	},
 	{ # 144
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_neutral", "right": "",
+		"left": "daria_main/daria_neutral", "right": "oksana/oksana_smile",
 		"speaker": "", "type": "narrator",
 		"text": "Всі поринули у роздуми. Насмілилась відповісти одногрупниця, що стояла справа. Дарії надзвичайно сподобались її розкішні червоняві кучерики."
 	},
 	{ # 145
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_neutral", "right": "",
+		"left": "daria_main/daria_neutral", "right": "oksana/oksana_smile",
 		"speaker": "Оксана", "type": "dialogue",
 		"text": "Не знаю як ви, а я сподіваюсь, хоча б не загубитися першого ж дня. Я серйозно. Якщо не побачите мене поруч, кричіть «Сир!», бо моя цікавість в сумісності з поганою орієнтацією в просторі колись таки мені зашкодить."
 	},
 	{ # 146
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_smile", "right": "",
+		"left": "daria_main/daria_smile", "right": "oksana/oksana_smile",
 		"speaker": "Дарія", "type": "dialogue",
 		"text": "Чому саме сир?"
 	},
 	{ # 147
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_smile", "right": "",
+		"left": "daria_main/daria_smile", "right": "oksana/oksana_smile",
 		"speaker": "Оксана", "type": "dialogue",
 		"text": "Просто люблю і ні за що в світі не пробачу вас, якщо з'їсте його без мене."
 	},
 	{ # 148
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_smile", "right": "",
+		"left": "daria_main/daria_smile", "right": "oksana/oksana_smile",
 		"speaker": "", "type": "narrator",
 		"text": "Оксана сподобалась Дарії своєю енергетикою: доброю і ніби вільною від усіх людських турбот."
 	},
 	{ # 149
 		"bg": "08_university_yard_morning",
-		"left": "daria_main/daria_neutral", "right": "",
+		"left": "daria_main/daria_neutral", "right": "marta/marta_smile",
 		"speaker": "Марта", "type": "dialogue",
 		"text": "Не всі є, але вже зовсім скоро розпочнуться пари. Можливо, пошукаємо аудиторію?"
 	},
@@ -1056,7 +1059,8 @@ const DIALOGUES: Array = [
 		"choices": [
 			{"text": "Підняти руку, щоб привернути увагу", "target": 158, "effects": {"melania": 1, "reputation": 1}},
 			{"text": "Мовчки спостерігати", "target": 162}
-		]
+		],
+		"timer": 7
 	},
 
 	# --- Choice 4, Branch A: Raise hand (ID 158-161) ---
@@ -1278,13 +1282,13 @@ const DIALOGUES: Array = [
 	},
 	{ # 190
 		"bg": "11_restaurant_evening",
-		"left": "daria_main/daria_neutral", "right": "",
+		"left": "daria_main/daria_neutral", "right": "marta/marta_smile",
 		"speaker": "Марта", "type": "dialogue",
 		"text": "Можливо, хтось знає якийсь заклад поруч?"
 	},
 	{ # 191
 		"bg": "11_restaurant_evening",
-		"left": "daria_main/daria_neutral", "right": "",
+		"left": "daria_main/daria_neutral", "right": "oksana/oksana_smile",
 		"speaker": "Оксана", "type": "dialogue",
 		"text": "Гугл карти в допомогу?"
 	},
@@ -1326,13 +1330,13 @@ const DIALOGUES: Array = [
 	},
 	{ # 198
 		"bg": "11_restaurant_evening",
-		"left": "daria_main/daria_neutral", "right": "",
+		"left": "daria_main/daria_neutral", "right": "oksana/oksana_smile",
 		"speaker": "Оксана", "type": "dialogue",
 		"text": "Ого, вау.."
 	},
 	{ # 199
 		"bg": "11_restaurant_evening",
-		"left": "daria_main/daria_smile", "right": "",
+		"left": "daria_main/daria_smile", "right": "marta/marta_smile",
 		"speaker": "Марта", "type": "dialogue",
 		"text": "Неймовірно гарно сказано. Я впевнена, що в тебе все вийде."
 	},
@@ -1474,16 +1478,10 @@ const DIALOGUES: Array = [
 		"speaker": "", "type": "narrator",
 		"text": "Перший день Дарії в університеті добіг кінця. Нові знайомства, нові емоції, нові страхи та надії — все це лише початок великої історії."
 	},
-	{ # 222
+	{ # 222 — SUMMARY SCREEN (final entry)
 		"bg": "03_dorm_exterior_evening",
 		"left": "", "right": "",
-		"speaker": "", "type": "system",
-		"text": "Епізод 1 завершено. Ваші вибори вплинуть на подальший розвиток подій."
-	},
-	{ # 223
-		"bg": "03_dorm_exterior_evening",
-		"left": "", "right": "",
-		"speaker": "", "type": "narrator",
-		"text": "Далі буде..."
+		"speaker": "", "type": "summary",
+		"text": "Епізод 1 завершено"
 	},
 ]

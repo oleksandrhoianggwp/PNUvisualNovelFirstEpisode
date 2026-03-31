@@ -13,6 +13,9 @@ extends Control
 @onready var plaque_text: Label = $SystemPlaque/MarginContainer/HBoxContainer/PlaqueText
 @onready var notification_container: VBoxContainer = $NotificationContainer
 @onready var pause_overlay: ColorRect = $PauseOverlay
+@onready var choice_timer_label: Label = $ChoiceTimerLabel
+@onready var summary_overlay: ColorRect = $SummaryOverlay
+@onready var summary_box: VBoxContainer = $SummaryOverlay/SummaryBox
 @onready var btn_resume: Button = %BtnResume
 @onready var btn_save: Button = %BtnSave
 @onready var btn_load: Button = %BtnLoad
@@ -25,6 +28,9 @@ var full_text: String = ""
 var current_bg: String = ""
 var choices_made: Dictionary = {}
 var is_paused: bool = false
+var _choice_timer: float = 0.0
+var _choice_time_left: float = 0.0
+var _choice_default_target: int = -1
 
 var _loaded_textures: Dictionary = {}
 var _prev_left: String = ""
@@ -38,6 +44,8 @@ func _ready() -> void:
 	choice_container.visible = false
 	system_plaque.visible = false
 	pause_overlay.visible = false
+	summary_overlay.visible = false
+	choice_timer_label.visible = false
 	dialogue_box.modulate = Color(1, 1, 1, 0)
 	character_left.modulate = Color(1, 1, 1, 0)
 	character_right.modulate = Color(1, 1, 1, 0)
@@ -56,6 +64,14 @@ func _ready() -> void:
 	_show_dialogue()
 
 
+func _process(delta: float) -> void:
+	if _choice_time_left > 0 and choice_container.visible:
+		_choice_time_left -= delta
+		choice_timer_label.text = "⏳ " + str(ceili(_choice_time_left))
+		if _choice_time_left <= 0:
+			_choice_time_expired()
+
+
 func _input(event: InputEvent) -> void:
 	# Escape — toggle pause
 	if event.is_action_pressed("ui_cancel"):
@@ -63,6 +79,9 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if is_paused:
+		return
+
+	if summary_overlay.visible:
 		return
 
 	if event.is_action_pressed("ui_accept") or (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
@@ -135,14 +154,13 @@ func _show_slot_panel(mode: String) -> void:
 		btn.name = "Slot" + str(i)
 
 		if info["empty"]:
-			btn.text = "Слот " + str(i + 1) + " — Порожній"
+			btn.text = "○ Слот " + str(i + 1) + " — Порожній"
 		else:
 			var scene = info.get("scene_name", "?")
-			var saved_at = info.get("saved_at", "")
-			# Show only date+time part
+			var saved_at = str(info.get("saved_at", ""))
 			if saved_at.length() > 16:
 				saved_at = saved_at.substr(0, 16)
-			btn.text = "Слот " + str(i + 1) + " — " + scene + "\n" + saved_at
+			btn.text = "◉ Слот " + str(i + 1) + " — " + scene + "\n" + saved_at
 
 		btn.custom_minimum_size = Vector2(300, 55)
 		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -300,9 +318,17 @@ func _show_dialogue() -> void:
 		for n in notifs:
 			_show_notification(n["text"], n["value"])
 
+	# --- Summary screen (end of episode) ---
+	if entry_type == "summary":
+		dialogue_box.visible = false
+		_fade_characters(0.0)
+		_show_summary()
+		return
+
 	# --- System messages (plaque style) ---
 	if entry_type == "system":
 		dialogue_box.visible = false
+		_fade_characters(0.0)
 		_show_system_plaque(entry.get("text", ""))
 		if entry.has("choices"):
 			_show_choices(entry["choices"])
@@ -381,12 +407,126 @@ func _show_system_plaque(text: String) -> void:
 
 
 # ===========================================
+#  SUMMARY SCREEN (end of episode)
+# ===========================================
+func _show_summary() -> void:
+	for child in summary_box.get_children():
+		child.queue_free()
+
+	# Title
+	var title = Label.new()
+	title.text = "❖ Епізод 1 завершено"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 34)
+	title.add_theme_color_override("font_color", Color(0.95, 0.82, 0.4, 1))
+	summary_box.add_child(title)
+
+	# Separator
+	var sep = HSeparator.new()
+	sep.add_theme_constant_override("separation", 12)
+	summary_box.add_child(sep)
+
+	# Reputation
+	var rep_label = Label.new()
+	rep_label.text = "★ Репутація: " + str(GameManager.reputation)
+	rep_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	rep_label.add_theme_font_size_override("font_size", 24)
+	rep_label.add_theme_color_override("font_color", Color(0.4, 0.9, 0.5, 1) if GameManager.reputation >= 0 else Color(0.95, 0.4, 0.4, 1))
+	summary_box.add_child(rep_label)
+
+	# Relationships
+	for key in GameManager.relationships:
+		var value = GameManager.relationships[key]
+		if value == 0:
+			continue
+		var char_name = GameManager.RELATIONSHIP_NAMES.get(key, key)
+		var rel_label = Label.new()
+		rel_label.text = "♥ " + char_name + ": " + ("+" if value > 0 else "") + str(value)
+		rel_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		rel_label.add_theme_font_size_override("font_size", 20)
+		if value > 0:
+			rel_label.add_theme_color_override("font_color", Color(0.5, 0.85, 0.95, 1))
+		else:
+			rel_label.add_theme_color_override("font_color", Color(0.95, 0.5, 0.5, 1))
+		summary_box.add_child(rel_label)
+
+	# Hint
+	var hint = Label.new()
+	hint.text = "Ваші вибори вплинуть на подальші події..."
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	hint.add_theme_font_size_override("font_size", 18)
+	hint.add_theme_color_override("font_color", Color(0.6, 0.62, 0.7, 1))
+	summary_box.add_child(hint)
+
+	# Separator before button
+	var sep2 = HSeparator.new()
+	sep2.add_theme_constant_override("separation", 8)
+	summary_box.add_child(sep2)
+
+	# Dev message
+	var dev_msg = Label.new()
+	dev_msg.text = "Дякуємо за гру! Епізод 2 вже в розробці."
+	dev_msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	dev_msg.add_theme_font_size_override("font_size", 18)
+	dev_msg.add_theme_color_override("font_color", Color(0.6, 0.62, 0.7, 1))
+	dev_msg.autowrap_mode = TextServer.AUTOWRAP_WORD
+	summary_box.add_child(dev_msg)
+
+	# Button: Continue (goes to main menu)
+	var btn_continue = Button.new()
+	btn_continue.text = "▸ Продовжити"
+	btn_continue.custom_minimum_size = Vector2(280, 48)
+	btn_continue.add_theme_font_size_override("font_size", 22)
+	btn_continue.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_setup_pause_button(btn_continue)
+	btn_continue.pressed.connect(func():
+		GameManager.save_game()
+		get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
+	)
+	summary_box.add_child(btn_continue)
+
+	summary_overlay.visible = true
+	summary_overlay.modulate = Color(1, 1, 1, 0)
+	var tween = create_tween()
+	tween.tween_property(summary_overlay, "modulate:a", 1.0, 0.6).set_ease(Tween.EASE_OUT)
+
+
+# ===========================================
+#  CHOICE TIMER
+# ===========================================
+func _choice_time_expired() -> void:
+	_choice_time_left = 0
+	choice_timer_label.visible = false
+	if not choice_container.visible:
+		return
+	# Auto-select first choice (default)
+	var entry = dialogue_data[current_index]
+	if entry.has("choices") and entry["choices"].size() > 0:
+		var first_choice = entry["choices"][0]
+		var target = first_choice["target"]
+		var effects = first_choice.get("effects", {})
+		choices_made[str(current_index)] = target
+		if not effects.is_empty():
+			var notifs = GameManager.apply_effects(effects)
+			for n in notifs:
+				_show_notification(n["text"], n["value"])
+		GameManager.choices_made = choices_made.duplicate()
+		choice_container.visible = false
+		current_index = target
+		GameManager.current_dialogue_index = current_index
+		GameManager.save_game()
+		# Restore characters
+		_show_dialogue()
+
+
+# ===========================================
 #  FLOAT NOTIFICATIONS (+1 Reputation etc)
 # ===========================================
 func _show_notification(stat_name: String, value: int) -> void:
 	var label = Label.new()
 	var sign = "+" if value > 0 else ""
-	label.text = sign + str(value) + " " + stat_name
+	var icon = "★ " if stat_name == "Репутація" else "♥ "
+	label.text = icon + sign + str(value) + " " + stat_name
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	label.add_theme_font_size_override("font_size", 20)
 
@@ -408,6 +548,21 @@ func _show_notification(stat_name: String, value: int) -> void:
 # ===========================================
 #  TRANSITIONS
 # ===========================================
+func _fade_characters(target_alpha: float) -> void:
+	var tw1 = create_tween()
+	tw1.tween_property(character_left, "modulate:a", target_alpha, 0.3).set_ease(Tween.EASE_OUT)
+	tw1.tween_callback(func():
+		if target_alpha <= 0.01:
+			character_left.visible = false
+	)
+	var tw2 = create_tween()
+	tw2.tween_property(character_right, "modulate:a", target_alpha, 0.3).set_ease(Tween.EASE_OUT)
+	tw2.tween_callback(func():
+		if target_alpha <= 0.01:
+			character_right.visible = false
+	)
+
+
 func _crossfade_bg(new_tex: Texture2D) -> void:
 	background_next.texture = new_tex
 	background_next.modulate = Color(1, 1, 1, 0)
@@ -453,6 +608,16 @@ func _animate_character(node: TextureRect, char_key: String, prev_key: String) -
 	node.texture = tex
 	node.visible = true
 
+	# Scale down square/tall sprites (like melania 1024x1024) to match others (1536x1024)
+	var img_size = tex.get_size()
+	if img_size.x > 0 and img_size.y > 0:
+		var aspect = img_size.x / img_size.y
+		if aspect < 1.2:
+			node.scale = Vector2(0.75, 0.75)
+			node.pivot_offset = Vector2(node.size.x * 0.5, node.size.y)
+		else:
+			node.scale = Vector2(1, 1)
+
 	if prev_key != char_key:
 		node.modulate = Color(1, 1, 1, 0)
 		var tween = create_tween()
@@ -488,10 +653,24 @@ func _show_choices(choices: Array) -> void:
 	choice_container.visible = true
 	dialogue_box.visible = false
 
+	# Hide characters during choice
+	_fade_characters(0.0)
+
+	# Timer
+	var entry = dialogue_data[current_index]
+	var timer_seconds = entry.get("timer", 0)
+	if timer_seconds > 0:
+		_choice_time_left = float(timer_seconds)
+		choice_timer_label.text = str(timer_seconds)
+		choice_timer_label.visible = true
+	else:
+		_choice_time_left = 0
+		choice_timer_label.visible = false
+
 	for i in range(choices.size()):
 		var choice = choices[i]
 		var btn = Button.new()
-		btn.text = choice["text"]
+		btn.text = "▸ " + choice["text"]
 		btn.custom_minimum_size = Vector2(350, 45)
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		btn.add_theme_font_size_override("font_size", 20)
@@ -528,8 +707,9 @@ func _show_choices(choices: Array) -> void:
 		var choice_id = current_index
 		var choice_effects = choice.get("effects", {})
 		btn.pressed.connect(func():
+			_choice_time_left = 0
+			choice_timer_label.visible = false
 			choices_made[str(choice_id)] = target_index
-			# Apply choice effects
 			if not choice_effects.is_empty():
 				var notifs = GameManager.apply_effects(choice_effects)
 				for n in notifs:

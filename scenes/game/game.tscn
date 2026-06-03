@@ -3,34 +3,39 @@
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialogue"]
-bg_color = Color(0.08, 0.08, 0.12, 0.88)
-border_color = Color(0.4, 0.45, 0.6, 0.5)
-border_width_top = 2
-corner_radius_top_left = 6
-corner_radius_top_right = 6
+bg_color = Color(0.059, 0.051, 0.086, 0.84)
+border_color = Color(0.44, 0.55, 0.68, 0.45)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_speaker"]
-font_size = 26
-font_color = Color(0.65, 0.8, 1.0, 1)
+font_size = 30
+font_color = Color(0.72, 0.84, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plaque"]
-bg_color = Color(0.12, 0.1, 0.05, 0.92)
-border_color = Color(0.85, 0.7, 0.3, 0.8)
+bg_color = Color(0.11, 0.09, 0.06, 0.92)
+border_color = Color(0.92, 0.78, 0.42, 0.75)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
 
 [sub_resource type="LabelSettings" id="LabelSettings_plaque"]
-font_size = 22
-font_color = Color(0.95, 0.82, 0.4, 1)
+font_size = 23
+font_color = Color(0.95, 0.86, 0.56, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_overlay"]
-bg_color = Color(0, 0, 0, 0.6)
+bg_color = Color(0, 0, 0, 0.64)
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -64,21 +69,32 @@ modulate = Color(1, 1, 1, 0)
 
 [node name="CharacterLeft" type="TextureRect" parent="."]
 layout_mode = 1
-anchor_left = 0.02
-anchor_top = 0.22
-anchor_right = 0.38
-anchor_bottom = 0.98
+anchor_left = 0.015
+anchor_top = 0.2
+anchor_right = 0.335
+anchor_bottom = 0.91
 grow_horizontal = 1
+grow_vertical = 0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CharacterCenter" type="TextureRect" parent="."]
+layout_mode = 1
+anchor_left = 0.34
+anchor_top = 0.18
+anchor_right = 0.66
+anchor_bottom = 0.91
+grow_horizontal = 2
 grow_vertical = 0
 expand_mode = 1
 stretch_mode = 5
 
 [node name="CharacterRight" type="TextureRect" parent="."]
 layout_mode = 1
-anchor_left = 0.62
-anchor_top = 0.22
-anchor_right = 0.98
-anchor_bottom = 0.98
+anchor_left = 0.665
+anchor_top = 0.2
+anchor_right = 0.985
+anchor_bottom = 0.91
 grow_horizontal = 0
 grow_vertical = 0
 expand_mode = 1
@@ -97,7 +113,7 @@ color = Color(1, 1, 1, 0.95)
 [node name="DialogueBox" type="PanelContainer" parent="."]
 layout_mode = 1
 anchor_left = 0.03
-anchor_top = 0.72
+anchor_top = 0.68
 anchor_right = 0.97
 anchor_bottom = 0.97
 grow_horizontal = 2
@@ -106,10 +122,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_dialogue")
 
 [node name="MarginContainer" type="MarginContainer" parent="DialogueBox"]
 layout_mode = 2
-theme_override_constants/margin_left = 28
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 28
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_left = 34
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 34
+theme_override_constants/margin_bottom = 24
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DialogueBox/MarginContainer"]
 layout_mode = 2
@@ -124,8 +140,9 @@ label_settings = SubResource("LabelSettings_speaker")
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
-theme_override_colors/default_color = Color(0.92, 0.92, 0.95, 1)
-theme_override_font_sizes/normal_font_size = 20
+theme_override_colors/default_color = Color(0.95, 0.93, 0.97, 1)
+theme_override_constants/line_separation = 8
+theme_override_font_sizes/normal_font_size = 30
 text = ""
 fit_content = true
 
@@ -137,10 +154,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -40.0
-offset_right = 320.0
-offset_bottom = 40.0
+offset_left = -360.0
+offset_top = -52.0
+offset_right = 360.0
+offset_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_plaque")
@@ -148,9 +165,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_plaque")
 [node name="MarginContainer" type="MarginContainer" parent="SystemPlaque"]
 layout_mode = 2
 theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 12
+theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_bottom = 14
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SystemPlaque/MarginContainer"]
 layout_mode = 2
@@ -159,7 +176,7 @@ theme_override_constants/separation = 14
 [node name="Icon" type="Label" parent="SystemPlaque/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "✦"
+text = "*"
 
 [node name="PlaqueText" type="Label" parent="SystemPlaque/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -173,13 +190,13 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -30.0
-offset_top = 240.0
-offset_right = 30.0
+offset_left = -40.0
+offset_top = 230.0
+offset_right = 40.0
 offset_bottom = 280.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.95, 0.6, 0.3, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.95, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 34
 horizontal_alignment = 1
 
 [node name="ChoiceContainer" type="VBoxContainer" parent="."]
@@ -189,10 +206,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -260.0
-offset_top = -100.0
-offset_right = 260.0
-offset_bottom = 100.0
+offset_left = -340.0
+offset_top = -150.0
+offset_right = 340.0
+offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -206,7 +223,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.75)
+color = Color(0, 0, 0, 0.78)
 
 [node name="SummaryBox" type="VBoxContainer" parent="SummaryOverlay"]
 layout_mode = 1
@@ -215,23 +232,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -200.0
-offset_right = 250.0
-offset_bottom = 200.0
+offset_left = -430.0
+offset_top = -320.0
+offset_right = 430.0
+offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
-theme_override_constants/separation = 16
+theme_override_constants/separation = 14
 
 [node name="NotificationContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -320.0
+offset_left = -360.0
 offset_top = 20.0
-offset_right = -20.0
-offset_bottom = 200.0
+offset_right = -24.0
+offset_bottom = 220.0
 grow_horizontal = 0
 grow_vertical = 1
 alignment = 0
@@ -246,7 +263,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.6)
+color = Color(0, 0, 0, 0.64)
 
 [node name="PauseMenu" type="VBoxContainer" parent="PauseOverlay"]
 layout_mode = 1
@@ -255,42 +272,54 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -150.0
-offset_right = 160.0
-offset_bottom = 150.0
+offset_left = -170.0
+offset_top = -220.0
+offset_right = 170.0
+offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
-theme_override_constants/separation = 16
+theme_override_constants/separation = 14
 
 [node name="PauseTitle" type="Label" parent="PauseOverlay/PauseMenu"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.92, 1, 1)
+theme_override_colors/font_color = Color(0.92, 0.93, 1, 1)
 theme_override_font_sizes/font_size = 36
 horizontal_alignment = 1
-text = "ПАУЗА"
+text = "Пауза"
 
 [node name="BtnResume" type="Button" parent="PauseOverlay/PauseMenu"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(280, 48)
+custom_minimum_size = Vector2(300, 50)
 text = "Продовжити"
 
 [node name="BtnSave" type="Button" parent="PauseOverlay/PauseMenu"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(280, 48)
+custom_minimum_size = Vector2(300, 50)
 text = "Зберегти"
 
 [node name="BtnLoad" type="Button" parent="PauseOverlay/PauseMenu"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(280, 48)
+custom_minimum_size = Vector2(300, 50)
 text = "Завантажити"
+
+[node name="BtnAuto" type="Button" parent="PauseOverlay/PauseMenu"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(300, 50)
+text = "Авто"
+
+[node name="BtnSkip" type="Button" parent="PauseOverlay/PauseMenu"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(300, 50)
+text = "Пропуск"
 
 [node name="BtnMainMenu" type="Button" parent="PauseOverlay/PauseMenu"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(280, 48)
-text = "Головне меню"
+custom_minimum_size = Vector2(300, 50)
+text = "У меню"

@@ -7,12 +7,12 @@
 font_size = 64
 font_color = Color(0.92, 0.94, 1, 1)
 shadow_size = 8
-shadow_color = Color(0, 0, 0, 0.6)
+shadow_color = Color(0, 0, 0, 0.62)
 shadow_offset = Vector2(0, 3)
 
 [sub_resource type="LabelSettings" id="LabelSettings_subtitle"]
 font_size = 28
-font_color = Color(0.7, 0.75, 0.85, 1)
+font_color = Color(0.76, 0.82, 0.92, 1)
 
 [node name="MainMenu" type="Control" unique_id=630206074]
 layout_mode = 3
@@ -41,29 +41,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.45)
+color = Color(0.015, 0.016, 0.026, 0.48)
 
 [node name="TitleContainer" type="VBoxContainer" parent="." unique_id=987167284]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -300.0
-offset_top = 100.0
-offset_right = 300.0
+offset_left = -360.0
+offset_top = 92.0
+offset_right = 360.0
 offset_bottom = 260.0
 grow_horizontal = 2
 alignment = 1
 
 [node name="Title" type="Label" parent="TitleContainer" unique_id=1207705949]
 layout_mode = 2
-text = "Between Classes"
+text = "Між парами"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="TitleContainer" unique_id=1227506920]
 layout_mode = 2
-text = "Episode 1"
+text = "Between Classes"
 label_settings = SubResource("LabelSettings_subtitle")
 horizontal_alignment = 1
 
@@ -74,35 +74,41 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -360.0
-offset_right = 150.0
-offset_bottom = -100.0
+offset_left = -170.0
+offset_top = -420.0
+offset_right = 170.0
+offset_bottom = -76.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 16
+theme_override_constants/separation = 14
 
 [node name="BtnNewGame" type="Button" parent="ButtonsContainer" unique_id=2035283303]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 52)
+custom_minimum_size = Vector2(340, 54)
 layout_mode = 2
 text = "Нова гра"
 
 [node name="BtnContinue" type="Button" parent="ButtonsContainer" unique_id=2063253946]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 52)
+custom_minimum_size = Vector2(340, 54)
 layout_mode = 2
 text = "Продовжити"
 
+[node name="BtnLoad" type="Button" parent="ButtonsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(340, 54)
+layout_mode = 2
+text = "Завантажити"
+
 [node name="BtnSettings" type="Button" parent="ButtonsContainer" unique_id=828240939]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 52)
+custom_minimum_size = Vector2(340, 54)
 layout_mode = 2
 text = "Налаштування"
 
 [node name="BtnExit" type="Button" parent="ButtonsContainer" unique_id=1572187563]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 52)
+custom_minimum_size = Vector2(340, 54)
 layout_mode = 2
 text = "Вихід"
 

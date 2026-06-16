@@ -37,6 +37,7 @@ var settings: Dictionary = {
 	"auto_delay": 1.35,
 	"textbox_opacity": 0.84,
 	"dialogue_font_size": 30,
+	"dialogue_font_family": "Default",
 	"ui_scale": 1.0,
 	"inactive_character_alpha": 0.82,
 	"display_mode": 0,
@@ -192,13 +193,110 @@ func jump_to_scene(scene_id: String) -> void:
 		current_dialogue_id = scene_id
 		var entry = DialogueData.DIALOGUES[idx]
 		current_chapter = int(entry.get("chapter", current_chapter))
+		current_background = str(entry.get("bg", current_background))
+
+
+func replay_from_choice(choice_id: String) -> bool:
+	var target_index = _find_dialogue_index(choice_id)
+	if target_index < 0:
+		return false
+	var previous_choices = _get_choice_map_from_progress()
+	reset_progress()
+	var kept_choices: Dictionary = {}
+	for entry in DialogueData.DIALOGUES:
+		var entry_id = str(entry.get("id", ""))
+		var entry_index = _find_dialogue_index(entry_id)
+		if entry_index >= target_index:
+			break
+		if entry.has("choices") and previous_choices.has(entry_id):
+			var selected_target = str(previous_choices[entry_id])
+			for choice in entry["choices"]:
+				if str(choice.get("target", "")) == selected_target:
+					if choice.has("effects"):
+						apply_effects(choice["effects"])
+					kept_choices[entry_id] = selected_target
+					break
+	choices_made = kept_choices
+	jump_to_scene(choice_id)
+	return true
+
+
+func get_choice_flow() -> Array[Dictionary]:
+	var made_choices = _get_choice_map_from_progress()
+	var flow: Array[Dictionary] = []
+	for entry in DialogueData.DIALOGUES:
+		if not entry.has("choices"):
+			continue
+		var entry_id = str(entry.get("id", ""))
+		var selected_target = str(made_choices.get(entry_id, ""))
+		var selected_text = ""
+		for choice in entry["choices"]:
+			if str(choice.get("target", "")) == selected_target:
+				selected_text = str(choice.get("text", ""))
+				break
+		flow.append({
+			"id": entry_id,
+			"chapter": int(entry.get("chapter", 1)),
+			"question": str(entry.get("text", "Вибір")),
+			"background": str(entry.get("bg", "")),
+			"choices": entry.get("choices", []),
+			"selected_target": selected_target,
+			"selected_text": selected_text,
+			"unlocked": selected_target != "",
+		})
+	return flow
+
+
+func _get_choice_map_from_progress() -> Dictionary:
+	if not choices_made.is_empty():
+		return choices_made.duplicate()
+	var latest = _get_latest_slot_with_choices()
+	if not latest.is_empty():
+		return latest
+	return {}
+
+
+func _get_latest_slot_with_choices() -> Dictionary:
+	if db:
+		db.query("SELECT choices_made FROM save_slots ORDER BY saved_at DESC LIMIT 1;")
+		if db.query_result.size() > 0:
+			var parsed = _parse_json_dict(db.query_result[0].get("choices_made", "{}"))
+			if not parsed.is_empty():
+				return parsed
+
+	var config = ConfigFile.new()
+	if config.load(SAVE_PATH) != OK:
+		return {}
+	var best_time = ""
+	var best_choices: Dictionary = {}
+	for i in range(MAX_SLOTS):
+		var section = "slot_" + str(i)
+		if not config.has_section(section):
+			continue
+		var slot_choices = config.get_value(section, "choices_made", {})
+		if slot_choices.is_empty():
+			continue
+		var saved_at = str(config.get_value(section, "saved_at", ""))
+		if saved_at >= best_time:
+			best_time = saved_at
+			best_choices = slot_choices
+	return best_choices
 
 
 func _find_dialogue_index(scene_id: String) -> int:
 	for i in range(DialogueData.DIALOGUES.size()):
 		if str(DialogueData.DIALOGUES[i].get("id", "")) == scene_id:
 			return i
-	return 0
+	return -1
+
+
+func _fallback_background(dialogue_id: String, dialogue_index: int) -> String:
+	var idx = _find_dialogue_index(dialogue_id)
+	if idx < 0:
+		idx = dialogue_index
+	if idx >= 0 and idx < DialogueData.DIALOGUES.size():
+		return str(DialogueData.DIALOGUES[idx].get("bg", ""))
+	return ""
 
 
 func _init_db() -> void:
@@ -362,7 +460,7 @@ func get_all_slots() -> Array[Dictionary]:
 func get_slot_info(slot_id: int) -> Dictionary:
 	if db:
 		db.query_with_bindings(
-			"SELECT slot_id, scene_name, dialogue_index, dialogue_id, chapter, reputation, saved_at FROM save_slots WHERE slot_id = ?;",
+			"SELECT slot_id, scene_name, dialogue_index, dialogue_id, chapter, background, reputation, saved_at FROM save_slots WHERE slot_id = ?;",
 			[slot_id]
 		)
 		if db.query_result.size() > 0:
@@ -374,6 +472,7 @@ func get_slot_info(slot_id: int) -> Dictionary:
 				"dialogue_index": row.get("dialogue_index", 0),
 				"dialogue_id": row.get("dialogue_id", ""),
 				"chapter": row.get("chapter", 1),
+				"background": str(row.get("background", "")) if str(row.get("background", "")) != "" else _fallback_background(str(row.get("dialogue_id", "")), int(row.get("dialogue_index", 0))),
 				"reputation": row.get("reputation", 0),
 				"saved_at": row.get("saved_at", ""),
 			}
@@ -389,6 +488,7 @@ func get_slot_info(slot_id: int) -> Dictionary:
 				"dialogue_index": config.get_value(section, "dialogue_index", 0),
 				"dialogue_id": config.get_value(section, "dialogue_id", ""),
 				"chapter": config.get_value(section, "chapter", 1),
+				"background": str(config.get_value(section, "background", "")) if str(config.get_value(section, "background", "")) != "" else _fallback_background(str(config.get_value(section, "dialogue_id", "")), int(config.get_value(section, "dialogue_index", 0))),
 				"reputation": config.get_value(section, "reputation", 0),
 				"saved_at": config.get_value(section, "saved_at", ""),
 			}

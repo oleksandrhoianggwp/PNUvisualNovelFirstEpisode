@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scenes/settings/settings.gd" id="1_script"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_header"]
-font_size = 40
-font_color = Color(0.9, 0.92, 0.98, 1)
+font_size = 42
+font_color = Color(0.92, 0.93, 0.98, 1)
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -22,7 +22,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.035, 0.038, 0.058, 1)
+color = Color(0.027, 0.031, 0.047, 1)
+
+[node name="AmbientBand" type="ColorRect" parent="."]
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.34
+grow_horizontal = 2
+color = Color(0.09, 0.12, 0.17, 0.58)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -32,204 +41,303 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="Root" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(620, 0)
-theme_override_constants/separation = 16
+custom_minimum_size = Vector2(1080, 0)
+theme_override_constants/separation = 18
 
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/Root"]
 layout_mode = 2
 horizontal_alignment = 1
 text = "Налаштування"
 label_settings = SubResource("LabelSettings_header")
 
-[node name="MusicBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="Subtitle" type="Label" parent="CenterContainer/Root"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_colors/font_color = Color(0.68, 0.75, 0.88, 1)
+theme_override_font_sizes/font_size = 17
+horizontal_alignment = 1
+text = "Підлаштуй читання, звук і вигляд під свій темп"
 
-[node name="MusicLabel" type="Label" parent="CenterContainer/VBoxContainer/MusicBox"]
+[node name="ContentGrid" type="GridContainer" parent="CenterContainer/Root"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 18
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
+columns = 2
+
+[node name="AudioPanel" type="PanelContainer" parent="CenterContainer/Root/ContentGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(520, 174)
+size_flags_horizontal = 3
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Root/ContentGrid/AudioPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 18
+
+[node name="AudioBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/AudioPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="AudioTitle" type="Label" parent="CenterContainer/Root/ContentGrid/AudioPanel/Margin/AudioBox"]
+layout_mode = 2
+text = "Звук"
+
+[node name="MusicBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/AudioPanel/Margin/AudioBox"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="MusicLabel" type="Label" parent="CenterContainer/Root/ContentGrid/AudioPanel/Margin/AudioBox/MusicBox"]
+layout_mode = 2
 text = "Гучність музики"
 
-[node name="MusicSlider" type="HSlider" parent="CenterContainer/VBoxContainer/MusicBox"]
+[node name="MusicSlider" type="HSlider" parent="CenterContainer/Root/ContentGrid/AudioPanel/Margin/AudioBox/MusicBox"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 28)
 min_value = 0.0
 max_value = 1.0
 step = 0.05
 value = 0.8
 
-[node name="SfxBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="SfxBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/AudioPanel/Margin/AudioBox"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 5
 
-[node name="SfxLabel" type="Label" parent="CenterContainer/VBoxContainer/SfxBox"]
+[node name="SfxLabel" type="Label" parent="CenterContainer/Root/ContentGrid/AudioPanel/Margin/AudioBox/SfxBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 18
 text = "Гучність звуків"
 
-[node name="SfxSlider" type="HSlider" parent="CenterContainer/VBoxContainer/SfxBox"]
+[node name="SfxSlider" type="HSlider" parent="CenterContainer/Root/ContentGrid/AudioPanel/Margin/AudioBox/SfxBox"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 28)
 min_value = 0.0
 max_value = 1.0
 step = 0.05
 value = 0.8
 
-[node name="TextSpeedBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="TextPanel" type="PanelContainer" parent="CenterContainer/Root/ContentGrid"]
 layout_mode = 2
-theme_override_constants/separation = 8
+custom_minimum_size = Vector2(520, 310)
+size_flags_horizontal = 3
 
-[node name="TextSpeedLabel" type="Label" parent="CenterContainer/VBoxContainer/TextSpeedBox"]
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Root/ContentGrid/TextPanel"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 18
-text = "Швидкість тексту"
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 18
 
-[node name="TextSpeedSlider" type="HSlider" parent="CenterContainer/VBoxContainer/TextSpeedBox"]
+[node name="TextBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="TextTitle" type="Label" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox"]
+layout_mode = 2
+text = "Текст"
+
+[node name="TextSpeedBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="TextSpeedLabel" type="Label" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox/TextSpeedBox"]
+layout_mode = 2
+text = "Швидкість появи тексту"
+
+[node name="TextSpeedSlider" type="HSlider" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox/TextSpeedBox"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 28)
 min_value = 0.01
 max_value = 0.08
 step = 0.005
 value = 0.025
 
-[node name="AutoDelayBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="AutoDelayBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 5
 
-[node name="AutoDelayLabel" type="Label" parent="CenterContainer/VBoxContainer/AutoDelayBox"]
+[node name="AutoDelayLabel" type="Label" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox/AutoDelayBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 18
-text = "Затримка авто"
+text = "Швидкість автоматичного тексту"
 
-[node name="AutoDelaySlider" type="HSlider" parent="CenterContainer/VBoxContainer/AutoDelayBox"]
+[node name="AutoDelaySlider" type="HSlider" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox/AutoDelayBox"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 28)
 min_value = 0.6
 max_value = 3.5
 step = 0.05
 value = 1.35
 
-[node name="TextboxOpacityBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="DialogueFontSizeBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 5
 
-[node name="TextboxOpacityLabel" type="Label" parent="CenterContainer/VBoxContainer/TextboxOpacityBox"]
+[node name="DialogueFontSizeLabel" type="Label" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox/DialogueFontSizeBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 18
-text = "Прозорість текстового вікна"
-
-[node name="TextboxOpacitySlider" type="HSlider" parent="CenterContainer/VBoxContainer/TextboxOpacityBox"]
-unique_name_in_owner = true
-layout_mode = 2
-custom_minimum_size = Vector2(0, 30)
-min_value = 0.55
-max_value = 0.95
-step = 0.01
-value = 0.84
-
-[node name="DialogueFontSizeBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="DialogueFontSizeLabel" type="Label" parent="CenterContainer/VBoxContainer/DialogueFontSizeBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 18
 text = "Розмір тексту діалогів"
 
-[node name="DialogueFontSizeSlider" type="HSlider" parent="CenterContainer/VBoxContainer/DialogueFontSizeBox"]
+[node name="DialogueFontSizeSlider" type="HSlider" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox/DialogueFontSizeBox"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 28)
 min_value = 24.0
 max_value = 36.0
 step = 1.0
 value = 30.0
 
-[node name="UiScaleBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="FontFamilyBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 5
 
-[node name="UiScaleLabel" type="Label" parent="CenterContainer/VBoxContainer/UiScaleBox"]
+[node name="FontFamilyLabel" type="Label" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox/FontFamilyBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 18
-text = "Масштаб ігрового UI"
+text = "Шрифт тексту"
 
-[node name="UiScaleSlider" type="HSlider" parent="CenterContainer/VBoxContainer/UiScaleBox"]
+[node name="FontFamilyOption" type="OptionButton" parent="CenterContainer/Root/ContentGrid/TextPanel/Margin/TextBox/FontFamilyBox"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 40)
+theme_override_font_sizes/font_size = 16
+
+[node name="VisualPanel" type="PanelContainer" parent="CenterContainer/Root/ContentGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(520, 250)
+size_flags_horizontal = 3
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Root/ContentGrid/VisualPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 18
+
+[node name="VisualBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="VisualTitle" type="Label" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin/VisualBox"]
+layout_mode = 2
+text = "Візуал"
+
+[node name="TextboxOpacityBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin/VisualBox"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="TextboxOpacityLabel" type="Label" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin/VisualBox/TextboxOpacityBox"]
+layout_mode = 2
+text = "Прозорість текстового вікна"
+
+[node name="TextboxOpacitySlider" type="HSlider" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin/VisualBox/TextboxOpacityBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 28)
+min_value = 0.55
+max_value = 0.95
+step = 0.01
+value = 0.84
+
+[node name="UiScaleBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin/VisualBox"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="UiScaleLabel" type="Label" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin/VisualBox/UiScaleBox"]
+layout_mode = 2
+text = "Масштаб інтерфейсу"
+
+[node name="UiScaleSlider" type="HSlider" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin/VisualBox/UiScaleBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 28)
 min_value = 0.85
 max_value = 1.2
 step = 0.01
 value = 1.0
 
-[node name="InactiveAlphaBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="InactiveAlphaBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin/VisualBox"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 5
 
-[node name="InactiveAlphaLabel" type="Label" parent="CenterContainer/VBoxContainer/InactiveAlphaBox"]
+[node name="InactiveAlphaLabel" type="Label" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin/VisualBox/InactiveAlphaBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 18
 text = "Яскравість неактивних персонажів"
 
-[node name="InactiveAlphaSlider" type="HSlider" parent="CenterContainer/VBoxContainer/InactiveAlphaBox"]
+[node name="InactiveAlphaSlider" type="HSlider" parent="CenterContainer/Root/ContentGrid/VisualPanel/Margin/VisualBox/InactiveAlphaBox"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 28)
 min_value = 0.65
 max_value = 0.95
 step = 0.01
 value = 0.82
 
-[node name="DisplayBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="DisplayPanel" type="PanelContainer" parent="CenterContainer/Root/ContentGrid"]
 layout_mode = 2
-theme_override_constants/separation = 8
+custom_minimum_size = Vector2(520, 174)
+size_flags_horizontal = 3
 
-[node name="DisplayLabel" type="Label" parent="CenterContainer/VBoxContainer/DisplayBox"]
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Root/ContentGrid/DisplayPanel"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 18
+
+[node name="DisplayBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/DisplayPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="DisplayTitle" type="Label" parent="CenterContainer/Root/ContentGrid/DisplayPanel/Margin/DisplayBox"]
+layout_mode = 2
+text = "Екран"
+
+[node name="DisplayModeBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/DisplayPanel/Margin/DisplayBox"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="DisplayLabel" type="Label" parent="CenterContainer/Root/ContentGrid/DisplayPanel/Margin/DisplayBox/DisplayModeBox"]
+layout_mode = 2
 text = "Режим екрана"
 
-[node name="DisplayModeOption" type="OptionButton" parent="CenterContainer/VBoxContainer/DisplayBox"]
+[node name="DisplayModeOption" type="OptionButton" parent="CenterContainer/Root/ContentGrid/DisplayPanel/Margin/DisplayBox/DisplayModeBox"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 40)
 theme_override_font_sizes/font_size = 16
 
-[node name="ResolutionBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="DisplayHint" type="Label" parent="CenterContainer/Root/ContentGrid/DisplayPanel/Margin/DisplayBox/DisplayModeBox"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_colors/font_color = Color(0.62, 0.69, 0.82, 1)
+theme_override_font_sizes/font_size = 14
+text = "У вікні зі звичайною рамкою системи."
+autowrap_mode = 3
 
-[node name="ResolutionLabel" type="Label" parent="CenterContainer/VBoxContainer/ResolutionBox"]
+[node name="ResolutionBox" type="VBoxContainer" parent="CenterContainer/Root/ContentGrid/DisplayPanel/Margin/DisplayBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_constants/separation = 5
+
+[node name="ResolutionLabel" type="Label" parent="CenterContainer/Root/ContentGrid/DisplayPanel/Margin/DisplayBox/ResolutionBox"]
+layout_mode = 2
 text = "Роздільність"
 
-[node name="ResolutionOption" type="OptionButton" parent="CenterContainer/VBoxContainer/ResolutionBox"]
+[node name="ResolutionOption" type="OptionButton" parent="CenterContainer/Root/ContentGrid/DisplayPanel/Margin/DisplayBox/ResolutionBox"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 40)
 theme_override_font_sizes/font_size = 16
 
-[node name="BtnBack" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="Footer" type="HBoxContainer" parent="CenterContainer/Root"]
+layout_mode = 2
+alignment = 1
+
+[node name="BtnBack" type="Button" parent="CenterContainer/Root/Footer"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(240, 50)
-size_flags_horizontal = 4
+custom_minimum_size = Vector2(260, 52)
 text = "Назад"

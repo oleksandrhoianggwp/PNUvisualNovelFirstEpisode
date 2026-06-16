@@ -100,6 +100,12 @@ custom_minimum_size = Vector2(340, 54)
 layout_mode = 2
 text = "Завантажити"
 
+[node name="BtnChoices" type="Button" parent="ButtonsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(340, 54)
+layout_mode = 2
+text = "Зроблені вибори"
+
 [node name="BtnSettings" type="Button" parent="ButtonsContainer" unique_id=828240939]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(340, 54)

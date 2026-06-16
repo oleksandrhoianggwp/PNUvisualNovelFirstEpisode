@@ -164,6 +164,7 @@ func _build_id_map() -> void:
 func _apply_runtime_layout() -> void:
 	var ui_scale = clampf(float(GameManager.settings.get("ui_scale", 1.0)), 0.85, 1.2)
 	var dialogue_font_size = int(GameManager.settings.get("dialogue_font_size", 30))
+	var selected_font = _selected_ui_font()
 
 	var dialogue_style = StyleBoxFlat.new()
 	dialogue_style.bg_color = Color(0.059, 0.051, 0.086, float(GameManager.settings.get("textbox_opacity", 0.84)))
@@ -177,10 +178,33 @@ func _apply_runtime_layout() -> void:
 
 	dialogue_text.add_theme_color_override("default_color", Color(0.95, 0.93, 0.97, 1))
 	dialogue_text.add_theme_font_size_override("normal_font_size", dialogue_font_size)
+	if selected_font:
+		dialogue_text.add_theme_font_override("normal_font", selected_font)
 	dialogue_text.add_theme_constant_override("line_separation", 8)
 	dialogue_text.fit_content = true
 	speaker_name.add_theme_font_size_override("font_size", dialogue_font_size)
 	speaker_name.add_theme_color_override("font_color", Color(0.72, 0.84, 1.0, 1))
+	if selected_font:
+		speaker_name.add_theme_font_override("font", selected_font)
+
+
+func _selected_ui_font() -> Font:
+	var font_name = str(GameManager.settings.get("dialogue_font_family", "Default"))
+	if font_name == "" or font_name == "Default":
+		return null
+	var font = SystemFont.new()
+	font.font_names = PackedStringArray([font_name])
+	return font
+
+
+func _apply_selected_font(control: Control) -> void:
+	var font = _selected_ui_font()
+	if not font:
+		return
+	if control is RichTextLabel:
+		control.add_theme_font_override("normal_font", font)
+	elif control is Label or control is Button or control is OptionButton:
+		control.add_theme_font_override("font", font)
 
 
 func _advance_dialogue() -> void:
@@ -237,6 +261,7 @@ func _show_dialogue() -> void:
 		_show_summary(entry)
 		return
 
+	summary_overlay.visible = false
 	if entry_type == "system":
 		dialogue_box.visible = false
 		_show_system_plaque(str(entry.get("text", "")))
@@ -387,6 +412,7 @@ func _show_summary(entry: Dictionary) -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 34)
 	title.add_theme_color_override("font_color", Color(0.92, 0.78, 0.42, 1))
+	_apply_selected_font(title)
 	summary_box.add_child(title)
 
 	for line in entry.get("summary_lines", []):
@@ -395,6 +421,7 @@ func _show_summary(entry: Dictionary) -> void:
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		label.add_theme_font_size_override("font_size", 21)
 		label.add_theme_color_override("font_color", Color(0.9, 0.9, 0.96, 1))
+		_apply_selected_font(label)
 		summary_box.add_child(label)
 
 	var rel_title = Label.new()
@@ -402,6 +429,7 @@ func _show_summary(entry: Dictionary) -> void:
 	rel_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	rel_title.add_theme_font_size_override("font_size", 24)
 	rel_title.add_theme_color_override("font_color", Color(0.72, 0.84, 1.0, 1))
+	_apply_selected_font(rel_title)
 	summary_box.add_child(rel_title)
 
 	var rel_lines = _relationship_summary_lines()
@@ -411,6 +439,7 @@ func _show_summary(entry: Dictionary) -> void:
 		empty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		empty.add_theme_font_size_override("font_size", 19)
 		empty.add_theme_color_override("font_color", Color(0.72, 0.72, 0.8, 1))
+		_apply_selected_font(empty)
 		summary_box.add_child(empty)
 	else:
 		for line in rel_lines:
@@ -419,34 +448,65 @@ func _show_summary(entry: Dictionary) -> void:
 			rel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			rel.add_theme_font_size_override("font_size", 19)
 			rel.add_theme_color_override("font_color", Color(0.76, 0.9, 0.98, 1))
+			_apply_selected_font(rel)
 			summary_box.add_child(rel)
+
+	var actions = HBoxContainer.new()
+	actions.alignment = BoxContainer.ALIGNMENT_CENTER
+	actions.add_theme_constant_override("separation", 14)
+	summary_box.add_child(actions)
 
 	var save_btn = Button.new()
 	save_btn.text = str(entry.get("save_label", "Зберегти"))
-	save_btn.custom_minimum_size = Vector2(280, 56)
+	save_btn.custom_minimum_size = Vector2(220, 56)
 	save_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_setup_pause_button(save_btn)
+	_apply_selected_font(save_btn)
 	save_btn.pressed.connect(func():
 		GameManager.save_game()
 		save_btn.text = "Збережено"
 	)
-	summary_box.add_child(save_btn)
+	actions.add_child(save_btn)
 
 	var continue_btn = Button.new()
 	continue_btn.text = str(entry.get("continue_label", "Продовжити"))
-	continue_btn.custom_minimum_size = Vector2(280, 56)
+	continue_btn.custom_minimum_size = Vector2(260, 56)
 	continue_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_setup_pause_button(continue_btn)
+	_apply_selected_font(continue_btn)
 	continue_btn.pressed.connect(func():
 		GameManager.save_game()
+		_close_summary_overlay()
 		_go_to_target(entry.get("continue_target", "main_menu"))
 	)
-	summary_box.add_child(continue_btn)
+	actions.add_child(continue_btn)
+
+	if str(entry.get("continue_target", "main_menu")) != "main_menu":
+		var menu_btn = Button.new()
+		menu_btn.text = "У головне меню"
+		menu_btn.custom_minimum_size = Vector2(240, 56)
+		menu_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		_setup_pause_button(menu_btn)
+		_apply_selected_font(menu_btn)
+		menu_btn.pressed.connect(func():
+			GameManager.save_game()
+			_close_summary_overlay()
+			_go_to_main_menu()
+		)
+		actions.add_child(menu_btn)
 
 	summary_overlay.visible = true
 	summary_overlay.modulate = Color(1, 1, 1, 0)
 	var tween = create_tween()
 	tween.tween_property(summary_overlay, "modulate:a", 1.0, 0.45).set_ease(Tween.EASE_OUT)
+
+
+func _close_summary_overlay() -> void:
+	summary_overlay.visible = false
+	summary_overlay.modulate = Color(1, 1, 1, 0)
+	for child in summary_box.get_children():
+		summary_box.remove_child(child)
+		child.queue_free()
 
 
 func _relationship_summary_lines() -> Array[String]:
@@ -603,6 +663,7 @@ func _show_choices(choices: Array) -> void:
 		btn.add_theme_color_override("font_color", Color(0.93, 0.94, 0.98, 1))
 		btn.add_theme_color_override("font_hover_color", Color(1, 1, 1, 1))
 		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		_apply_selected_font(btn)
 		_apply_choice_style(btn)
 		btn.pressed.connect(func(): _select_choice(choice))
 		btn.modulate = Color(1, 1, 1, 0)
@@ -749,24 +810,14 @@ func _show_slot_panel(mode: String) -> void:
 	var slots = GameManager.get_all_slots()
 	for i in range(slots.size()):
 		var info = slots[i]
-		var btn = Button.new()
-		btn.name = "Slot" + str(i)
-		if info["empty"]:
-			btn.text = "Слот " + str(i + 1) + " - порожній"
-		else:
-			var scene = info.get("scene_name", "?")
-			var saved_at = str(info.get("saved_at", ""))
-			if saved_at.length() > 16:
-				saved_at = saved_at.substr(0, 16)
-			btn.text = "Слот " + str(i + 1) + " - " + scene + "\n" + saved_at
-		btn.custom_minimum_size = Vector2(320, 58)
-		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		_setup_pause_button(btn)
+		var btn = _create_pause_slot_button(info, i)
+		if mode == "save":
+			btn.disabled = false
 		var slot_id = i
 		if mode == "save":
 			btn.pressed.connect(func():
 				GameManager.save_to_slot(slot_id)
-				btn.text = "Збережено"
+				_refresh_pause_slot_button(btn, GameManager.get_slot_info(slot_id), slot_id, "Збережено")
 				var tw = create_tween()
 				tw.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 				tw.tween_interval(0.55)
@@ -793,6 +844,129 @@ func _show_slot_panel(mode: String) -> void:
 	_get_pause_menu().add_child(back_btn)
 
 
+func _create_pause_slot_button(info: Dictionary, slot_id: int) -> Button:
+	var btn = Button.new()
+	btn.name = "Slot" + str(slot_id)
+	btn.text = ""
+	btn.custom_minimum_size = Vector2(470, 104)
+	btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn.disabled = bool(info.get("empty", true))
+	_setup_slot_card_style(btn)
+	_build_pause_slot_content(btn, info, slot_id, "")
+	return btn
+
+
+func _refresh_pause_slot_button(btn: Button, info: Dictionary, slot_id: int, status: String) -> void:
+	for child in btn.get_children():
+		btn.remove_child(child)
+		child.queue_free()
+	btn.disabled = false
+	_build_pause_slot_content(btn, info, slot_id, status)
+
+
+func _build_pause_slot_content(btn: Button, info: Dictionary, slot_id: int, status: String) -> void:
+	var margin = MarginContainer.new()
+	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	margin.add_theme_constant_override("margin_left", 9)
+	margin.add_theme_constant_override("margin_top", 9)
+	margin.add_theme_constant_override("margin_right", 10)
+	margin.add_theme_constant_override("margin_bottom", 9)
+	btn.add_child(margin)
+
+	var row = HBoxContainer.new()
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_theme_constant_override("separation", 12)
+	margin.add_child(row)
+
+	var preview = TextureRect.new()
+	preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	preview.custom_minimum_size = Vector2(150, 84)
+	preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	preview.texture = _slot_preview_texture(info)
+	preview.modulate = Color(1, 1, 1, 0.4) if bool(info.get("empty", true)) else Color(1, 1, 1, 0.9)
+	row.add_child(preview)
+
+	var text_box = VBoxContainer.new()
+	text_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	text_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	text_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	text_box.add_theme_constant_override("separation", 3)
+	row.add_child(text_box)
+
+	var title = Label.new()
+	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	title.add_theme_font_size_override("font_size", 18)
+	title.add_theme_color_override("font_color", Color(0.94, 0.94, 0.98, 1) if not bool(info.get("empty", true)) else Color(0.62, 0.62, 0.66, 1))
+	text_box.add_child(title)
+
+	var meta = Label.new()
+	meta.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	meta.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	meta.add_theme_font_size_override("font_size", 14)
+	meta.add_theme_color_override("font_color", Color(0.72, 0.8, 0.94, 1) if not bool(info.get("empty", true)) else Color(0.48, 0.48, 0.52, 1))
+	text_box.add_child(meta)
+
+	if bool(info.get("empty", true)):
+		title.text = "Слот " + str(slot_id + 1)
+		meta.text = "Порожній"
+	else:
+		title.text = "Слот " + str(slot_id + 1) + " - " + str(info.get("scene_name", "?"))
+		var saved_at = _format_saved_at(str(info.get("saved_at", "")))
+		meta.text = status if status != "" else "Розділ " + str(int(info.get("chapter", 1))) + "   " + saved_at
+
+
+func _setup_slot_card_style(button: Button) -> void:
+	button.flat = false
+	button.add_theme_color_override("font_color", Color(1, 1, 1, 0))
+	button.add_theme_color_override("font_disabled_color", Color(1, 1, 1, 0))
+
+	var normal = StyleBoxFlat.new()
+	normal.bg_color = Color(0.055, 0.06, 0.09, 0.84)
+	normal.border_color = Color(0.42, 0.5, 0.68, 0.58)
+	normal.set_border_width_all(1)
+	normal.set_corner_radius_all(12)
+	button.add_theme_stylebox_override("normal", normal)
+
+	var hover = normal.duplicate()
+	hover.bg_color = Color(0.105, 0.11, 0.16, 0.96)
+	hover.border_color = Color(0.72, 0.84, 1.0, 0.9)
+	hover.set_border_width_all(2)
+	button.add_theme_stylebox_override("hover", hover)
+
+	var pressed = normal.duplicate()
+	pressed.bg_color = Color(0.045, 0.05, 0.075, 0.98)
+	pressed.border_color = Color(0.92, 0.78, 0.42, 0.95)
+	pressed.set_border_width_all(2)
+	button.add_theme_stylebox_override("pressed", pressed)
+
+	var disabled = normal.duplicate()
+	disabled.bg_color = Color(0.05, 0.05, 0.058, 0.46)
+	disabled.border_color = Color(0.35, 0.36, 0.42, 0.34)
+	button.add_theme_stylebox_override("disabled", disabled)
+
+
+func _slot_preview_texture(info: Dictionary) -> Texture2D:
+	if info.get("empty", true):
+		return null
+	var bg = str(info.get("background", ""))
+	if bg == "":
+		return null
+	var path = bg if bg.begins_with("res://") else "res://Picture/background/" + bg.trim_suffix(".png") + ".png"
+	if ResourceLoader.exists(path):
+		return load(path)
+	return null
+
+
+func _format_saved_at(value: String) -> String:
+	var result = value.replace("T", " ")
+	if result.length() > 16:
+		result = result.substr(0, 16)
+	return result
+
+
 func _hide_slot_panel() -> void:
 	_slot_mode = ""
 	for child in _get_pause_menu().get_children():
@@ -817,6 +991,7 @@ func _setup_pause_button(button: Button) -> void:
 	button.add_theme_color_override("font_color", Color(0.9, 0.91, 0.96, 1))
 	button.add_theme_color_override("font_hover_color", Color(1, 1, 1, 1))
 	button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_apply_selected_font(button)
 
 	var style = StyleBoxFlat.new()
 	style.bg_color = Color(0.06, 0.065, 0.1, 0.88)

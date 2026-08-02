@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7mmwwi6m3dix"
-path="res://.godot/imported/daria_anxious.png-c953f786fdc974e8423e15ad6b4db6df.ctex"
+path="res://.godot/imported/daria_anxious.png-2bd5b48d243c22bbf79dc18a5e829d03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_01_Characters_Ch1_Format_FIXED/Picture/character/daria_main/daria_anxious.png"
-dest_files=["res://.godot/imported/daria_anxious.png-c953f786fdc974e8423e15ad6b4db6df.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_01_Characters_Ch1_Format_FIXED/Picture/character/daria_main/daria_anxious.png"
+dest_files=["res://.godot/imported/daria_anxious.png-2bd5b48d243c22bbf79dc18a5e829d03.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://deo7cjeegl3m3"
-path="res://.godot/imported/anna_playful.png-9017e1193aa533085450e7ad370bf71b.ctex"
+path="res://.godot/imported/anna_playful.png-11d411e9e50dc8d97f98867347ea9def.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_01_Characters_Ch1_Format_FIXED/Picture/character/anna/anna_playful.png"
-dest_files=["res://.godot/imported/anna_playful.png-9017e1193aa533085450e7ad370bf71b.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_01_Characters_Ch1_Format_FIXED/Picture/character/anna/anna_playful.png"
+dest_files=["res://.godot/imported/anna_playful.png-11d411e9e50dc8d97f98867347ea9def.ctex"]
 
 [params]
 

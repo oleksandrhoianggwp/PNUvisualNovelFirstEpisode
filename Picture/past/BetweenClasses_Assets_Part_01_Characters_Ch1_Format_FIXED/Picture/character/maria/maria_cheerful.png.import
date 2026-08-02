@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bya4wj55bth3c"
-path="res://.godot/imported/maria_cheerful.png-fa22f903e8fdc4f0f494e8988b5473cc.ctex"
+path="res://.godot/imported/maria_cheerful.png-72c0b8accdd30f207253049db3232e5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_01_Characters_Ch1_Format_FIXED/Picture/character/maria/maria_cheerful.png"
-dest_files=["res://.godot/imported/maria_cheerful.png-fa22f903e8fdc4f0f494e8988b5473cc.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_01_Characters_Ch1_Format_FIXED/Picture/character/maria/maria_cheerful.png"
+dest_files=["res://.godot/imported/maria_cheerful.png-72c0b8accdd30f207253049db3232e5a.ctex"]
 
 [params]
 

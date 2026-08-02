@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b385xexgujc3p"
-path="res://.godot/imported/02_university_entrance_area.png-d53f52f5c77069fb1068f908aa657d33.ctex"
+path="res://.godot/imported/02_university_entrance_area.png-6b14b6fbad51202324f696455783cd68.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_04_Backgrounds_Ch2_WithSceneNames/Picture/background/02_university_entrance_area.png"
-dest_files=["res://.godot/imported/02_university_entrance_area.png-d53f52f5c77069fb1068f908aa657d33.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_04_Backgrounds_Ch2_WithSceneNames/Picture/background/02_university_entrance_area.png"
+dest_files=["res://.godot/imported/02_university_entrance_area.png-6b14b6fbad51202324f696455783cd68.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bvoksntc6ys7c"
-path="res://.godot/imported/06a_room_92_dark.png-80c16c2027a8609401ba2e4513915a0e.ctex"
+path="res://.godot/imported/06a_room_92_dark.png-8f400fdb62756a5b307d0d29bb8987ac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_03_Backgrounds_Ch1_WithSceneNames/Picture/background/06a_room_92_dark.png"
-dest_files=["res://.godot/imported/06a_room_92_dark.png-80c16c2027a8609401ba2e4513915a0e.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_03_Backgrounds_Ch1_WithSceneNames/Picture/background/06a_room_92_dark.png"
+dest_files=["res://.godot/imported/06a_room_92_dark.png-8f400fdb62756a5b307d0d29bb8987ac.ctex"]
 
 [params]
 

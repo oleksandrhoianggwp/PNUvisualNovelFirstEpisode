@@ -35,8 +35,8 @@ var settings: Dictionary = {
 	"sfx_volume": 0.8,
 	"text_speed": 0.025,
 	"auto_delay": 1.35,
-	"textbox_opacity": 0.84,
-	"dialogue_font_size": 30,
+	"textbox_opacity": 0.72,
+	"dialogue_font_size": 28,
 	"dialogue_font_family": "Default",
 	"ui_scale": 1.0,
 	"inactive_character_alpha": 0.82,
@@ -83,6 +83,7 @@ func _ready() -> void:
 	_music_player = AudioStreamPlayer.new()
 	_music_player.bus = "Master"
 	add_child(_music_player)
+	_music_player.finished.connect(_restart_music_if_needed)
 	_build_resolutions()
 	_init_db()
 	load_settings()
@@ -96,9 +97,19 @@ func play_music(path: String) -> void:
 		push_warning("Music file not found: " + path)
 		return
 	_current_music = path
-	_music_player.stream = load(path)
+	var stream := load(path)
+	if stream is AudioStreamOggVorbis:
+		stream.loop = true
+	elif stream is AudioStreamMP3:
+		stream.loop = true
+	_music_player.stream = stream
 	_music_player.volume_db = linear_to_db(settings["music_volume"])
 	_music_player.play()
+
+
+func _restart_music_if_needed() -> void:
+	if _current_music != "" and _music_player.stream:
+		_music_player.play()
 
 
 func stop_music() -> void:

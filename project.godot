@@ -12,8 +12,8 @@ config_version=5
 
 config/name="Between Classes"
 run/main_scene="uid://dr85y6ubq3wqt"
-config/features=PackedStringArray("4.6", "Mobile")
-config/icon="res://icon.svg"
+config/features=PackedStringArray("4.7", "Mobile")
+config/icon="res://Picture/ui/between_classes_icon.png"
 
 [autoload]
 

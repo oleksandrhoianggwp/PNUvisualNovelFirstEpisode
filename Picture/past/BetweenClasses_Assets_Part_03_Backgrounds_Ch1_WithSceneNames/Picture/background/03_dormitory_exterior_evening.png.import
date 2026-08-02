@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccwrvi8gfbj4q"
-path="res://.godot/imported/03_dormitory_exterior_evening.png-f902637fab2fed75bce7f54d841fe2ba.ctex"
+path="res://.godot/imported/03_dormitory_exterior_evening.png-78ce801d903f9fdb01b068de9ac0734b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_03_Backgrounds_Ch1_WithSceneNames/Picture/background/03_dormitory_exterior_evening.png"
-dest_files=["res://.godot/imported/03_dormitory_exterior_evening.png-f902637fab2fed75bce7f54d841fe2ba.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_03_Backgrounds_Ch1_WithSceneNames/Picture/background/03_dormitory_exterior_evening.png"
+dest_files=["res://.godot/imported/03_dormitory_exterior_evening.png-78ce801d903f9fdb01b068de9ac0734b.ctex"]
 
 [params]
 

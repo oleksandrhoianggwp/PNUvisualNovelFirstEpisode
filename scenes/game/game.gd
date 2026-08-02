@@ -1,12 +1,16 @@
 extends Control
 
+const WarmUI = preload("res://scripts/ui/warm_ui.gd")
+
 @onready var background: TextureRect = $Background
 @onready var background_next: TextureRect = $BackgroundNext
 @onready var character_left: TextureRect = $CharacterLeft
 @onready var character_center: TextureRect = $CharacterCenter
 @onready var character_right: TextureRect = $CharacterRight
 @onready var dialogue_box: PanelContainer = $DialogueBox
-@onready var speaker_name: Label = $DialogueBox/MarginContainer/VBoxContainer/SpeakerName
+@onready var speaker_badge: PanelContainer = $DialogueBox/MarginContainer/VBoxContainer/Header/SpeakerBadge
+@onready var speaker_name: Label = $DialogueBox/MarginContainer/VBoxContainer/Header/SpeakerBadge/Margin/SpeakerName
+@onready var advance_hint: Label = $DialogueBox/MarginContainer/VBoxContainer/Header/AdvanceHint
 @onready var dialogue_text: RichTextLabel = $DialogueBox/MarginContainer/VBoxContainer/DialogueText
 @onready var choice_container: VBoxContainer = $ChoiceContainer
 @onready var screen_flash: ColorRect = $ScreenFlash
@@ -14,6 +18,7 @@ extends Control
 @onready var plaque_text: Label = $SystemPlaque/MarginContainer/HBoxContainer/PlaqueText
 @onready var notification_container: VBoxContainer = $NotificationContainer
 @onready var pause_overlay: ColorRect = $PauseOverlay
+@onready var pause_card: PanelContainer = $PauseOverlay/PauseCenter/PauseCard
 @onready var choice_timer_label: Label = $ChoiceTimerLabel
 @onready var summary_overlay: ColorRect = $SummaryOverlay
 @onready var summary_box: VBoxContainer = $SummaryOverlay/SummaryBox
@@ -25,6 +30,31 @@ extends Control
 @onready var btn_main_menu: Button = %BtnMainMenu
 
 const DialogueData = preload("res://scripts/dialogue/dialogue_data.gd")
+const BACKGROUND_ROOT := "res://Picture/background/"
+const CHARACTER_ROOT := "res://Picture/character/"
+const LEGACY_BACKGROUND_ALIASES := {
+	"01_train_evening": "01_01_train",
+	"02_station_platform_evening": "01_02_station_platform_sunset",
+	"03_dormitory_exterior_evening": "01_04_dorm_evening",
+	"04_dormitory_lobby": "01_05_dorm_reception",
+	"05_dormitory_corridor_5f": "01_06_dorm_corridor",
+	"06a_room_92_dark": "01_07_room_evening",
+	"06b_room_92_light": "01_07_room_evening",
+	"07_university_courtyard": "01_10_university_courtyard_day",
+	"08_classroom": "01_11_classroom_01",
+	"09_attic": "01_08_attic_room",
+	"11_restaurant_evening": "01_12_restaurant",
+	"01_room_92_morning": "01_09_room_morning",
+	"02_university_entrance_area": "02_01_university_corridor",
+	"03_staircase_corridor": "02_01_university_corridor",
+	"04_classroom_first_lecture": "02_02_classroom_02",
+	"05_assembly_hall": "02_03_assembly hall",
+	"06_library": "02_04_library",
+	"07_inner_courtyard": "02_05_inner_courtyard_day",
+	"08_monument_alley": "02_05_inner_courtyard_day",
+	"09_youth_center": "02_06_youth_center (1)",
+	"10_university_front_gate": "02_05_inner_courtyard_day",
+}
 
 const SPEAKER_FOLDERS := {
 	"Дарія": ["daria_main"],
@@ -41,7 +71,7 @@ const SPEAKER_FOLDERS := {
 	"Дем'ян": ["demyan"],
 	"Роксолана": ["roksolana"],
 	"Олена Сергіївна": ["olena_serhiivna"],
-	"Кураторка": ["curator"],
+	"Кураторка": ["lidiya_ivanivna"],
 }
 
 var dialogue_data: Array = []
@@ -60,6 +90,7 @@ var _auto_mode: bool = false
 var _skip_mode: bool = false
 var _auto_elapsed: float = 0.0
 var _skip_elapsed: float = 0.0
+var _dialogue_was_visible_before_pause: bool = false
 
 
 func _ready() -> void:
@@ -78,6 +109,7 @@ func _ready() -> void:
 	summary_overlay.visible = false
 	choice_timer_label.visible = false
 	dialogue_box.modulate = Color(1, 1, 1, 0)
+	advance_hint.modulate.a = 0.0
 	background_next.modulate = Color(1, 1, 1, 0)
 	for node in _character_nodes():
 		node.modulate = Color(1, 1, 1, 0)
@@ -148,6 +180,7 @@ func _input(event: InputEvent) -> void:
 		if is_typing:
 			dialogue_text.visible_ratio = 1.0
 			is_typing = false
+			_show_advance_hint()
 		else:
 			_advance_dialogue()
 
@@ -167,23 +200,28 @@ func _apply_runtime_layout() -> void:
 	var selected_font = _selected_ui_font()
 
 	var dialogue_style = StyleBoxFlat.new()
-	dialogue_style.bg_color = Color(0.059, 0.051, 0.086, float(GameManager.settings.get("textbox_opacity", 0.84)))
-	dialogue_style.border_color = Color(0.44, 0.55, 0.68, 0.45)
+	var opacity_setting = clampf(float(GameManager.settings.get("textbox_opacity", 0.72)), 0.55, 0.95)
+	var panel_opacity = lerpf(0.48, 0.78, inverse_lerp(0.55, 0.95, opacity_setting))
+	dialogue_style.bg_color = Color(0.115, 0.072, 0.052, panel_opacity)
+	dialogue_style.border_color = Color(0.93, 0.72, 0.47, 0.44)
 	dialogue_style.set_border_width_all(1)
-	dialogue_style.set_corner_radius_all(22)
+	dialogue_style.set_corner_radius_all(20)
 	dialogue_style.set_content_margin_all(0)
+	dialogue_style.shadow_color = Color(0.045, 0.025, 0.016, 0.28)
+	dialogue_style.shadow_size = 14
+	dialogue_style.shadow_offset = Vector2(0, 5)
 	dialogue_box.add_theme_stylebox_override("panel", dialogue_style)
 	dialogue_box.scale = Vector2(ui_scale, ui_scale)
 	choice_container.scale = Vector2(ui_scale, ui_scale)
 
-	dialogue_text.add_theme_color_override("default_color", Color(0.95, 0.93, 0.97, 1))
+	dialogue_text.add_theme_color_override("default_color", Color(1.0, 0.965, 0.9, 1))
 	dialogue_text.add_theme_font_size_override("normal_font_size", dialogue_font_size)
 	if selected_font:
 		dialogue_text.add_theme_font_override("normal_font", selected_font)
-	dialogue_text.add_theme_constant_override("line_separation", 8)
+	dialogue_text.add_theme_constant_override("line_separation", 6)
 	dialogue_text.fit_content = true
-	speaker_name.add_theme_font_size_override("font_size", dialogue_font_size)
-	speaker_name.add_theme_color_override("font_color", Color(0.72, 0.84, 1.0, 1))
+	speaker_name.add_theme_font_size_override("font_size", maxi(20, dialogue_font_size - 7))
+	speaker_name.add_theme_color_override("font_color", WarmUI.CREAM)
 	if selected_font:
 		speaker_name.add_theme_font_override("font", selected_font)
 
@@ -314,7 +352,8 @@ func _show_text_entry(entry: Dictionary) -> void:
 
 	var speaker = str(entry.get("speaker", ""))
 	speaker_name.text = speaker
-	speaker_name.visible = speaker != ""
+	speaker_badge.visible = speaker != ""
+	advance_hint.modulate.a = 0.0
 	full_text = str(entry["text"])
 	var entry_type = str(entry.get("type", "dialogue"))
 	if entry_type == "narrator":
@@ -329,13 +368,14 @@ func _show_text_entry(entry: Dictionary) -> void:
 	_auto_elapsed = 0.0
 	_skip_elapsed = 0.0
 
-	if dialogue_box.modulate.a < 0.99:
-		dialogue_box.modulate = Color(1, 1, 1, 0)
-		var tween = create_tween()
-		tween.tween_property(dialogue_box, "modulate:a", 1.0, 0.22).set_ease(Tween.EASE_OUT)
-		tween.finished.connect(_type_text)
-	else:
-		_type_text()
+	dialogue_box.modulate.a = 0.0
+	dialogue_box.scale *= Vector2(0.992, 0.992)
+	dialogue_box.pivot_offset = Vector2(dialogue_box.size.x * 0.5, dialogue_box.size.y)
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(dialogue_box, "modulate:a", 1.0, 0.2).set_ease(Tween.EASE_OUT)
+	tween.tween_property(dialogue_box, "scale", Vector2.ONE * clampf(float(GameManager.settings.get("ui_scale", 1.0)), 0.85, 1.2), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.chain().tween_callback(_type_text)
 
 	if entry.has("choices"):
 		await get_tree().process_frame
@@ -351,14 +391,14 @@ func _wait_for_typing_finished() -> void:
 func _setup_text_style(entry_type: String) -> void:
 	match entry_type:
 		"narrator":
-			dialogue_text.add_theme_color_override("default_color", Color(0.82, 0.84, 0.9, 1))
-			speaker_name.add_theme_color_override("font_color", Color(0.72, 0.78, 0.9, 1))
+			dialogue_text.add_theme_color_override("default_color", Color(0.95, 0.9, 0.82, 1))
+			speaker_name.add_theme_color_override("font_color", WarmUI.CREAM)
 		"thought":
-			dialogue_text.add_theme_color_override("default_color", Color(0.78, 0.86, 0.96, 1))
-			speaker_name.add_theme_color_override("font_color", Color(0.72, 0.84, 1.0, 1))
+			dialogue_text.add_theme_color_override("default_color", Color(0.94, 0.87, 0.74, 1))
+			speaker_name.add_theme_color_override("font_color", WarmUI.CREAM)
 		_:
-			dialogue_text.add_theme_color_override("default_color", Color(0.95, 0.93, 0.97, 1))
-			speaker_name.add_theme_color_override("font_color", Color(0.72, 0.84, 1.0, 1))
+			dialogue_text.add_theme_color_override("default_color", Color(1.0, 0.965, 0.9, 1))
+			speaker_name.add_theme_color_override("font_color", WarmUI.CREAM)
 
 
 func _condition_met(condition: Dictionary) -> bool:
@@ -590,13 +630,21 @@ func _animate_character(node: TextureRect, char_key: String, prev_key: String) -
 
 	node.texture = tex
 	node.visible = true
-	node.scale = Vector2.ONE
+	node.pivot_offset = Vector2(node.size.x * 0.5, node.size.y)
 	if prev_key != char_key:
+		var target_position := node.position
+		var enter_offset := -34.0 if node == character_left else 34.0
+		if node == character_center:
+			enter_offset = 0.0
+		node.position = target_position + Vector2(enter_offset, 10.0)
+		node.scale = Vector2(0.975, 0.975)
 		node.modulate = Color(1, 1, 1, 0)
 		var tween = create_tween()
-		tween.tween_property(node, "modulate:a", 1.0, 0.25).set_ease(Tween.EASE_OUT)
+		tween.set_parallel(true)
+		tween.tween_property(node, "position", target_position, 0.34).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+		tween.tween_property(node, "scale", Vector2.ONE, 0.38).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	else:
-		node.modulate.a = 1.0
+		node.scale = Vector2.ONE
 
 
 func _apply_speaker_focus(speaker: String, chars: Dictionary) -> void:
@@ -609,20 +657,51 @@ func _apply_speaker_focus(speaker: String, chars: Dictionary) -> void:
 		var folder = char_key.get_slice("/", 0)
 		var active = active_folders.is_empty() or active_folders.has(folder)
 		var inactive_alpha = clampf(float(GameManager.settings.get("inactive_character_alpha", 0.82)), 0.65, 0.95)
-		var target = Color(1, 1, 1, 1) if active else Color(inactive_alpha, inactive_alpha, min(inactive_alpha + 0.06, 1.0), inactive_alpha)
+		var target = Color(1, 1, 1, 1) if active else Color(inactive_alpha * 0.9, inactive_alpha * 0.88, inactive_alpha * 0.84, inactive_alpha)
+		var target_scale := Vector2.ONE if active else Vector2(0.965, 0.965)
+		node.z_index = 2 if active else 1
 		var tween = create_tween()
-		tween.tween_property(node, "modulate", target, 0.18).set_ease(Tween.EASE_OUT)
+		tween.set_parallel(true)
+		tween.tween_property(node, "modulate", target, 0.24).set_ease(Tween.EASE_OUT)
+		tween.tween_property(node, "scale", target_scale, 0.26).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 
 func _get_texture(path: String) -> Texture2D:
 	if _loaded_textures.has(path):
 		return _loaded_textures[path]
+	var texture: Texture2D = null
 	if ResourceLoader.exists(path):
-		var tex = load(path)
-		_loaded_textures[path] = tex
-		return tex
+		texture = load(path)
+	elif FileAccess.file_exists(path):
+		var image = Image.new()
+		var err = image.load(path)
+		if err == OK:
+			texture = ImageTexture.create_from_image(image)
+	if texture:
+		if _is_character_texture(path):
+			texture = _trim_character_texture(texture)
+		_loaded_textures[path] = texture
+		return texture
 	push_warning("Missing texture: " + path)
 	return null
+
+
+func _is_character_texture(path: String) -> bool:
+	return path.begins_with(CHARACTER_ROOT)
+
+
+func _trim_character_texture(texture: Texture2D) -> Texture2D:
+	var image = texture.get_image()
+	if image == null or image.is_empty():
+		return texture
+	var used_rect = image.get_used_rect()
+	var full_rect = Rect2i(Vector2i.ZERO, image.get_size())
+	if used_rect.size == Vector2i.ZERO or used_rect == full_rect:
+		return texture
+	var padding = maxi(8, roundi(maxf(used_rect.size.x, used_rect.size.y) * 0.025))
+	used_rect = used_rect.grow(padding).intersection(full_rect)
+	var trimmed = image.get_region(used_rect)
+	return ImageTexture.create_from_image(trimmed)
 
 
 func _type_text() -> void:
@@ -630,7 +709,23 @@ func _type_text() -> void:
 	var duration = max(0.08, full_text.length() * speed)
 	var tween = create_tween()
 	tween.tween_property(dialogue_text, "visible_ratio", 1.0, duration)
-	tween.finished.connect(func(): is_typing = false)
+	tween.finished.connect(func():
+		is_typing = false
+		_show_advance_hint()
+	)
+
+
+func _show_advance_hint() -> void:
+	if not dialogue_box.visible:
+		return
+	advance_hint.modulate.a = 0.35
+	advance_hint.position.y = 0.0
+	var tween := create_tween()
+	tween.set_loops(2)
+	tween.tween_property(advance_hint, "modulate:a", 0.95, 0.42).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(advance_hint, "position:y", 4.0, 0.42).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(advance_hint, "modulate:a", 0.45, 0.42).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(advance_hint, "position:y", 0.0, 0.42).set_ease(Tween.EASE_IN_OUT)
 
 
 func _show_choices(choices: Array) -> void:
@@ -659,10 +754,7 @@ func _show_choices(choices: Array) -> void:
 		btn.text = str(choice["text"])
 		btn.custom_minimum_size = Vector2(560, 64)
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		btn.add_theme_font_size_override("font_size", 23)
-		btn.add_theme_color_override("font_color", Color(0.93, 0.94, 0.98, 1))
-		btn.add_theme_color_override("font_hover_color", Color(1, 1, 1, 1))
-		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		WarmUI.style_button(btn, false, 21)
 		_apply_selected_font(btn)
 		_apply_choice_style(btn)
 		btn.pressed.connect(func(): _select_choice(choice))
@@ -689,25 +781,27 @@ func _select_choice(choice: Dictionary) -> void:
 
 
 func _apply_choice_style(button: Button) -> void:
-	var normal = StyleBoxFlat.new()
-	normal.bg_color = Color(0.055, 0.058, 0.09, 0.88)
-	normal.border_color = Color(0.46, 0.56, 0.75, 0.62)
+	var normal = WarmUI.dark_glass_style(0.9, 15)
+	normal.bg_color = Color(0.12, 0.075, 0.055, 0.9)
+	normal.border_color = Color(0.93, 0.72, 0.47, 0.56)
 	normal.set_border_width_all(1)
 	normal.set_corner_radius_all(14)
 	normal.set_content_margin_all(18)
 	button.add_theme_stylebox_override("normal", normal)
 
 	var hover = normal.duplicate()
-	hover.bg_color = Color(0.1, 0.11, 0.16, 0.96)
-	hover.border_color = Color(0.72, 0.84, 1.0, 0.9)
+	hover.bg_color = Color(0.25, 0.12, 0.075, 0.96)
+	hover.border_color = WarmUI.GOLD
 	hover.set_border_width_all(2)
 	button.add_theme_stylebox_override("hover", hover)
 
 	var pressed = normal.duplicate()
-	pressed.bg_color = Color(0.04, 0.045, 0.07, 0.98)
-	pressed.border_color = Color(0.92, 0.78, 0.42, 0.95)
+	pressed.bg_color = Color(0.16, 0.075, 0.052, 0.98)
+	pressed.border_color = WarmUI.TERRACOTTA
 	pressed.set_border_width_all(2)
 	button.add_theme_stylebox_override("pressed", pressed)
+	button.add_theme_color_override("font_color", WarmUI.CREAM)
+	button.add_theme_color_override("font_hover_color", Color.WHITE)
 
 
 func _target_to_index(target, fallback: int) -> int:
@@ -724,13 +818,15 @@ func _target_to_index(target, fallback: int) -> int:
 func _resolve_background_path(bg_key: String) -> String:
 	if bg_key.begins_with("res://"):
 		return bg_key
-	return "res://Picture/background/" + bg_key.trim_suffix(".png") + ".png"
+	var normalized_key = bg_key.trim_suffix(".png")
+	normalized_key = str(LEGACY_BACKGROUND_ALIASES.get(normalized_key, normalized_key))
+	return BACKGROUND_ROOT + normalized_key + ".png"
 
 
 func _resolve_character_path(char_key: String) -> String:
 	if char_key.begins_with("res://"):
 		return char_key
-	return "res://Picture/character/" + char_key.trim_suffix(".png") + ".png"
+	return CHARACTER_ROOT + char_key.trim_suffix(".png") + ".png"
 
 
 func _node_for_position(position: String) -> TextureRect:
@@ -755,6 +851,19 @@ func _toggle_pause() -> void:
 	is_paused = not is_paused
 	pause_overlay.visible = is_paused
 	get_tree().paused = is_paused
+	if is_paused:
+		_dialogue_was_visible_before_pause = dialogue_box.visible
+		dialogue_box.visible = false
+		pause_overlay.modulate.a = 0.0
+		pause_card.scale = Vector2(0.96, 0.96)
+		pause_card.pivot_offset = pause_card.size * 0.5
+		var tween := create_tween()
+		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		tween.set_parallel(true)
+		tween.tween_property(pause_overlay, "modulate:a", 1.0, 0.2).set_ease(Tween.EASE_OUT)
+		tween.tween_property(pause_card, "scale", Vector2.ONE, 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	else:
+		dialogue_box.visible = _dialogue_was_visible_before_pause
 
 
 func _on_resume() -> void:
@@ -805,6 +914,8 @@ func _show_slot_panel(mode: String) -> void:
 	btn_auto.visible = false
 	btn_skip.visible = false
 	btn_main_menu.visible = false
+	_get_pause_menu().get_node("ActionGrid").visible = false
+	_get_pause_menu().get_node("PauseSubtitle").visible = false
 	_get_pause_menu().get_node("PauseTitle").text = "Зберегти" if mode == "save" else "Завантажити"
 
 	var slots = GameManager.get_all_slots()
@@ -899,14 +1010,14 @@ func _build_pause_slot_content(btn: Button, info: Dictionary, slot_id: int, stat
 	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	title.add_theme_font_size_override("font_size", 18)
-	title.add_theme_color_override("font_color", Color(0.94, 0.94, 0.98, 1) if not bool(info.get("empty", true)) else Color(0.62, 0.62, 0.66, 1))
+	title.add_theme_color_override("font_color", WarmUI.INK if not bool(info.get("empty", true)) else Color(0.35, 0.3, 0.27, 0.46))
 	text_box.add_child(title)
 
 	var meta = Label.new()
 	meta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	meta.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	meta.add_theme_font_size_override("font_size", 14)
-	meta.add_theme_color_override("font_color", Color(0.72, 0.8, 0.94, 1) if not bool(info.get("empty", true)) else Color(0.48, 0.48, 0.52, 1))
+	meta.add_theme_color_override("font_color", WarmUI.INK_SOFT if not bool(info.get("empty", true)) else Color(0.35, 0.3, 0.27, 0.4))
 	text_box.add_child(meta)
 
 	if bool(info.get("empty", true)):
@@ -924,27 +1035,27 @@ func _setup_slot_card_style(button: Button) -> void:
 	button.add_theme_color_override("font_disabled_color", Color(1, 1, 1, 0))
 
 	var normal = StyleBoxFlat.new()
-	normal.bg_color = Color(0.055, 0.06, 0.09, 0.84)
-	normal.border_color = Color(0.42, 0.5, 0.68, 0.58)
+	normal.bg_color = Color(1.0, 0.97, 0.9, 0.8)
+	normal.border_color = Color(0.55, 0.31, 0.22, 0.32)
 	normal.set_border_width_all(1)
 	normal.set_corner_radius_all(12)
 	button.add_theme_stylebox_override("normal", normal)
 
 	var hover = normal.duplicate()
-	hover.bg_color = Color(0.105, 0.11, 0.16, 0.96)
-	hover.border_color = Color(0.72, 0.84, 1.0, 0.9)
+	hover.bg_color = Color(1.0, 0.99, 0.95, 0.98)
+	hover.border_color = WarmUI.TERRACOTTA
 	hover.set_border_width_all(2)
 	button.add_theme_stylebox_override("hover", hover)
 
 	var pressed = normal.duplicate()
-	pressed.bg_color = Color(0.045, 0.05, 0.075, 0.98)
-	pressed.border_color = Color(0.92, 0.78, 0.42, 0.95)
+	pressed.bg_color = WarmUI.PAPER
+	pressed.border_color = WarmUI.TERRACOTTA_DARK
 	pressed.set_border_width_all(2)
 	button.add_theme_stylebox_override("pressed", pressed)
 
 	var disabled = normal.duplicate()
-	disabled.bg_color = Color(0.05, 0.05, 0.058, 0.46)
-	disabled.border_color = Color(0.35, 0.36, 0.42, 0.34)
+	disabled.bg_color = Color(0.82, 0.76, 0.67, 0.32)
+	disabled.border_color = Color(0.35, 0.28, 0.22, 0.2)
 	button.add_theme_stylebox_override("disabled", disabled)
 
 
@@ -954,7 +1065,7 @@ func _slot_preview_texture(info: Dictionary) -> Texture2D:
 	var bg = str(info.get("background", ""))
 	if bg == "":
 		return null
-	var path = bg if bg.begins_with("res://") else "res://Picture/background/" + bg.trim_suffix(".png") + ".png"
+	var path = _resolve_background_path(bg)
 	if ResourceLoader.exists(path):
 		return load(path)
 	return null
@@ -978,40 +1089,19 @@ func _hide_slot_panel() -> void:
 	btn_auto.visible = true
 	btn_skip.visible = true
 	btn_main_menu.visible = true
+	_get_pause_menu().get_node("ActionGrid").visible = true
+	_get_pause_menu().get_node("PauseSubtitle").visible = true
 	_get_pause_menu().get_node("PauseTitle").text = "Пауза"
 	_update_pause_toggles()
 
 
 func _get_pause_menu() -> VBoxContainer:
-	return pause_overlay.get_node("PauseMenu")
+	return pause_overlay.get_node("PauseCenter/PauseCard/Margin/PauseMenu")
 
 
 func _setup_pause_button(button: Button) -> void:
-	button.add_theme_font_size_override("font_size", 22)
-	button.add_theme_color_override("font_color", Color(0.9, 0.91, 0.96, 1))
-	button.add_theme_color_override("font_hover_color", Color(1, 1, 1, 1))
-	button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	WarmUI.style_button(button, button == btn_resume, 19)
 	_apply_selected_font(button)
-
-	var style = StyleBoxFlat.new()
-	style.bg_color = Color(0.06, 0.065, 0.1, 0.88)
-	style.border_color = Color(0.42, 0.5, 0.68, 0.6)
-	style.set_border_width_all(1)
-	style.set_corner_radius_all(12)
-	style.set_content_margin_all(14)
-	button.add_theme_stylebox_override("normal", style)
-
-	var hover = style.duplicate()
-	hover.bg_color = Color(0.105, 0.11, 0.16, 0.96)
-	hover.border_color = Color(0.72, 0.84, 1.0, 0.9)
-	hover.set_border_width_all(2)
-	button.add_theme_stylebox_override("hover", hover)
-
-	var pressed = style.duplicate()
-	pressed.bg_color = Color(0.045, 0.05, 0.075, 0.98)
-	pressed.border_color = Color(0.92, 0.78, 0.42, 0.95)
-	pressed.set_border_width_all(2)
-	button.add_theme_stylebox_override("pressed", pressed)
 
 
 func _update_pause_toggles() -> void:

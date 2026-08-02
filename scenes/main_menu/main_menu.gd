@@ -1,5 +1,7 @@
 extends Control
 
+const WarmUI = preload("res://scripts/ui/warm_ui.gd")
+
 @onready var btn_new_game: Button = %BtnNewGame
 @onready var btn_continue: Button = %BtnContinue
 @onready var btn_load: Button = %BtnLoad
@@ -8,13 +10,44 @@ extends Control
 @onready var btn_exit: Button = %BtnExit
 @onready var title_container: VBoxContainer = $TitleContainer
 @onready var buttons_container: VBoxContainer = $ButtonsContainer
+@onready var menu_card: PanelContainer = $MenuCard
+@onready var mode_backdrop: PanelContainer = $ModeBackdrop
+@onready var background: TextureRect = $Background
+@onready var sun_wash: ColorRect = $SunWash
+
+var _ambient_started := false
 
 var _showing_slots: bool = false
 var _showing_choices: bool = false
 
+const BACKGROUND_ROOT := "res://Picture/background/"
+const LEGACY_BACKGROUND_ALIASES := {
+	"01_train_evening": "01_01_train",
+	"02_station_platform_evening": "01_02_station_platform_sunset",
+	"03_dormitory_exterior_evening": "01_04_dorm_evening",
+	"04_dormitory_lobby": "01_05_dorm_reception",
+	"05_dormitory_corridor_5f": "01_06_dorm_corridor",
+	"06a_room_92_dark": "01_07_room_evening",
+	"06b_room_92_light": "01_07_room_evening",
+	"07_university_courtyard": "01_10_university_courtyard_day",
+	"08_classroom": "01_11_classroom_01",
+	"09_attic": "01_08_attic_room",
+	"11_restaurant_evening": "01_12_restaurant",
+	"01_room_92_morning": "01_09_room_morning",
+	"02_university_entrance_area": "02_01_university_corridor",
+	"03_staircase_corridor": "02_01_university_corridor",
+	"04_classroom_first_lecture": "02_02_classroom_02",
+	"05_assembly_hall": "02_03_assembly hall",
+	"06_library": "02_04_library",
+	"07_inner_courtyard": "02_05_inner_courtyard_day",
+	"08_monument_alley": "02_05_inner_courtyard_day",
+	"09_youth_center": "02_06_youth_center (1)",
+	"10_university_front_gate": "02_05_inner_courtyard_day",
+}
+
 
 func _ready() -> void:
-	GameManager.play_music("res://music/main menu/main_menu.mp3")
+	GameManager.play_music("res://music/main menu/forget_me_not_looped.ogg")
 	btn_continue.visible = GameManager.has_save()
 	btn_load.visible = GameManager.has_any_save()
 
@@ -47,45 +80,46 @@ func _input(event: InputEvent) -> void:
 
 
 func _setup_button_style(button: Button) -> void:
-	button.add_theme_font_size_override("font_size", 22)
-	button.add_theme_color_override("font_color", Color(0.9, 0.91, 0.96, 1))
-	button.add_theme_color_override("font_hover_color", Color(1, 1, 1, 1))
-	button.add_theme_color_override("font_pressed_color", Color(0.86, 0.8, 0.64, 1))
-	button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-
-	var normal_style = StyleBoxFlat.new()
-	normal_style.bg_color = Color(0.055, 0.058, 0.09, 0.82)
-	normal_style.border_color = Color(0.42, 0.5, 0.68, 0.58)
-	normal_style.set_border_width_all(1)
-	normal_style.set_corner_radius_all(12)
-	normal_style.set_content_margin_all(14)
-	button.add_theme_stylebox_override("normal", normal_style)
-
-	var hover_style = normal_style.duplicate()
-	hover_style.bg_color = Color(0.105, 0.11, 0.16, 0.94)
-	hover_style.border_color = Color(0.72, 0.84, 1.0, 0.9)
-	hover_style.set_border_width_all(2)
-	button.add_theme_stylebox_override("hover", hover_style)
-
-	var pressed_style = normal_style.duplicate()
-	pressed_style.bg_color = Color(0.045, 0.05, 0.075, 0.98)
-	pressed_style.border_color = Color(0.92, 0.78, 0.42, 0.95)
-	pressed_style.set_border_width_all(2)
-	button.add_theme_stylebox_override("pressed", pressed_style)
+	WarmUI.style_button(button, button == btn_new_game, 20)
 
 
 func _play_fade_in() -> void:
+	background.scale = Vector2(1.045, 1.045)
+	background.pivot_offset = background.size * 0.5
+	menu_card.modulate = Color(1, 1, 1, 0)
 	title_container.modulate = Color(1, 1, 1, 0)
-	buttons_container.modulate = Color(1, 1, 1, 0)
 	for btn in buttons_container.get_children():
 		btn.modulate = Color(1, 1, 1, 0)
+		btn.scale = Vector2(0.97, 0.97)
 
 	var tween = create_tween()
-	tween.tween_property(title_container, "modulate:a", 1.0, 0.65).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(buttons_container, "modulate:a", 1.0, 0.15).set_delay(0.25)
+	tween.set_parallel(true)
+	tween.tween_property(background, "scale", Vector2.ONE, 5.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(menu_card, "modulate:a", 1.0, 0.55).set_delay(0.08).set_ease(Tween.EASE_OUT)
+	tween.tween_property(title_container, "modulate:a", 1.0, 0.55).set_delay(0.18).set_ease(Tween.EASE_OUT)
 	for i in range(buttons_container.get_child_count()):
 		var btn = buttons_container.get_child(i)
-		tween.parallel().tween_property(btn, "modulate:a", 1.0, 0.35).set_delay(0.35 + i * 0.08).set_ease(Tween.EASE_OUT)
+		tween.tween_property(btn, "modulate:a", 1.0, 0.32).set_delay(0.34 + i * 0.055).set_ease(Tween.EASE_OUT)
+		tween.tween_property(btn, "scale", Vector2.ONE, 0.38).set_delay(0.34 + i * 0.055).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.finished.connect(_start_ambient_motion)
+
+
+func _start_ambient_motion() -> void:
+	if _ambient_started:
+		return
+	_ambient_started = true
+
+	var background_tween := create_tween().set_loops()
+	background_tween.tween_property(background, "scale", Vector2(1.02, 1.02), 12.0).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	background_tween.tween_property(background, "scale", Vector2.ONE, 12.0).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+
+	var light_tween := create_tween().set_loops()
+	light_tween.tween_property(sun_wash, "color:a", 0.13, 4.6).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	light_tween.tween_property(sun_wash, "color:a", 0.075, 4.6).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+
+	var card_tween := create_tween().set_loops()
+	card_tween.tween_property(menu_card, "modulate", Color(1.0, 0.985, 0.965, 0.975), 5.8).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	card_tween.tween_property(menu_card, "modulate", Color.WHITE, 5.8).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 
 
 func _on_new_game() -> void:
@@ -100,10 +134,7 @@ func _on_continue() -> void:
 
 func _on_load_slots() -> void:
 	_showing_slots = true
-	buttons_container.offset_left = -270.0
-	buttons_container.offset_right = 270.0
-	buttons_container.offset_top = -670.0
-	buttons_container.offset_bottom = -32.0
+	_show_modal_layout()
 	buttons_container.add_theme_constant_override("separation", 8)
 	btn_new_game.visible = false
 	btn_continue.visible = false
@@ -176,14 +207,14 @@ func _create_slot_button(info: Dictionary, slot_id: int) -> Button:
 	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	title.add_theme_font_size_override("font_size", 19)
-	title.add_theme_color_override("font_color", Color(0.94, 0.94, 0.98, 1) if not btn.disabled else Color(0.62, 0.62, 0.66, 1))
+	title.add_theme_color_override("font_color", WarmUI.INK if not btn.disabled else Color(0.35, 0.3, 0.27, 0.5))
 	text_box.add_child(title)
 
 	var meta = Label.new()
 	meta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	meta.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	meta.add_theme_font_size_override("font_size", 14)
-	meta.add_theme_color_override("font_color", Color(0.72, 0.8, 0.94, 1) if not btn.disabled else Color(0.48, 0.48, 0.52, 1))
+	meta.add_theme_color_override("font_color", WarmUI.INK_SOFT if not btn.disabled else Color(0.35, 0.3, 0.27, 0.42))
 	text_box.add_child(meta)
 
 	if btn.disabled:
@@ -207,27 +238,27 @@ func _setup_slot_button_style(button: Button) -> void:
 	button.add_theme_color_override("font_disabled_color", Color(1, 1, 1, 0))
 
 	var normal = StyleBoxFlat.new()
-	normal.bg_color = Color(0.045, 0.05, 0.075, 0.78)
-	normal.border_color = Color(0.45, 0.55, 0.74, 0.52)
+	normal.bg_color = Color(1.0, 0.965, 0.88, 0.78)
+	normal.border_color = Color(0.53, 0.27, 0.19, 0.34)
 	normal.set_border_width_all(1)
 	normal.set_corner_radius_all(14)
 	button.add_theme_stylebox_override("normal", normal)
 
 	var hover = normal.duplicate()
-	hover.bg_color = Color(0.085, 0.095, 0.135, 0.92)
-	hover.border_color = Color(0.78, 0.86, 1.0, 0.92)
+	hover.bg_color = Color(1.0, 0.985, 0.94, 0.96)
+	hover.border_color = WarmUI.TERRACOTTA
 	hover.set_border_width_all(2)
 	button.add_theme_stylebox_override("hover", hover)
 
 	var pressed = normal.duplicate()
-	pressed.bg_color = Color(0.035, 0.04, 0.065, 0.98)
-	pressed.border_color = Color(0.92, 0.78, 0.42, 0.95)
+	pressed.bg_color = WarmUI.PAPER
+	pressed.border_color = WarmUI.TERRACOTTA_DARK
 	pressed.set_border_width_all(2)
 	button.add_theme_stylebox_override("pressed", pressed)
 
 	var disabled = normal.duplicate()
-	disabled.bg_color = Color(0.05, 0.05, 0.058, 0.46)
-	disabled.border_color = Color(0.35, 0.36, 0.42, 0.34)
+	disabled.bg_color = Color(0.82, 0.76, 0.67, 0.32)
+	disabled.border_color = Color(0.35, 0.28, 0.22, 0.2)
 	button.add_theme_stylebox_override("disabled", disabled)
 
 
@@ -237,7 +268,8 @@ func _slot_preview_texture(info: Dictionary) -> Texture2D:
 	var bg = str(info.get("background", ""))
 	if bg == "":
 		return null
-	var path = bg if bg.begins_with("res://") else "res://Picture/background/" + bg.trim_suffix(".png") + ".png"
+	var normalized_bg = str(LEGACY_BACKGROUND_ALIASES.get(bg.trim_suffix(".png"), bg.trim_suffix(".png")))
+	var path = bg if bg.begins_with("res://") else BACKGROUND_ROOT + normalized_bg + ".png"
 	if ResourceLoader.exists(path):
 		return load(path)
 	return null
@@ -252,10 +284,7 @@ func _format_saved_at(value: String) -> String:
 
 func _hide_slots() -> void:
 	_showing_slots = false
-	buttons_container.offset_left = -170.0
-	buttons_container.offset_right = 170.0
-	buttons_container.offset_top = -420.0
-	buttons_container.offset_bottom = -76.0
+	_restore_menu_layout()
 	buttons_container.add_theme_constant_override("separation", 14)
 	for child in buttons_container.get_children():
 		if child.name.begins_with("Slot"):
@@ -270,10 +299,7 @@ func _hide_slots() -> void:
 
 func _on_choice_flow() -> void:
 	_showing_choices = true
-	buttons_container.offset_left = -390.0
-	buttons_container.offset_right = 390.0
-	buttons_container.offset_top = -640.0
-	buttons_container.offset_bottom = -36.0
+	_show_modal_layout()
 	buttons_container.add_theme_constant_override("separation", 8)
 	btn_new_game.visible = false
 	btn_continue.visible = false
@@ -287,7 +313,7 @@ func _on_choice_flow() -> void:
 	header.text = "Зроблені вибори"
 	header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	header.add_theme_font_size_override("font_size", 30)
-	header.add_theme_color_override("font_color", Color(0.92, 0.78, 0.42, 1))
+	header.add_theme_color_override("font_color", WarmUI.TERRACOTTA_DARK)
 	buttons_container.add_child(header)
 
 	var flow = GameManager.get_choice_flow()
@@ -334,7 +360,7 @@ func _create_choice_card(info: Dictionary, index: int) -> Button:
 	node_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	node_label.text = "Вузол\n" + str(index + 1)
 	node_label.add_theme_font_size_override("font_size", 15)
-	node_label.add_theme_color_override("font_color", Color(0.92, 0.78, 0.42, 1) if not btn.disabled else Color(0.52, 0.52, 0.56, 1))
+	node_label.add_theme_color_override("font_color", WarmUI.TERRACOTTA_DARK if not btn.disabled else Color(0.35, 0.3, 0.27, 0.46))
 	row.add_child(node_label)
 
 	var text_box = VBoxContainer.new()
@@ -348,7 +374,7 @@ func _create_choice_card(info: Dictionary, index: int) -> Button:
 	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	title.add_theme_font_size_override("font_size", 18)
-	title.add_theme_color_override("font_color", Color(0.94, 0.94, 0.98, 1) if not btn.disabled else Color(0.58, 0.58, 0.62, 1))
+	title.add_theme_color_override("font_color", WarmUI.INK if not btn.disabled else Color(0.35, 0.3, 0.27, 0.46))
 	title.text = "Розділ " + str(int(info.get("chapter", 1))) + " - " + str(info.get("question", "Вибір"))
 	text_box.add_child(title)
 
@@ -356,7 +382,7 @@ func _create_choice_card(info: Dictionary, index: int) -> Button:
 	selected.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	selected.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	selected.add_theme_font_size_override("font_size", 15)
-	selected.add_theme_color_override("font_color", Color(0.72, 0.84, 1.0, 1) if not btn.disabled else Color(0.48, 0.48, 0.52, 1))
+	selected.add_theme_color_override("font_color", WarmUI.SAGE if not btn.disabled else Color(0.35, 0.3, 0.27, 0.4))
 	selected.text = "Обрано: " + str(info.get("selected_text", "")) if not btn.disabled else "Ще не відкрито в поточному проходженні"
 	text_box.add_child(selected)
 
@@ -371,10 +397,7 @@ func _create_choice_card(info: Dictionary, index: int) -> Button:
 
 func _hide_choice_flow() -> void:
 	_showing_choices = false
-	buttons_container.offset_left = -170.0
-	buttons_container.offset_right = 170.0
-	buttons_container.offset_top = -420.0
-	buttons_container.offset_bottom = -76.0
+	_restore_menu_layout()
 	buttons_container.add_theme_constant_override("separation", 14)
 	for child in buttons_container.get_children():
 		if child.name.begins_with("Choice"):
@@ -385,6 +408,35 @@ func _hide_choice_flow() -> void:
 	btn_choices.visible = true
 	btn_settings.visible = true
 	btn_exit.visible = true
+
+
+func _show_modal_layout() -> void:
+	title_container.visible = false
+	menu_card.visible = false
+	mode_backdrop.visible = true
+	buttons_container.anchor_left = 0.5
+	buttons_container.anchor_top = 0.5
+	buttons_container.anchor_right = 0.5
+	buttons_container.anchor_bottom = 0.5
+	buttons_container.offset_left = -390.0
+	buttons_container.offset_top = -390.0
+	buttons_container.offset_right = 390.0
+	buttons_container.offset_bottom = 390.0
+	WarmUI.animate_in(mode_backdrop, 0.0, 0.24, 0.985)
+
+
+func _restore_menu_layout() -> void:
+	title_container.visible = true
+	menu_card.visible = true
+	mode_backdrop.visible = false
+	buttons_container.anchor_left = 0.085
+	buttons_container.anchor_top = 0.425
+	buttons_container.anchor_right = 0.365
+	buttons_container.anchor_bottom = 0.865
+	buttons_container.offset_left = 0.0
+	buttons_container.offset_top = 0.0
+	buttons_container.offset_right = 0.0
+	buttons_container.offset_bottom = 0.0
 
 
 func _on_settings() -> void:

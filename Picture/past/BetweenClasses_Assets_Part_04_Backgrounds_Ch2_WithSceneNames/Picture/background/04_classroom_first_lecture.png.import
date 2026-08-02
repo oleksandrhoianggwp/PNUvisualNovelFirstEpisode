@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bqbo7x8sgwbog"
-path="res://.godot/imported/04_classroom_first_lecture.png-7364569e060bd0703d9796a10041ded6.ctex"
+path="res://.godot/imported/04_classroom_first_lecture.png-79852fbafb65c0b88958f1bdf6c3dec0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_04_Backgrounds_Ch2_WithSceneNames/Picture/background/04_classroom_first_lecture.png"
-dest_files=["res://.godot/imported/04_classroom_first_lecture.png-7364569e060bd0703d9796a10041ded6.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_04_Backgrounds_Ch2_WithSceneNames/Picture/background/04_classroom_first_lecture.png"
+dest_files=["res://.godot/imported/04_classroom_first_lecture.png-79852fbafb65c0b88958f1bdf6c3dec0.ctex"]
 
 [params]
 

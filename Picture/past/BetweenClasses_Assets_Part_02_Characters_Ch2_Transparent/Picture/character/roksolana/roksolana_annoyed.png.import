@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dj1vb8sooaiuk"
-path="res://.godot/imported/roksolana_annoyed.png-b3cb2f1300c86a7a2a15440d85280db8.ctex"
+path="res://.godot/imported/roksolana_annoyed.png-bde0b1f1b508c6edc5118e46054bd5b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_02_Characters_Ch2_Transparent/Picture/character/roksolana/roksolana_annoyed.png"
-dest_files=["res://.godot/imported/roksolana_annoyed.png-b3cb2f1300c86a7a2a15440d85280db8.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_02_Characters_Ch2_Transparent/Picture/character/roksolana/roksolana_annoyed.png"
+dest_files=["res://.godot/imported/roksolana_annoyed.png-bde0b1f1b508c6edc5118e46054bd5b3.ctex"]
 
 [params]
 

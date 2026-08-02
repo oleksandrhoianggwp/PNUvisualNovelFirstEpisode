@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dyoe44fovvpt1"
-path="res://.godot/imported/08_classroom.png-45af94def4b494faf534b598cdf81788.ctex"
+path="res://.godot/imported/08_classroom.png-8c3aba8bd9153fc9e25d8d774503ad38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_03_Backgrounds_Ch1_WithSceneNames/Picture/background/08_classroom.png"
-dest_files=["res://.godot/imported/08_classroom.png-45af94def4b494faf534b598cdf81788.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_03_Backgrounds_Ch1_WithSceneNames/Picture/background/08_classroom.png"
+dest_files=["res://.godot/imported/08_classroom.png-8c3aba8bd9153fc9e25d8d774503ad38.ctex"]
 
 [params]
 

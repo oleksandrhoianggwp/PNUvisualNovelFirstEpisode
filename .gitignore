@@ -9,3 +9,7 @@
 *.pck
 *.exe
 *.console.exe
+*.zip
+
+# Local generation and visual QA workspace
+/tmp/

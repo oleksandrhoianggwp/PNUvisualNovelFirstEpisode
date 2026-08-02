@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6q8pyrffiihp"
-path="res://.godot/imported/luka_awkward.png-fe24a490ac0034a46a760c68a15e3b65.ctex"
+path="res://.godot/imported/luka_awkward.png-56c9ef184dac01cc4f2c5901bc91692d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_02_Characters_Ch2_Transparent/Picture/character/luka/luka_awkward.png"
-dest_files=["res://.godot/imported/luka_awkward.png-fe24a490ac0034a46a760c68a15e3b65.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_02_Characters_Ch2_Transparent/Picture/character/luka/luka_awkward.png"
+dest_files=["res://.godot/imported/luka_awkward.png-56c9ef184dac01cc4f2c5901bc91692d.ctex"]
 
 [params]
 

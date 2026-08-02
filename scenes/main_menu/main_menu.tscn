@@ -1,20 +1,53 @@
-[gd_scene format=3 uid="uid://dr85y6ubq3wqt"]
+[gd_scene load_steps=8 format=3 uid="uid://dr85y6ubq3wqt"]
 
-[ext_resource type="Texture2D" uid="uid://chl0hf0yge4kq" path="res://Picture/background/PhoneMainMenu.png" id="1_bg"]
+[ext_resource type="Texture2D" path="res://Picture/background/02_05_inner_courtyard_day.png" id="1_bg"]
 [ext_resource type="Script" uid="uid://ox5f8s3trq4w" path="res://scenes/main_menu/main_menu.gd" id="2_script"]
 
+[sub_resource type="Gradient" id="Gradient_side"]
+offsets = PackedFloat32Array(0, 0.5, 0.78, 1)
+colors = PackedColorArray(0.105, 0.057, 0.037, 0.72, 0.105, 0.057, 0.037, 0.5, 0.105, 0.057, 0.037, 0.12, 0.105, 0.057, 0.037, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture_side"]
+gradient = SubResource("Gradient_side")
+width = 1024
+height = 8
+fill_from = Vector2(0, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_bottom"]
+offsets = PackedFloat32Array(0, 0.62, 1)
+colors = PackedColorArray(0.18, 0.08, 0.035, 0, 0.18, 0.08, 0.035, 0.06, 0.09, 0.04, 0.025, 0.46)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture_bottom"]
+gradient = SubResource("Gradient_bottom")
+width = 8
+height = 512
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_menu_card"]
+bg_color = Color(0.99, 0.925, 0.805, 0.82)
+border_color = Color(0.61, 0.36, 0.22, 0.24)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+shadow_color = Color(0.12, 0.055, 0.025, 0.2)
+shadow_size = 18
+shadow_offset = Vector2(0, 7)
+
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
-font_size = 64
-font_color = Color(0.92, 0.94, 1, 1)
-shadow_size = 8
-shadow_color = Color(0, 0, 0, 0.62)
-shadow_offset = Vector2(0, 3)
+font_size = 66
+font_color = Color(0.22, 0.145, 0.105, 1)
+shadow_size = 2
+shadow_color = Color(1, 0.95, 0.84, 0.72)
+shadow_offset = Vector2(0, 2)
 
-[sub_resource type="LabelSettings" id="LabelSettings_subtitle"]
-font_size = 28
-font_color = Color(0.76, 0.82, 0.92, 1)
-
-[node name="MainMenu" type="Control" unique_id=630206074]
+[node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,99 +56,149 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_script")
 
-[node name="Background" type="TextureRect" parent="." unique_id=1488271879]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_bg")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Overlay" type="ColorRect" parent="." unique_id=244162774]
+[node name="SunWash" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.015, 0.016, 0.026, 0.48)
+mouse_filter = 2
+color = Color(0.93, 0.58, 0.28, 0.09)
 
-[node name="TitleContainer" type="VBoxContainer" parent="." unique_id=987167284]
+[node name="SideShade" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -360.0
-offset_top = 92.0
-offset_right = 360.0
-offset_bottom = 260.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture_side")
+expand_mode = 1
+
+[node name="BottomShade" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture_bottom")
+expand_mode = 1
+
+[node name="MenuCard" type="PanelContainer" parent="."]
+layout_mode = 1
+anchor_left = 0.055
+anchor_top = 0.075
+anchor_right = 0.395
+anchor_bottom = 0.925
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_menu_card")
+
+[node name="ModeBackdrop" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -430.0
+offset_top = -430.0
+offset_right = 430.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_menu_card")
+
+[node name="TitleContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchor_left = 0.085
+anchor_top = 0.13
+anchor_right = 0.365
+anchor_bottom = 0.37
+grow_horizontal = 2
+theme_override_constants/separation = 3
 alignment = 1
 
-[node name="Title" type="Label" parent="TitleContainer" unique_id=1207705949]
+[node name="Eyebrow" type="Label" parent="TitleContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.31, 0.23, 0.78)
+theme_override_font_sizes/font_size = 16
+text = "ВІЗУАЛЬНА НОВЕЛА ПРО ПЕРШИЙ КУРС"
+
+[node name="Title" type="Label" parent="TitleContainer"]
 layout_mode = 2
 text = "Між парами"
 label_settings = SubResource("LabelSettings_title")
-horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="TitleContainer" unique_id=1227506920]
+[node name="Subtitle" type="Label" parent="TitleContainer"]
 layout_mode = 2
-text = "Between Classes"
-label_settings = SubResource("LabelSettings_subtitle")
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.56, 0.27, 0.18, 0.92)
+theme_override_font_sizes/font_size = 20
+text = "Нові люди. Нове місто. Твоя історія."
+autowrap_mode = 2
 
-[node name="ButtonsContainer" type="VBoxContainer" parent="." unique_id=852111538]
+[node name="ButtonsContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -170.0
-offset_top = -420.0
-offset_right = 170.0
-offset_bottom = -76.0
+anchor_left = 0.085
+anchor_top = 0.425
+anchor_right = 0.365
+anchor_bottom = 0.865
 grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 14
+grow_vertical = 2
+theme_override_constants/separation = 11
+alignment = 1
 
-[node name="BtnNewGame" type="Button" parent="ButtonsContainer" unique_id=2035283303]
+[node name="BtnNewGame" type="Button" parent="ButtonsContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 54)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 text = "Нова гра"
 
-[node name="BtnContinue" type="Button" parent="ButtonsContainer" unique_id=2063253946]
+[node name="BtnContinue" type="Button" parent="ButtonsContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 54)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 text = "Продовжити"
 
 [node name="BtnLoad" type="Button" parent="ButtonsContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 54)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 text = "Завантажити"
 
 [node name="BtnChoices" type="Button" parent="ButtonsContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 54)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 text = "Зроблені вибори"
 
-[node name="BtnSettings" type="Button" parent="ButtonsContainer" unique_id=828240939]
+[node name="BtnSettings" type="Button" parent="ButtonsContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 54)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 text = "Налаштування"
 
-[node name="BtnExit" type="Button" parent="ButtonsContainer" unique_id=1572187563]
+[node name="BtnExit" type="Button" parent="ButtonsContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 54)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 text = "Вихід"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1827412414]

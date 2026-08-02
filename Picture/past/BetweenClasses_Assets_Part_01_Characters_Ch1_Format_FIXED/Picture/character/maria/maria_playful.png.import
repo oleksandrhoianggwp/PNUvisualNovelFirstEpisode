@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8ogddnibxl0a"
-path="res://.godot/imported/maria_playful.png-723b0b90f4c9c37affc8d0d67a44d130.ctex"
+path="res://.godot/imported/maria_playful.png-2181325b40497fe79aec5856c659d696.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_01_Characters_Ch1_Format_FIXED/Picture/character/maria/maria_playful.png"
-dest_files=["res://.godot/imported/maria_playful.png-723b0b90f4c9c37affc8d0d67a44d130.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_01_Characters_Ch1_Format_FIXED/Picture/character/maria/maria_playful.png"
+dest_files=["res://.godot/imported/maria_playful.png-2181325b40497fe79aec5856c659d696.ctex"]
 
 [params]
 

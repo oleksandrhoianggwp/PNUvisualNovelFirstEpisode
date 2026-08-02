@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bc572twa61juu"
-path="res://.godot/imported/melania_serious.png-4f5a9eb4e08087b28741a82c02b0d05a.ctex"
+path="res://.godot/imported/melania_serious.png-98ffdf248fbf69018b36124da859d03d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_01_Characters_Ch1_Format_FIXED/Picture/character/melania/melania_serious.png"
-dest_files=["res://.godot/imported/melania_serious.png-4f5a9eb4e08087b28741a82c02b0d05a.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_01_Characters_Ch1_Format_FIXED/Picture/character/melania/melania_serious.png"
+dest_files=["res://.godot/imported/melania_serious.png-98ffdf248fbf69018b36124da859d03d.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwk7qbnopx7tl"
-path="res://.godot/imported/08_monument_alley.png-4f550795cc98ed7c7429050fb2acf6bc.ctex"
+path="res://.godot/imported/08_monument_alley.png-2acd9ab5a5dd95f5bed26a8e56d7f293.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Picture/BetweenClasses_Assets_Part_04_Backgrounds_Ch2_WithSceneNames/Picture/background/08_monument_alley.png"
-dest_files=["res://.godot/imported/08_monument_alley.png-4f550795cc98ed7c7429050fb2acf6bc.ctex"]
+source_file="res://Picture/past/BetweenClasses_Assets_Part_04_Backgrounds_Ch2_WithSceneNames/Picture/background/08_monument_alley.png"
+dest_files=["res://.godot/imported/08_monument_alley.png-2acd9ab5a5dd95f5bed26a8e56d7f293.ctex"]
 
 [params]
 

@@ -24,9 +24,11 @@ func _normalized(text: String) -> String:
 func _run() -> void:
 	manager = root.get_node("GameManager")
 	_test_paginator_preserves_all_dialogue_text()
+	_test_speaker_badges_contain_names()
 	await _test_long_dialogue_layout()
 	await _test_choice_layout()
 	await _test_text_transition_is_stable()
+	await _test_speaker_badge_and_reputation_card()
 	if failures.is_empty():
 		print("PASS test_dialogue_ui: all dialogue pages and choice buttons fit")
 		quit(0)
@@ -46,6 +48,12 @@ func _test_paginator_preserves_all_dialogue_text() -> void:
 			_assert_true(not page.is_empty(), str(entry.get("id", "?")) + " produced an empty page")
 			_assert_true(page.length() <= 320, str(entry.get("id", "?")) + " page exceeds the requested limit")
 		_assert_true(_normalized(" ".join(pages)) == _normalized(source), str(entry.get("id", "?")) + " lost text while paginating")
+
+
+func _test_speaker_badges_contain_names() -> void:
+	for entry in DialogueData.DIALOGUES:
+		var speaker := str(entry.get("speaker", ""))
+		_assert_true(speaker.length() <= 22, str(entry.get("id", "?")) + " contains prose in the speaker badge: " + speaker)
 
 
 func _open_dialogue(scene_id: String) -> Control:
@@ -101,3 +109,17 @@ func _test_text_transition_is_stable() -> void:
 	_assert_true(label.get_parsed_text() != previous_text, "Previous dialogue text remains visible during the next entry")
 	_assert_true(box.modulate.a > 0.99, "Dialogue panel flashes while moving to the next entry")
 	_assert_true(box.scale.is_equal_approx(previous_scale), "Dialogue panel jumps in scale between entries")
+
+
+func _test_speaker_badge_and_reputation_card() -> void:
+	var game := await _open_dialogue("ch2_097")
+	var speaker: Label = game.get_node("DialogueBox/MarginContainer/VBoxContainer/Header/SpeakerBadge/Margin/SpeakerName")
+	_assert_true(speaker.text == "Дарія", "Narration fragment is still rendered as a speaker name")
+	var localization := root.get_node("Localization")
+	game.call("_show_notification", localization.t("common.reputation"), 1, 1)
+	await process_frame
+	var container: VBoxContainer = game.get_node("NotificationContainer")
+	_assert_true(container.get_child_count() == 1, "Reputation feedback card was not shown")
+	if container.get_child_count() == 1:
+		var card := container.get_child(0)
+		_assert_true(card.get_node("Margin/Row/Copy/ChangeLabel").text == localization.t("game.reputation_improved"), "Reputation card exposes raw numbers instead of atmospheric feedback")

@@ -23,7 +23,11 @@ func _run() -> void:
 	var dorm_notifications: Array[Dictionary] = manager.apply_effects({"reputation": 1, "silhouette_boy": 1})
 	_assert_equal(manager.reputation, 1, "Global reputation did not change immediately")
 	_assert_equal(manager.relationships["silhouette_boy"], 1, "Unknown character relationship did not accumulate")
-	_assert_equal(dorm_notifications[1]["text"], "Незнайомець", "Unknown male relationship exposes the placeholder name")
+	_assert_equal(dorm_notifications.size(), 1, "One choice produces duplicate reputation notifications")
+	_assert_equal(dorm_notifications[0]["text"], "Незнайомець", "Unknown male relationship exposes the placeholder name")
+	var global_notifications: Array[Dictionary] = manager.apply_effects({"reputation": 1})
+	_assert_equal(global_notifications.size(), 1, "A standalone global reputation change is hidden")
+	_assert_equal(global_notifications[0]["text"], "Репутація", "Standalone reputation uses the wrong label")
 
 	manager.jump_to_scene("ch1_060")
 	var maria_notifications: Array[Dictionary] = manager.apply_effects({"maria": 1})

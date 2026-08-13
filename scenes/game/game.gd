@@ -624,15 +624,18 @@ func _show_notification(stat_name: String, value: int, current_value: int) -> vo
 	notification_container.add_child(card)
 	card.setup(stat_name, current_value, value, _selected_ui_font())
 	card.modulate = Color(1, 1, 1, 0)
-	card.position.y = -10.0
+	card.position.x = 24.0
 
 	var tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(card, "modulate:a", 1.0, 0.16).set_ease(Tween.EASE_OUT)
-	tween.tween_property(card, "position:y", 0.0, 0.18).set_ease(Tween.EASE_OUT)
+	tween.tween_property(card, "modulate:a", 1.0, 0.24).set_ease(Tween.EASE_OUT)
+	tween.tween_property(card, "position:x", 0.0, 0.28).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.set_parallel(false)
-	tween.tween_interval(0.9)
-	tween.tween_property(card, "modulate:a", 0.0, 0.22).set_ease(Tween.EASE_IN)
+	tween.tween_interval(1.65)
+	tween.set_parallel(true)
+	tween.tween_property(card, "modulate:a", 0.0, 0.3).set_ease(Tween.EASE_IN)
+	tween.tween_property(card, "position:x", 16.0, 0.3).set_ease(Tween.EASE_IN)
+	tween.set_parallel(false)
 	tween.tween_callback(card.queue_free)
 
 

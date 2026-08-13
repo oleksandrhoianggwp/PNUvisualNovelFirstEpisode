@@ -86,6 +86,10 @@ const UI := {
 	"game.relationships": {"uk": "Стосунки", "en": "Relationships"},
 	"game.no_changes": {"uk": "Поки без помітних змін.", "en": "No noticeable changes yet."},
 	"game.stat_change": {"uk": "Зміна характеристик", "en": "Stat Change"},
+	"game.reputation_improved": {"uk": "Репутація покращилася", "en": "Reputation improved"},
+	"game.reputation_worsened": {"uk": "Репутація погіршилася", "en": "Reputation worsened"},
+	"game.relationship_improved": {"uk": "Ставлення покращилося", "en": "Relationship improved"},
+	"game.relationship_worsened": {"uk": "Ставлення погіршилося", "en": "Relationship worsened"},
 }
 
 const RELATIONSHIP_NAMES := {

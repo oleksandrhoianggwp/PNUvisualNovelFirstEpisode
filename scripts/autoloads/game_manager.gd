@@ -162,6 +162,11 @@ func update_current_entry(entry: Dictionary, index: int, page: int = 0) -> void:
 
 func apply_effects(effects: Dictionary) -> Array[Dictionary]:
 	var notifications: Array[Dictionary] = []
+	var has_relationship_effect := false
+	for effect_key in effects:
+		if relationships.has(effect_key) and int(effects[effect_key]) != 0:
+			has_relationship_effect = true
+			break
 	for key in effects:
 		if key == "reveal_character":
 			var revealed = effects[key]
@@ -176,7 +181,10 @@ func apply_effects(effects: Dictionary) -> Array[Dictionary]:
 			continue
 		if key == "reputation":
 			reputation += value
-			notifications.append({"text": Localization.t("common.reputation"), "value": value, "current": reputation})
+			# Companion feedback already communicates the same choice. Keep the
+			# global value, but avoid showing two competing HUD messages.
+			if not has_relationship_effect:
+				notifications.append({"text": Localization.t("common.reputation"), "value": value, "current": reputation})
 		elif relationships.has(key):
 			relationships[key] += value
 			var display_name = relationship_display_name(key)

@@ -708,7 +708,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "А я Лука.",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka_smile"
+		"right": "luka/luka"
 	},
 	{
 		"id": "ch2_080",
@@ -1500,7 +1500,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Ти помилилась кількома літерами у слові, бо однозначно хотіла сказати «це моя травма».",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka_smile"
+		"right": "luka/luka"
 	},
 	{
 		"id": "ch2_169",
@@ -1518,7 +1518,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "І не кажіть, що для вас ні. Ви хіба такі ж кам’яні як той хрест, якщо це було ще «нічогенько».",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka_smile"
+		"right": "luka/luka"
 	},
 	{
 		"id": "ch2_171",
@@ -1641,7 +1641,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Це щось на кшталт «Еврика»?",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka_awkward"
+		"right": "luka/luka"
 	},
 	{
 		"id": "ch2_185",
@@ -1690,7 +1690,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Так що все-таки означає сир?",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka_awkward"
+		"right": "luka/luka"
 	},
 	{
 		"id": "ch2_190",
@@ -1756,7 +1756,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Просто думав потрапити додому раніше.",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka_awkward"
+		"right": "luka/luka"
 	},
 	{
 		"id": "ch2_197",
@@ -2313,7 +2313,8 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"bg": "02_05_inner_courtyard_day",
 		"speaker": "",
 		"type": "narrator",
-		"text": "Біля воріт всі зупинились, щоб попрощатись. На небі привітно світило сонце. День був ясний і теплий. Жодної хмаринки на небі, тепер жодної тривоги на душі. Дарія повна світлих почуттів поверталась до свого нового дому."
+		"text": "Біля воріт всі зупинились, щоб попрощатись. На небі привітно світило сонце. День був ясний і теплий. Жодної хмаринки на небі, тепер жодної тривоги на душі. Дарія повна світлих почуттів поверталась до свого нового дому.",
+		"next": "ch2_summary"
 	},
 	{
 		"id": "ch2_summary",

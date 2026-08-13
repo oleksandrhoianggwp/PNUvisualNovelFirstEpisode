@@ -49,6 +49,10 @@ func _test_data_bindings_and_resources() -> void:
 			var character := str(entry.get(position, ""))
 			if character != "":
 				_assert_true(ResourceLoader.exists("res://Picture/character/" + character + ".png"), str(entry.get("id", "?")) + " references a missing character asset")
+			if character.begins_with("luka/"):
+				_assert_true(character == "luka/luka", str(entry.get("id", "?")) + " references a removed Luka expression")
+	_assert_true(not ResourceLoader.exists("res://Picture/character/luka/luka_smile.png"), "Removed Luka smile asset is still imported")
+	_assert_true(not ResourceLoader.exists("res://Picture/character/luka/luka_awkward.png"), "Removed Luka awkward asset is still imported")
 
 
 func _open_scene(scene_id: String) -> Control:

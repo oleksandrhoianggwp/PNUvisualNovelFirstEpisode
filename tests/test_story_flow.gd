@@ -28,6 +28,8 @@ func _run() -> void:
 	_assert_equal(_entry("ch1_126").get("bg", ""), "01_09_room_morning", "Morning background does not start at 'Ніч пройшла…'")
 	_assert_equal(_entry("ch1_126").get("transition", ""), "fade", "Night-to-morning transition is missing")
 	_assert_equal(_entry("ch1_summary").get("continue_target", ""), "ch2_001", "Chapter 1 does not continue into chapter 2")
+	_assert_equal(_entry("ch2_256").get("next", ""), "ch2_summary", "Chapter 2 ending does not open the summary immediately")
+	_assert_equal(_entry("ch2_summary").get("continue_target", ""), "ch2_credits", "Chapter 2 summary does not continue directly into the credits")
 	_assert_equal(
 		FileAccess.get_sha256("res://Picture/background/01_07_room_evening.png").to_upper(),
 		"971BD3E9DA6D0A94B59869A42AC237EC10608941092F4832E9AE7B0FF76B1963",

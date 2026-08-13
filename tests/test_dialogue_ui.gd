@@ -26,6 +26,7 @@ func _run() -> void:
 	_test_paginator_preserves_all_dialogue_text()
 	await _test_long_dialogue_layout()
 	await _test_choice_layout()
+	await _test_text_transition_is_stable()
 	if failures.is_empty():
 		print("PASS test_dialogue_ui: all dialogue pages and choice buttons fit")
 		quit(0)
@@ -87,3 +88,16 @@ func _test_choice_layout() -> void:
 			_assert_true(not child.clip_text, "Choice button clips text")
 			_assert_true(child.size.x <= container.size.x + 2.0, "Choice button extends past its container")
 			_assert_true(child.get_minimum_size().y <= child.size.y + 2.0, "Choice button is not tall enough for its wrapped text")
+
+
+func _test_text_transition_is_stable() -> void:
+	var game := await _open_dialogue("ch1_015")
+	var box: PanelContainer = game.get_node("DialogueBox")
+	var label: RichTextLabel = game.get_node("DialogueBox/MarginContainer/VBoxContainer/DialogueText")
+	var previous_text := label.get_parsed_text()
+	var previous_scale := box.scale
+	game.call("_advance_dialogue")
+	await process_frame
+	_assert_true(label.get_parsed_text() != previous_text, "Previous dialogue text remains visible during the next entry")
+	_assert_true(box.modulate.a > 0.99, "Dialogue panel flashes while moving to the next entry")
+	_assert_true(box.scale.is_equal_approx(previous_scale), "Dialogue panel jumps in scale between entries")

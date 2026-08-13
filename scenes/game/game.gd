@@ -390,14 +390,11 @@ func _show_text_entry(entry: Dictionary) -> void:
 	_auto_elapsed = 0.0
 	_skip_elapsed = 0.0
 
-	dialogue_box.modulate.a = 0.0
-	dialogue_box.scale *= Vector2(0.992, 0.992)
-	dialogue_box.pivot_offset = Vector2(dialogue_box.size.x * 0.5, dialogue_box.size.y)
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(dialogue_box, "modulate:a", 1.0, 0.2).set_ease(Tween.EASE_OUT)
-	tween.tween_property(dialogue_box, "scale", Vector2.ONE * clampf(float(GameManager.settings.get("ui_scale", 1.0)), 0.85, 1.2), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	tween.chain().tween_callback(func(): _render_text_page(entry))
+	# Replace the content immediately. Replaying a fade/scale tween for every
+	# line briefly showed the previous text and made the whole panel jump.
+	dialogue_box.modulate.a = 1.0
+	dialogue_box.scale = Vector2.ONE * clampf(float(GameManager.settings.get("ui_scale", 1.0)), 0.85, 1.2)
+	_render_text_page(entry)
 
 	if entry.has("choices"):
 		await get_tree().process_frame

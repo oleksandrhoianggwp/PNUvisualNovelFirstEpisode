@@ -2,6 +2,7 @@ extends Control
 
 const WarmUI = preload("res://scripts/ui/warm_ui.gd")
 const DialoguePaginator = preload("res://scripts/dialogue/dialogue_paginator.gd")
+const CharacterPresentation = preload("res://scripts/characters/character_presentation.gd")
 const STAT_CHANGE_CARD = preload("res://scenes/components/stat_change_card.tscn")
 
 @onready var background: TextureRect = $Background
@@ -87,6 +88,7 @@ var is_paused: bool = false
 var _choice_time_left: float = 0.0
 var _slot_mode: String = ""
 var _loaded_textures: Dictionary = {}
+var _generic_silhouette_texture: Texture2D
 var _prev_chars: Dictionary = {"left": "", "center": "", "right": ""}
 var _auto_mode: bool = false
 var _skip_mode: bool = false
@@ -353,16 +355,13 @@ func _apply_background(bg_key: String, transition: String) -> void:
 
 
 func _apply_characters(entry: Dictionary) -> void:
-	var chars = {
-		"left": str(entry.get("left", "")),
-		"center": str(entry.get("center", "")),
-		"right": str(entry.get("right", "")),
-	}
-	_animate_character(character_left, chars["left"], _prev_chars["left"])
-	_animate_character(character_center, chars["center"], _prev_chars["center"])
-	_animate_character(character_right, chars["right"], _prev_chars["right"])
+	var chars := CharacterPresentation.normalize_slots(entry)
+	var targets := _character_targets(str(entry.get("speaker", "")), chars, entry)
+	_animate_character(character_left, chars["left"], _prev_chars["left"], targets["left"])
+	_animate_character(character_center, chars["center"], _prev_chars["center"], targets["center"])
+	_animate_character(character_right, chars["right"], _prev_chars["right"], targets["right"])
 	_prev_chars = chars
-	_apply_speaker_focus(str(entry.get("speaker", "")), chars)
+	GameManager.visible_characters = chars.duplicate()
 
 
 func _show_text_entry(entry: Dictionary) -> void:
@@ -647,7 +646,7 @@ func _flash_and_set_bg(new_tex: Texture2D) -> void:
 	tween.finished.connect(func(): screen_flash.visible = false)
 
 
-func _animate_character(node: TextureRect, char_key: String, prev_key: String) -> void:
+func _animate_character(node: TextureRect, char_key: String, prev_key: String, target: Dictionary) -> void:
 	if char_key == "":
 		if prev_key != "":
 			var fade_out = create_tween()
@@ -668,42 +667,88 @@ func _animate_character(node: TextureRect, char_key: String, prev_key: String) -
 		node.visible = false
 		return
 
-	node.texture = tex
+	node.texture = _get_generic_silhouette_texture() if bool(target.get("concealed", false)) else tex
 	node.visible = true
+	node.z_index = int(target.get("z_index", 1))
 	node.pivot_offset = Vector2(node.size.x * 0.5, node.size.y)
+	var target_color: Color = target.get("color", Color.WHITE)
+	var target_scale: Vector2 = target.get("scale", Vector2.ONE)
 	if prev_key != char_key:
 		var target_position := node.position
 		var enter_offset := -34.0 if node == character_left else 34.0
 		if node == character_center:
 			enter_offset = 0.0
 		node.position = target_position + Vector2(enter_offset, 10.0)
-		node.scale = Vector2(0.975, 0.975)
-		node.modulate = Color(1, 1, 1, 0)
+		node.scale = target_scale * 0.975
+		node.modulate = Color(target_color.r, target_color.g, target_color.b, 0)
 		var tween = create_tween()
 		tween.set_parallel(true)
 		tween.tween_property(node, "position", target_position, 0.34).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-		tween.tween_property(node, "scale", Vector2.ONE, 0.38).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		tween.tween_property(node, "scale", target_scale, 0.38).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		tween.tween_property(node, "modulate", target_color, 0.3).set_ease(Tween.EASE_OUT)
 	else:
-		node.scale = Vector2.ONE
+		var focus_tween = create_tween()
+		focus_tween.set_parallel(true)
+		focus_tween.tween_property(node, "modulate", target_color, 0.24).set_ease(Tween.EASE_OUT)
+		focus_tween.tween_property(node, "scale", target_scale, 0.26).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 
-func _apply_speaker_focus(speaker: String, chars: Dictionary) -> void:
+func _character_targets(speaker: String, chars: Dictionary, entry: Dictionary) -> Dictionary:
 	var active_folders: Array = SPEAKER_FOLDERS.get(speaker, [])
+	var has_direct_match := false
 	for pos in chars:
-		var node = _node_for_position(pos)
-		if not node.visible:
-			continue
+		if active_folders.has(CharacterPresentation.folder_for(str(chars[pos]))):
+			has_direct_match = true
+			break
+	if not has_direct_match:
+		active_folders = []
+
+	var show_all := speaker == "" or bool(entry.get("show_all_characters", false))
+	if not show_all and active_folders.is_empty():
+		for pos in ["left", "center", "right"]:
+			var inferred_folder := CharacterPresentation.folder_for(str(chars[pos]))
+			if inferred_folder != "" and inferred_folder != "daria_main":
+				active_folders.append(inferred_folder)
+				break
+		if active_folders.is_empty():
+			for pos in ["left", "center", "right"]:
+				var only_folder := CharacterPresentation.folder_for(str(chars[pos]))
+				if only_folder != "":
+					active_folders.append(only_folder)
+					break
+
+	var hidden_slots := CharacterPresentation.concealed_slots(entry)
+	var targets := {}
+	for pos in chars:
 		var char_key = str(chars[pos])
-		var folder = char_key.get_slice("/", 0)
-		var active = active_folders.is_empty() or active_folders.has(folder)
-		var inactive_alpha = clampf(float(GameManager.settings.get("inactive_character_alpha", 0.82)), 0.65, 0.95)
-		var target = Color(1, 1, 1, 1) if active else Color(inactive_alpha * 0.9, inactive_alpha * 0.88, inactive_alpha * 0.84, inactive_alpha)
-		var target_scale := Vector2.ONE if active else Vector2(0.965, 0.965)
-		node.z_index = 2 if active else 1
-		var tween = create_tween()
-		tween.set_parallel(true)
-		tween.tween_property(node, "modulate", target, 0.24).set_ease(Tween.EASE_OUT)
-		tween.tween_property(node, "scale", target_scale, 0.26).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+		var folder := CharacterPresentation.folder_for(char_key)
+		var active := show_all or active_folders.has(folder)
+		var base_scale := CharacterPresentation.scale_for(char_key)
+		var color := Color.WHITE if active else Color(0.24, 0.22, 0.2, 0)
+		if active and hidden_slots.has(pos):
+			color = Color(0.018, 0.02, 0.028, 0.98)
+		targets[pos] = {
+			"color": color,
+			"scale": Vector2.ONE * base_scale * (1.0 if active else 0.965),
+			"z_index": 2 if active else 1,
+			"concealed": active and hidden_slots.has(pos),
+		}
+	return targets
+
+
+func _get_generic_silhouette_texture() -> Texture2D:
+	if _generic_silhouette_texture:
+		return _generic_silhouette_texture
+	var svg := """<svg xmlns="http://www.w3.org/2000/svg" width="512" height="1024" viewBox="0 0 512 1024">
+		<ellipse cx="256" cy="174" rx="92" ry="112" fill="#050609"/>
+		<path d="M156 298 C184 274 216 260 256 260 C296 260 328 274 356 298 C404 340 424 430 438 538 L474 936 L38 936 L74 538 C88 430 108 340 156 298 Z" fill="#050609"/>
+		<path d="M86 430 C28 518 14 650 34 760 L104 742 C92 648 108 548 154 478 Z" fill="#050609"/>
+		<path d="M426 430 C484 518 498 650 478 760 L408 742 C420 648 404 548 358 478 Z" fill="#050609"/>
+	</svg>"""
+	var image := Image.new()
+	if image.load_svg_from_string(svg, 1.0) == OK:
+		_generic_silhouette_texture = ImageTexture.create_from_image(image)
+	return _generic_silhouette_texture
 
 
 func _get_texture(path: String) -> Texture2D:

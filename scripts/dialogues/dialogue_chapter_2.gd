@@ -2334,7 +2334,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"id": "ch2_credits",
 		"chapter": 2,
 		"bg": "02_05_inner_courtyard_day",
-		"type": "summary",
+		"type": "credits",
 		"summary_title": "Титри",
 		"summary_lines": [
 			"Сценаристка: Сірадчук Яна Василівна",

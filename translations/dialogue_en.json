@@ -1,0 +1,2008 @@
+{
+  "ch1_001": {
+    "text": "Your journey into the world of philology is about to begin. Are you ready?",
+    "speaker": ""
+  },
+  "ch1_002": {
+    "text": "Twilight gradually deepened beyond the window. The train sped onward, carrying Daria farther from home. The girl watched the vast landscape, searching for answers to her own questions.",
+    "speaker": ""
+  },
+  "ch1_003": {
+    "speaker": "Daria",
+    "text": "A new chapter in my life will begin tomorrow. Incredibly exciting and.. terribly exciting! Will my student life be as wonderful as everyone says?"
+  },
+  "ch1_004": {
+    "text": "The girl's heart was restless, but at the same time there was hope in it. And some new, completely unknown feeling to her - a pinching unknown.",
+    "speaker": ""
+  },
+  "ch1_005": {
+    "speaker": "Daria",
+    "text": "I will definitely make it unforgettable."
+  },
+  "ch1_006": {
+    "text": "Daria timidly stepped onto the platform, merging with the flow of people. She stopped for a moment, inhaling the aroma of a warm evening in a still foreign city, which would later become her home. Already tomorrow..",
+    "speaker": ""
+  },
+  "ch1_007": {
+    "text": "All the way to the dormitory, the girl panicked and stared as hard as possible into the dark outlines of the buildings. Missing a stop for her now could be a disaster. And who will help? There are no friends and relatives. She remembered again that she was completely alone in this big, unfamiliar city.",
+    "speaker": ""
+  },
+  "ch1_008": {
+    "speaker": "Daria",
+    "text": "It's not for long."
+  },
+  "ch1_009": {
+    "text": "Involuntarily, she remembered the work of Valerian Pidmohylyny, which fascinated her at school.",
+    "speaker": ""
+  },
+  "ch1_010": {
+    "speaker": "Daria",
+    "text": "I will conquer the city like Stepan Radchenko! Although... probably, exactly as Radchenko would not like..."
+  },
+  "ch1_011": {
+    "text": "The girl smiled to herself and this allowed her to relax a little.",
+    "speaker": ""
+  },
+  "ch1_012": {
+    "text": "But not for long. After all, the bus is already stopping and here is her new home! The dormitory scared Daria even more. And it's not about the cockroaches, which she hasn't even had time to see yet. All the fear of the unknown grew in her and appeared before her eyes with the image of this building: huge, dark... The girl was never too brave and it was not a problem at home. In adult life, you will have to work on yourself a little. Daria took one more look at the dormitory.",
+    "speaker": ""
+  },
+  "ch1_013": {
+    "speaker": "Daria",
+    "text": "It seems not a little.."
+  },
+  "ch1_014": {
+    "text": "Still, there is no way out and she so dreamed of being a student. The same people are waiting for her inside. There is nothing to be afraid of, she will make friends with someone. She is not alone.",
+    "speaker": ""
+  },
+  "ch1_015": {
+    "text": "Summoning her courage, the girl crossed the courtyard. As she climbed the steps, Daria accidentally bumped a passing boy with her enormous bag.",
+    "speaker": ""
+  },
+  "ch1_016": {
+    "speaker": "Daria",
+    "text": "God, how inconvenient! I'm getting too clumsy with so much luggage.."
+  },
+  "ch1_017": {
+    "text": "What will Daria do?",
+    "choices": [
+      {
+        "target": "ch1_019",
+        "text": "Ask for forgiveness"
+      },
+      {
+        "target": "ch1_025",
+        "text": "Pass by in silence"
+      }
+    ],
+    "speaker": ""
+  },
+  "ch1_019": {
+    "speaker": "Daria",
+    "text": "Excuse me, please. I accidentally.."
+  },
+  "ch1_020": {
+    "text": "A shy color appeared on his face. Despite this, an apology seemed to her an obligatory act.",
+    "speaker": ""
+  },
+  "ch1_021": {
+    "speaker": "Daria",
+    "text": "You need to show courtesy to the people around you. And begin to forget about shame! This happens to everyone. Is it true?.."
+  },
+  "ch1_022": {
+    "text": "The guy smiled faintly and continued walking.",
+    "speaker": ""
+  },
+  "ch1_023": {
+    "text": "The choice made will affect the future!",
+    "speaker": ""
+  },
+  "ch1_025": {
+    "speaker": "Daria",
+    "text": "Next time I will be more careful.."
+  },
+  "ch1_027": {
+    "text": "Opening the huge and heavy door, the student greeted the guard, showing a bright pink pass.",
+    "speaker": ""
+  },
+  "ch1_028": {
+    "speaker": "Dormitory attendant",
+    "text": "Which room are you assigned to?"
+  },
+  "ch1_029": {
+    "speaker": "Daria",
+    "text": "Ninety two."
+  },
+  "ch1_030": {
+    "speaker": "Dormitory attendant",
+    "text": "You need to turn left, reach the fifth floor, and then turn right."
+  },
+  "ch1_031": {
+    "speaker": "Daria",
+    "text": "Thank you."
+  },
+  "ch1_032": {
+    "speaker": "Dormitory attendant",
+    "text": "Good luck"
+  },
+  "ch1_033": {
+    "text": "Well.. It's not all that bad. Even the terrible watch that students dream of in their nightmares is not so terrible. Is she cute only today?",
+    "speaker": ""
+  },
+  "ch1_034": {
+    "speaker": "Daria",
+    "text": "Promotion or do I have an invisible table with the inscription \"Caution, freshman!\"?"
+  },
+  "ch1_035": {
+    "text": "The internal tension, which was like a burden, and already a heavy burden, passed little by little. A bright feeling of hope appeared inside, that now everything would turn out for the best in the room.",
+    "speaker": ""
+  },
+  "ch1_036": {
+    "text": "Daria stopped at the entrance to the fifth floor.",
+    "speaker": ""
+  },
+  "ch1_037": {
+    "speaker": "Daria",
+    "text": "Oh, and where is the next place?"
+  },
+  "ch1_038": {
+    "text": "Where to return?",
+    "choices": [
+      {
+        "target": "ch1_040",
+        "text": "Left"
+      },
+      {
+        "target": "ch1_044",
+        "text": "Right"
+      }
+    ],
+    "speaker": ""
+  },
+  "ch1_040": {
+    "text": "The young woman boldly moved to the door of the room, but noticed the number in time.",
+    "speaker": ""
+  },
+  "ch1_041": {
+    "speaker": "Daria",
+    "text": "No, it's ninety-four. I was wrong. I would get to know other students ahead of time."
+  },
+  "ch1_042": {
+    "text": "She had to go back, but finding the right room was not a problem. It turns out that she was a neighbor.",
+    "speaker": ""
+  },
+  "ch1_044": {
+    "text": "The student went to the door, looking for the number with her eyes.",
+    "speaker": ""
+  },
+  "ch1_045": {
+    "speaker": "Daria",
+    "text": "Ninety two indeed."
+  },
+  "ch1_047": {
+    "speaker": "Daria",
+    "text": "Well, what.."
+  },
+  "ch1_048": {
+    "text": "Taking a deep breath, the girl pressed the door handle. Her hopeful gaze met quiet darkness — a stark contrast between expectation and reality. Daria remembered a childish, irrational fear, and her imagination began drawing spiky monsters ready to leap from the corner. She took a hesitant step forward. There was no turning back now.",
+    "speaker": ""
+  },
+  "ch1_049": {
+    "speaker": "Daria",
+    "text": "Someone must be here."
+  },
+  "ch1_050": {
+    "text": "Before she could finish her thought, Daria heard a rustle behind her. It seems that one should worry less, because hallucinations were not enough. Was it real?",
+    "speaker": ""
+  },
+  "ch1_051": {
+    "speaker": "Unknown person",
+    "text": "Boo!"
+  },
+  "ch1_052": {
+    "text": "The heart began to beat frantically, the body was instantly seized with fear. A single sober thought that would tell me not to do it didn't even have time to arise in my head, and that's why...",
+    "speaker": ""
+  },
+  "ch1_053": {
+    "text": "Daria screamed with all her might.",
+    "speaker": ""
+  },
+  "ch1_054": {
+    "text": "Instinctively, she turned to run out of this ominous, dark dorm room. The dormitory immediately seemed to her a cave full of dangers, but by no means a cozy place that you will miss all the years to come.",
+    "speaker": ""
+  },
+  "ch1_055": {
+    "text": "Daria reminded herself of a mole desperately trying to find something blindly with its hand. In this case, it was a doorknob, a whole portal that would separate her from the nightmare.",
+    "speaker": ""
+  },
+  "ch1_056": {
+    "text": "But suddenly a bright light fills the room, painfully hitting the eyes.",
+    "speaker": ""
+  },
+  "ch1_057": {
+    "speaker": "Girl",
+    "text": "Sorry, did I scare you?"
+  },
+  "ch1_058": {
+    "text": "A short figure of a dark-haired girl appeared in front of Daria, with her hand on the switch next to the door. She smiled genuinely, probably thinking the joke was witty.",
+    "speaker": ""
+  },
+  "ch1_059": {
+    "speaker": "Daria",
+    "text": "I think this is one of my neighbors. I don't think that anyone wanted to scare a student unknown to anyone. Or not?.. Still, it doesn't change her act. What to do?"
+  },
+  "ch1_060": {
+    "text": "How to answer a joke?",
+    "choices": [
+      {
+        "target": "ch1_062",
+        "text": "Smile and support the joke"
+      },
+      {
+        "target": "ch1_066",
+        "text": "To say that the joke is inappropriate"
+      }
+    ],
+    "speaker": ""
+  },
+  "ch1_062": {
+    "text": "Daria exhaled, she visibly relaxed, and the mask of fear was replaced by an ironic smile.",
+    "speaker": ""
+  },
+  "ch1_063": {
+    "speaker": "Daria",
+    "text": "You scared me so much. It seemed that the heart would jump out of the chest!"
+  },
+  "ch1_064": {
+    "text": "After hearing this, the girl's face began to show satisfaction with her own creation. She quenched her thirst to fulfill her fantasy. Probably, there is also that adventurer in front of her.",
+    "speaker": ""
+  },
+  "ch1_066": {
+    "speaker": "Daria",
+    "text": "I've actually been stressed all evening, so it was very unexpected. When I got to the room, I finally dreamed of peace after the journey."
+  },
+  "ch1_067": {
+    "text": "Daria's posture gave off stiffness, her body tensed even more, her eyes timidly looked somewhere down.",
+    "speaker": ""
+  },
+  "ch1_068": {
+    "speaker": "Girl",
+    "text": "I'm sorry, I didn't think it would upset you so much."
+  },
+  "ch1_069": {
+    "text": "However, the girl's intonation said that this was not at all what she expected. There was an awkward pause between them for several minutes.",
+    "speaker": ""
+  },
+  "ch1_071": {
+    "speaker": "Girl",
+    "text": "My name is Maria. As you already understood, I am your neighbor."
+  },
+  "ch1_072": {
+    "speaker": "Daria",
+    "text": "Nice to meet you, I'm Daria."
+  },
+  "ch1_073": {
+    "speaker": "Maria",
+    "text": "Are you tired? And, probably, you are terribly worried before the beginning of the school year."
+  },
+  "ch1_074": {
+    "speaker": "Daria",
+    "text": "Yes, there is such a moment.."
+  },
+  "ch1_075": {
+    "speaker": "Maria",
+    "text": "Just don't worry about life in the hostel, it's great here and we won't offend you."
+  },
+  "ch1_076": {
+    "text": "Memory itself decided to recall the situation that happened recently. As if reading thoughts, Maria laughed loudly and said..",
+    "speaker": ""
+  },
+  "ch1_077": {
+    "speaker": "Maria",
+    "text": "Frightening is not taken into account!"
+  },
+  "ch1_078": {
+    "text": "There was a persistent knock on the door.",
+    "speaker": ""
+  },
+  "ch1_079": {
+    "speaker": "Maria",
+    "text": "She forgot her keys again."
+  },
+  "ch1_080": {
+    "text": "Rolling her eyes and making a displeased sarcastic grimace, Maria moved to open it.",
+    "speaker": ""
+  },
+  "ch1_081": {
+    "speaker": "Maria",
+    "text": "You know, if even a huge key ring didn't help you, then the idea of ​​\\u200b\\u200bkeys on a string as a neck decoration does not seem so bad."
+  },
+  "ch1_082": {
+    "text": "Someone on the other side smacked their lips in displeasure.",
+    "speaker": ""
+  },
+  "ch1_083": {
+    "text": "A tall, slender and incredibly beautiful girl entered the room. Her blond hair was tied up in an awkward bun. She looked nineteen years old. Wearing a light purple top and skinny jeans, she stood wearily, clearly uninterested in dialogue.",
+    "speaker": ""
+  },
+  "ch1_084": {
+    "speaker": "Anna",
+    "text": "Oh, you're already here. Well, hello."
+  },
+  "ch1_085": {
+    "text": "Daria tried to smile as sweetly as possible, as she trained several days in a row at home, because kindness seemed to her to be the key to success.",
+    "speaker": ""
+  },
+  "ch1_086": {
+    "speaker": "Anna",
+    "text": "I am Anna."
+  },
+  "ch1_087": {
+    "text": "Anna confidently held out her skinny hand, which was squeezed by her new neighbor in return.",
+    "speaker": ""
+  },
+  "ch1_088": {
+    "speaker": "Anna",
+    "text": "I'm sorry, it would probably be a good idea to talk first, but I'm too tired after dealing with work. The fourth course is about to begin."
+  },
+  "ch1_089": {
+    "text": "Daria was surprised, considering her neighbor to be younger, but having an acquaintance from a high school class is really cool. She did not think about her fourth year, it seemed too far away. Still, the freshman understood..",
+    "speaker": ""
+  },
+  "ch1_090": {
+    "speaker": "Daria",
+    "text": "The fourth course is extremely difficult, especially morally. Many things need your attention... And in the end, you may not be sure what you really want."
+  },
+  "ch1_091": {
+    "speaker": "Daria",
+    "text": "Don't worry, it's okay. I understand that we both really need a rest today. Some other time for sure!"
+  },
+  "ch1_092": {
+    "text": "Anna is glad to see your understanding.",
+    "speaker": ""
+  },
+  "ch1_093": {
+    "speaker": "Anna",
+    "text": "Yes, of course. And today Mrs. Restlessness will show and tell you everything."
+  },
+  "ch1_094": {
+    "text": "Daria involuntarily smiled at such an interesting nickname. I wonder if she will have one too? She wanted to inquire.",
+    "speaker": ""
+  },
+  "ch1_095": {
+    "speaker": "Daria",
+    "text": "Does everyone in the room have a nickname?"
+  },
+  "ch1_096": {
+    "speaker": "Maria",
+    "text": "And what? Afraid you'll become Mrs. Very Loud Scream?"
+  },
+  "ch1_097": {
+    "text": "Anna looked at Maria with displeasure. She understood what happened, knowing Maria's character, without even witnessing the event.",
+    "speaker": ""
+  },
+  "ch1_098": {
+    "speaker": "Anna",
+    "text": "Did you scare her? You never change. But Daria, if you’re wondering: no, not everyone has one. Maria is special that way."
+  },
+  "ch1_099": {
+    "text": "The last word was said with a different intonation, long and sarcastic.",
+    "speaker": ""
+  },
+  "ch1_100": {
+    "speaker": "Maria",
+    "text": "Yes, but we can come up with something for you too. How about Ms. Boring, for example?"
+  },
+  "ch1_101": {
+    "text": "Anna sighed tiredly.",
+    "speaker": ""
+  },
+  "ch1_102": {
+    "speaker": "Anna",
+    "text": "It's charming."
+  },
+  "ch1_103": {
+    "text": "The neighbors exchanged a gesture, sticking out their tongues and closing their eyes as hard as they could. Despite their verbal sparring, there was not enmity between them, but a rather specific and yet friendship.",
+    "speaker": ""
+  },
+  "ch1_104": {
+    "speaker": "Maria",
+    "text": "Come on, Daria. You still need to prepare for tomorrow and rest properly."
+  },
+  "ch1_105": {
+    "text": "Daria followed Maria, waiting for extremely important instructions on how to survive in these shrouds of studenthood.",
+    "speaker": ""
+  },
+  "ch1_106": {
+    "text": "It turned out that everything is not so difficult.",
+    "speaker": ""
+  },
+  "ch1_107": {
+    "speaker": "Daria",
+    "text": "Okay, I did a good job of screwing myself up."
+  },
+  "ch1_108": {
+    "text": "So far, it has been difficult to come to terms only with the size of the small rooms. Not that Daria was used to living in big houses. She herself had a small room at home, located in the attic. She loved it incredibly much, and especially the tiny window in the roof, through which in the warm season you could always watch the stars. Falling asleep after reading another book, the girl looked and dreamed...",
+    "speaker": ""
+  },
+  "ch1_109": {
+    "speaker": "Daria",
+    "text": "\"Per astra ad astra. Books will remain and will always be with me, I came to find my star in life.\""
+  },
+  "ch1_110": {
+    "text": "Two hours passed almost imperceptibly. Maria managed to show and tell the most important things, the rest of the time Daria laid things out. I noted about myself - the anxiety has almost disappeared. Loud, iridescent cheerful voices could be heard in the corridor.",
+    "speaker": ""
+  },
+  "ch1_111": {
+    "speaker": "Daria",
+    "text": "They are not here for the first time. They returned to their friends, to the usual rhythm of life. And I will definitely have one."
+  },
+  "ch1_112": {
+    "text": "Daria devoted a lot of time to fluffy dreams. They gently enveloped her and closed her from the difficult life around her. The girl dreamed most of all about the same friend who was not around all her school years. She had to show up now. Because, as you know, student friendship is the strongest bond in life!",
+    "speaker": ""
+  },
+  "ch1_113": {
+    "speaker": "Daria",
+    "text": "Growing up together, isn't it wonderful?"
+  },
+  "ch1_114": {
+    "text": "Anna almost immediately started getting ready for bed. Daria was not offended at her for this. She did not want her personality to attract too much attention. And especially so that it does not disturb their usual everyday life. So it did not create discomfort. However, before going to sleep, the fourth-year student called her back.",
+    "speaker": ""
+  },
+  "ch1_115": {
+    "speaker": "Anna",
+    "text": "Hey, are you worried?"
+  },
+  "ch1_116": {
+    "speaker": "Daria",
+    "text": "Yes, a little."
+  },
+  "ch1_117": {
+    "speaker": "Anna",
+    "text": "I know that it will sound banal, but believe me, everything will go well."
+  },
+  "ch1_118": {
+    "speaker": "Daria",
+    "text": "Thank you, deep down I actually understand this and my heart doesn't seem to want to calm down."
+  },
+  "ch1_119": {
+    "text": "The girl smiled.",
+    "speaker": ""
+  },
+  "ch1_120": {
+    "speaker": "Anna",
+    "text": "I understand your anxiety. This is normal. And I had that. In fact, I miss the time when I was a freshman myself."
+  },
+  "ch1_121": {
+    "text": "A veil of nostalgic sadness covered her. Daria, of course, could not imagine what her neighbor felt, because she herself did not feel nostalgia very often. I haven't missed school yet. But is it really possible to miss the first course? Behind this fear of everything around you?",
+    "speaker": ""
+  },
+  "ch1_122": {
+    "speaker": "Daria",
+    "text": "\"Maybe someday. And now I feel as if I was thrown into a huge stormy unfamiliar sea, told to learn how to swim. I want to shout at them \"how?\" and she is almost sure that she would hear \"somehow\" in response. Has no rules. Everyone learns to swim as he knows how and swims wherever he wants.\""
+  },
+  "ch1_123": {
+    "text": "This profound flow of thoughts, which in fact often appeared in the freshman's head, was stopped by the soft voice of the neighbor, who continued.",
+    "speaker": ""
+  },
+  "ch1_124": {
+    "speaker": "Anna",
+    "text": "Fear is normal. However, try to focus on the good. A new page of your life begins. If necessary, you can always contact me."
+  },
+  "ch1_125": {
+    "text": "Daria was moved by these words. Here, what a wonderful moment! For the first time, she enlisted someone's support. Now she is not alone!",
+    "speaker": ""
+  },
+  "ch1_126": {
+    "text": "The night passed without sleep. It cannot be said that it was fear that prevented the young man.",
+    "speaker": ""
+  },
+  "ch1_127": {
+    "speaker": "Maria",
+    "text": "Good morning!"
+  },
+  "ch1_128": {
+    "text": "Her cheerful face was glowing from the amount of creams she had just used. The room was filled with the aroma of spicy coffee, which was already on the table. Anna also woke up and was in no hurry.",
+    "speaker": ""
+  },
+  "ch1_129": {
+    "speaker": "Daria",
+    "text": "Good"
+  },
+  "ch1_130": {
+    "text": "Stretching sleepily, Daria got out of bed, heading to the cabinet with jars for the morning routine. As soon as the girl returned from the bath, Maria decided to urgently inquire about the well-being of her new neighbor.",
+    "speaker": ""
+  },
+  "ch1_131": {
+    "speaker": "Maria",
+    "text": "did you sleep How do you feel?"
+  },
+  "ch1_132": {
+    "speaker": "Daria",
+    "text": "For some reason, not so much. You probably need to get used to a new place."
+  },
+  "ch1_133": {
+    "speaker": "Maria",
+    "text": "Oh, to those spring beds in particular!"
+  },
+  "ch1_134": {
+    "text": "She winked and continued to gather quickly. Her mood was even partially sleepy.",
+    "speaker": ""
+  },
+  "ch1_135": {
+    "speaker": "Maria",
+    "text": "Or maybe you didn't sleep because of Anna? She knows how to give a sleeping stand-up concert!"
+  },
+  "ch1_136": {
+    "text": "Anna bewilderedly looked at her neighbor, who continued to dress up with a smile.",
+    "speaker": ""
+  },
+  "ch1_137": {
+    "speaker": "Anna",
+    "text": "Well, of course. I was quiet today. Gave you the opportunity to be a star in the first place."
+  },
+  "ch1_138": {
+    "text": "The brunette demonstratively rolled her eyes. And Daria's heart was warmed by warm joy.",
+    "speaker": ""
+  },
+  "ch1_139": {
+    "speaker": "Anna",
+    "text": "You rarely rush to university during the semester."
+  },
+  "ch1_140": {
+    "speaker": "Maria",
+    "text": "Today is a special case. I will see my friends for the first time in two months. So much to discuss!"
+  },
+  "ch1_141": {
+    "speaker": "Anna",
+    "text": "Well, in that case.."
+  },
+  "ch1_142": {
+    "text": "Both exchanged a quiet laugh with their signature gesture. Meanwhile, Daria gathered herself, having read the message in the newly created chat with the members of their group. It said that the group representative would wait for everyone outside in order to get to the classroom together.",
+    "speaker": ""
+  },
+  "ch1_143": {
+    "speaker": "Daria",
+    "text": "Very soon.."
+  },
+  "ch1_144": {
+    "text": "Maria was the first to leave the room, so only Anna remained before her exit, who turned out to be lucky today: according to her schedule, classes start at two o'clock. The fourth-year student once again sincerely wished Daria success and she left the university yard to meet her future.",
+    "speaker": ""
+  },
+  "ch1_145": {
+    "text": "The whole yard was humming. The freshman had probably never seen so many young, really happy faces. It would seem, why rejoice? Again, several months of difficult studies, probably a difficult session, and only then will students again be able to feel at least a drop of the spirit of freedom. Only the \"first-timers\" could rejoice, for them it was still an unknown and sweet science. However, of course, they were not the only ones in the yard. So...",
+    "speaker": ""
+  },
+  "ch1_146": {
+    "speaker": "Daria",
+    "text": "\"Students live happily from session to session\" - true."
+  },
+  "ch1_147": {
+    "text": "My heart became joyful. This new hum evoked a spectrum of the best emotions and the heart gave a reassuring \"we have a great bright hope!\".",
+    "speaker": ""
+  },
+  "ch1_148": {
+    "text": "Daria approached the several groups gathered in front of the Humanities Building. This was exactly what she had feared: how could she find people she had never met? She certainly did not want to shout out her group number and draw attention to herself. There were photos in the chat, but people often looked different in real life — someone might even have changed their appearance without updating their avatar. As Daria wondered what to do, her gaze settled on one group where a face seemed familiar. The person glanced at a phone, looked back up, and suddenly called her name.",
+    "speaker": ""
+  },
+  "ch1_149": {
+    "speaker": "Stranger",
+    "text": "You must be Daria?"
+  },
+  "ch1_150": {
+    "text": "There couldn't be a happier moment than to hear this. With palpable relief, she moved towards this group. You can't call it a crowd, there are too few people. So, not everyone has come yet. That's for the better. Being late or being the last one was also on the list of things that Daria didn't like.",
+    "speaker": ""
+  },
+  "ch1_151": {
+    "speaker": "Stranger",
+    "text": "Hi, my name is Marta. I’m the group representative."
+  },
+  "ch1_152": {
+    "text": "Marta held out her hand in greeting. The girl seemed sweet and friendly to Daria. Another good sign, because the head of the university is like a second mother. Following Marta, the others greeted each other, each in turn saying their name. It became comfortable, but at the same time excitingly interesting for the coming days, which they had to spend next to each other. Little by little, the small company grew.",
+    "speaker": ""
+  },
+  "ch1_153": {
+    "speaker": "Marta",
+    "text": "What do you expect from your first day at university?"
+  },
+  "ch1_154": {
+    "text": "Everyone was lost in thought. Everyone had something in mind and nothing concrete. A groupmate standing on the right dared to answer. Daria really liked her luxurious red curls. The spout was covered by a swallow. Involuntarily, looking at her, one imagined a gentle sun. The girl introduced herself earlier.",
+    "speaker": ""
+  },
+  "ch1_155": {
+    "speaker": "Oksana",
+    "text": "I don't know about you, but I hope at least not to get lost on the first day. I'm serious. If you don't see me around, shout \"Cheese!\", because my curiosity about everything around me, combined with poor orientation in space, will one day hurt me."
+  },
+  "ch1_156": {
+    "text": "The classmates thought it was a joke, but Oksana should not be forgotten out of caution. Daria dared to ask.",
+    "speaker": ""
+  },
+  "ch1_157": {
+    "speaker": "Daria",
+    "text": "Why exactly cheese?"
+  },
+  "ch1_158": {
+    "speaker": "Oksana",
+    "text": "I just love and I will not forgive you for anything in the world if you eat it without me."
+  },
+  "ch1_159": {
+    "text": "Daria liked Oksana for her energy: kind and as if free from all human worries. She was sure that later she would definitely see her as an active participant in clubs or something similar, it couldn't be otherwise, it seems.",
+    "speaker": ""
+  },
+  "ch1_160": {
+    "speaker": "Marta",
+    "text": "Not everyone is here yet, but classes are about to begin. Shall we find the classroom and message the others with directions?"
+  },
+  "ch1_161": {
+    "text": "The group agreed. Heading toward the entrance, Daria instinctively looked around at everyone present. Each person seemed interesting, still unfamiliar — but that would be easy to change.",
+    "speaker": ""
+  },
+  "ch1_162": {
+    "text": "Surprisingly, they got to the classroom without incident. They did not wander, as expected, some managed to joke about the idea of ​​creating a corps map.",
+    "speaker": ""
+  },
+  "ch1_163": {
+    "text": "Students took their seats in the classroom. It turned out to be very spacious, bright and incredibly cozy. I immediately wanted to dive head first into studies. Daria already imagined these incredible days. And maybe they will be too complicated? If she doesn't manage..",
+    "speaker": ""
+  },
+  "ch1_164": {
+    "text": "The clock showed half past nine. Everyone silently prepared for the sacred moment: the archivist of wisdom, the master",
+    "speaker": ""
+  },
+  "ch1_165": {
+    "text": "tests, the patron of notes! Well, or as the people say, just a teacher.",
+    "speaker": ""
+  },
+  "ch1_166": {
+    "text": "The door opened. Not a sound was heard, probably many held their breath. A young girl entered the room. There was a soft \"phuh\" from the back rows. The team noticeably relaxed.",
+    "speaker": ""
+  },
+  "ch1_167": {
+    "speaker": "Stranger",
+    "text": "Excuse me, are these Ukrainian philologists first year?"
+  },
+  "ch1_168": {
+    "text": "The girl was catching her breath, looking for a free place with her eyes. One of them happened to be near Daria.",
+    "speaker": ""
+  },
+  "ch1_169": {
+    "speaker": "Daria",
+    "text": "I can help her. She looks tired. She was probably in a hurry."
+  },
+  "ch1_170": {
+    "text": "Help Melania?",
+    "choices": [
+      {
+        "target": "ch1_172",
+        "text": "Raise your hand to get attention"
+      },
+      {
+        "target": "ch1_177",
+        "text": "Watch silently"
+      }
+    ],
+    "speaker": ""
+  },
+  "ch1_172": {
+    "text": "Daria raised her left hand, thereby attracting the attention of the girl who was still standing by the door. She noticed almost immediately. Satisfied, she nodded her head and moved to her place.",
+    "speaker": ""
+  },
+  "ch1_173": {
+    "speaker": "Stranger",
+    "text": "Thank you."
+  },
+  "ch1_174": {
+    "text": "Her eyes gratefully looked at her neighbor at the desk.",
+    "speaker": ""
+  },
+  "ch1_175": {
+    "text": "The choice affected the relationship with the groupmate in the future.",
+    "speaker": ""
+  },
+  "ch1_177": {
+    "text": "Daria decided not to interfere. In many situations, it was more comfortable for her to be in the position of an observer. She often scolded herself for this and today she did not want to change anything.",
+    "speaker": ""
+  },
+  "ch1_178": {
+    "text": "After a few seconds, the girl looked around and sat down next to her.",
+    "speaker": ""
+  },
+  "ch1_179": {
+    "text": "The choice affected the relationship with the groupmate in the future.",
+    "speaker": ""
+  },
+  "ch1_181": {
+    "text": "The stranger decided to introduce herself to Daria, as not knowing her neighbor's name is rather inconvenient.",
+    "speaker": ""
+  },
+  "ch1_182": {
+    "speaker": "Stranger",
+    "text": "My name is Melania."
+  },
+  "ch1_183": {
+    "text": "Melania smiled amicably. Although her look spoke of firmness of character, her face tried its best to be cute.",
+    "speaker": ""
+  },
+  "ch1_184": {
+    "speaker": "Daria",
+    "text": "I am Daria. Nice to meet you. You have such a beautiful name."
+  },
+  "ch1_185": {
+    "text": "The joy of what he heard was visible on the plump lips, which were now stretched a little wider.",
+    "speaker": ""
+  },
+  "ch1_186": {
+    "speaker": "Melania",
+    "text": "Thank you, you too."
+  },
+  "ch1_187": {
+    "text": "Melania seemed to want to say something else and was interrupted. The long-awaited teacher entered the classroom.",
+    "speaker": ""
+  },
+  "ch1_188": {
+    "text": "The tension still flew in the air. Probably, if you could touch the air with your hands right now, you would get an electric shock. What will happen in the exams then? A string seemed to be stretched inside.",
+    "speaker": ""
+  },
+  "ch1_189": {
+    "text": "What incredible luck! Her very first university class was not beginning with strict rules.",
+    "speaker": ""
+  },
+  "ch1_190": {
+    "text": "The teacher took her place near the huge lectern, which the first-year students will have to get used to. A new attribute in a new location.",
+    "speaker": ""
+  },
+  "ch1_191": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "Good afternoon. My name is Lidiia Ivanivna, and I teach Children's Literature. By the way, could you tell me when the executioner is due to arrive? Judging by your faces, a mass execution is about to take place here."
+  },
+  "ch1_192": {
+    "text": "The classroom burst into laughter. The students looked at each other, trying to figure out if it really looked that terrible?",
+    "speaker": ""
+  },
+  "ch1_193": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "First of all, I want to congratulate you all on your admission to our university. You have chosen a difficult but very important profession, especially in our time. Who but us will take care of Ukrainian culture? I wish your implementation to be successful. I hope to help with this."
+  },
+  "ch1_194": {
+    "text": "These words warmed the soul. A kind of sincere pride for the tests passed appeared. And how many more will have to be passed! But right now, at this moment, there was only them and hope. Only they are the goal. Nothing extra. Everyone saw their path so clearly, not knowing that temptations to abandon what they had begun, difficulties that appear seemingly out of nowhere, await someone on it. This is the blessed brightest moment. A moment of faith, which is imprinted in the memory, preventing it from falling into trouble.",
+    "speaker": ""
+  },
+  "ch1_195": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "Not so long ago, you yourself read children's literature, and now you will come across its analysis. Well, first of all, I want to say that we will talk about texts that seem simple at first glance. They are often considered frivolous, but there is a great depth in them, capable of touching the strings of an adult's heart. Remember that children's literature is the foundation of the future conscious reader of all literature."
+  },
+  "ch1_196": {
+    "text": "The teacher endured a pause, looking into the students' faces. Then she continued in a more familiar tone.",
+    "speaker": ""
+  },
+  "ch1_197": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "It is not so easy to please a small reader. Well, you can open your incredibly beautiful notebooks, which have been waiting for this moment all summer and write down the topic of the lecture."
+  },
+  "ch1_198": {
+    "text": "After that, Lidiia Ivanivna explained several more practical details that were completely unfamiliar to first-year students. They carefully wrote everything down, trying to understand intimidating words like “seminar.” The teacher also named several works they would need to analyze, and Daria strongly disliked one of them.",
+    "speaker": ""
+  },
+  "ch1_199": {
+    "text": "She was carried away by the wind of memories to her childhood.",
+    "speaker": ""
+  },
+  "ch1_200": {
+    "text": "Daria is sitting in her room in the attic. She is holding a book in her hands, which she took from the library a few days ago. It is without a cover, the pages are yellowed, and the corners are slightly bent. The girl knows that books should be treated with respect and yet she likes the smell of old books and the thought of how many people with different stories have held them in their hands. A bright ray of sunlight, breaking through a small window, fell on the page. And later, behind him, a child's tear falls on her. Daria closes the book so as not to damage the text. And then continues to cry. \"Fedko Halamidnyk\" was left alone on the table.",
+    "speaker": ""
+  },
+  "ch1_201": {
+    "text": "The girl was torn from her memories by the gentle whisper of Melania, who leaned into her ear.",
+    "speaker": ""
+  },
+  "ch1_202": {
+    "speaker": "Melania",
+    "text": "I don't know about you, but I don't want to \"live\" Halamidnyk again."
+  },
+  "ch1_203": {
+    "speaker": "Daria",
+    "text": "Oh yes, it seems that this is the same case that the teacher spoke about: it will affect an adult as well."
+  },
+  "ch1_204": {
+    "text": "Daria understood that she would definitely like this course. First, for the opportunity to return to the works of childhood. Nostalgia seems to be a more frequent feeling now. Secondly, she found analyzing children's literature an interesting activity. To look for hidden meanings where others would not think. And it seems that Daria has something in common with Melania.",
+    "speaker": ""
+  },
+  "ch1_205": {
+    "text": "Lidia Ivanivna drew attention to the reaction of students after hearing the name.",
+    "speaker": ""
+  },
+  "ch1_206": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "I hasten to upset you, because those who cried over Fedek will probably cry more than once while preparing for the seminars. That is, while reading other works similar in theme. But nothing, the main thing is not to be on the test."
+  },
+  "ch1_207": {
+    "text": "The classroom burst into laughter again. The rest of the class seemed to pass quickly, although Daria had expected it to be difficult at first to get used to lessons that were twice as long.",
+    "speaker": ""
+  },
+  "ch1_208": {
+    "text": "The next class was a lecture on Introduction to Linguistics. Melania asked whether she could sit beside Daria again. The girl",
+    "speaker": ""
+  },
+  "ch1_209": {
+    "text": "agreed, and they both realized they had made an arrangement for the whole semester. The lecture also went well, though it left them slightly overwhelmed. The students filed out slowly, glad that classes were over for the day. Daria was among the last to leave. New terms still circled in her mind: “phoneme,” “morpheme.” It all seemed so difficult... She did not know exactly what she would do, but she was sure it would be something meaningful.",
+    "speaker": ""
+  },
+  "ch1_210": {
+    "speaker": "Daria",
+    "text": "Language is a system, and we ourselves are still in chaos."
+  },
+  "ch1_211": {
+    "text": "Outside, the whole group gathered again. Even earlier, they decided to celebrate the beginning of their studies at the nearest restaurant.",
+    "speaker": ""
+  },
+  "ch1_212": {
+    "speaker": "Marta",
+    "text": "Maybe someone knows a place nearby?"
+  },
+  "ch1_213": {
+    "speaker": "Oksana",
+    "text": "Can Google Maps help?"
+  },
+  "ch1_214": {
+    "speaker": "Melania",
+    "text": "I think I saw a pizzeria nearby on the way here. Anyone up for pizza? This is pizza."
+  },
+  "ch1_215": {
+    "text": "Melania stretched out the last word as if she was savoring it. Everyone, of course, agreed. I had to go for a short time.",
+    "speaker": ""
+  },
+  "ch1_216": {
+    "text": "When the group was comfortably seated in the establishment and made an order, it was the turn of real acquaintances. Almost informal, more open, with the opportunity to ask intriguing questions. The first thing, of course, was to ask where the group mates are from. In this way, Daria found out that Melania is not local, a girl from Rivne. The next question was no less standard, but important in order to learn more about each other: why philology?",
+    "speaker": ""
+  },
+  "ch1_217": {
+    "text": "Daria addressed this topic not for the first time. When it was her turn to answer, she confidently said what she had known for a long time.",
+    "speaker": ""
+  },
+  "ch1_218": {
+    "speaker": "Daria",
+    "text": "I am here because I really love Ukrainian literature. Because I feel a connection with my ancestors, communicating in my native language. My goal is to preserve traditions and increase the achievements of culture."
+  },
+  "ch1_219": {
+    "text": "After Daria's words, there was a few seconds of silence at the table, but very noticeable.",
+    "speaker": ""
+  },
+  "ch1_220": {
+    "speaker": "Oksana",
+    "text": "Wow, wow.."
+  },
+  "ch1_221": {
+    "speaker": "Marta",
+    "text": "Incredibly well said. I am sure that everything will work out for you."
+  },
+  "ch1_222": {
+    "text": "She didn't want to shock everyone. I didn't want pathetic speeches. I was afraid that she would say something too loud. But everyone understood. And it was nice.",
+    "speaker": ""
+  },
+  "ch1_223": {
+    "text": "During this time, they managed to bring the order. The smell of fresh dough, melted cheese and basil carried even before serving. Someone took a photo right away: this should be remembered. Someone was just silently waiting when it would be possible to take it. Afterwards, everyone chewed together and the conversations stopped a little. Later, students continued the unfinished topic. Melania's turn has come.",
+    "speaker": ""
+  },
+  "ch1_224": {
+    "speaker": "Melania",
+    "text": "I have always loved literature. The art of words for me is something special, native to my heart and soul. The choice of philology was not easy for me, and I am sure that I will not regret it."
+  },
+  "ch1_225": {
+    "text": "The last words were said a little louder. They had a steely determination that could not leave anyone without conviction.",
+    "speaker": ""
+  },
+  "ch1_226": {
+    "speaker": "Daria",
+    "text": "It seems that this is not the first time she has said this. And what does \"the choice was difficult\" mean? Perhaps Melania hesitated between certain specialties."
+  },
+  "ch1_227": {
+    "text": "Later, you will be able to learn more about Melania's past.",
+    "speaker": ""
+  },
+  "ch1_228": {
+    "text": "Daria did not know why, but she was touched by such a bright personality. The neighbor at the desk had willpower. Judging by how freely Melania now felt among strangers, how easily she expressed her opinion, she was confident. Daria had no doubt that the girl would show such character traits as resilience and purposefulness. She liked similar people, because they had something that she herself lacked.",
+    "speaker": ""
+  },
+  "ch1_229": {
+    "text": "The rest of the celebration was spent in warm conversations about their life before the university and plans for the near future. The topics changed quite often: from \"how difficult it was to memorize \"Aeneid\" at school\" to \"I managed to get lost in the city on the very first day.\" It became homely and cozy. They were still strangers and now they knew at least something about each other. And therefore they were not strangers. They still have to learn to be a real team. Outside the window, the colors of the bright day were slowly fading, and the food had long since disappeared from the plates.",
+    "speaker": ""
+  },
+  "ch1_230": {
+    "text": "It turned out that Melania and Daria needed to go in the same direction, so the girls went home together.",
+    "speaker": ""
+  },
+  "ch1_231": {
+    "text": "They walked slowly, savoring the moment, as if they were stretching the moment when they would have to say goodbye. Melania broke her silence.",
+    "speaker": ""
+  },
+  "ch1_232": {
+    "speaker": "Melania",
+    "text": "How do you like our first day?"
+  },
+  "ch1_233": {
+    "speaker": "Daria",
+    "text": "I thought it would be worse."
+  },
+  "ch1_234": {
+    "speaker": "Melania",
+    "text": "And I, something terrible was about to happen."
+  },
+  "ch1_235": {
+    "text": "Both laughed quietly.",
+    "speaker": ""
+  },
+  "ch1_236": {
+    "speaker": "Melania",
+    "text": "You know, what you said today touched me. Not in a bad way. Language, culture, ancestors. This is so important. And I can see that you really feel it."
+  },
+  "ch1_237": {
+    "text": "Daria is silent because she cannot find the right words. She hears respect in this, not ridicule or an opportunity to simply get closer. The girl had known her interlocutor for only one incomplete day, and somewhere in the depths of her soul she felt that Melania did not often say such things. She was grateful to her.",
+    "speaker": ""
+  },
+  "ch1_238": {
+    "text": "A quaint dormitory building appeared in the field of vision. They stopped. There was a silence that was not uncomfortable. On the contrary, I wanted to stand there longer than necessary. Finally, Daria spoke.",
+    "speaker": ""
+  },
+  "ch1_239": {
+    "speaker": "Daria",
+    "text": "Until tomorrow?"
+  },
+  "ch1_240": {
+    "speaker": "Melania",
+    "text": "Yes, until tomorrow."
+  },
+  "ch1_241": {
+    "speaker": "Daria",
+    "text": "Thank you for a wonderful day."
+  },
+  "ch1_242": {
+    "speaker": "Melania",
+    "text": "And to you. I hope tomorrow will be no less exciting."
+  },
+  "ch1_summary": {
+    "summary_title": "Chapter 1 Complete",
+    "continue_label": "Continue to Chapter 2",
+    "save_label": "Save",
+    "summary_lines": [
+      "Daria arrived at the dormitory and met her roommates and classmates.",
+      "Her first day brought new acquaintances, important choices, and a conversation with Melania."
+    ]
+  },
+  "ch2_001": {
+    "speaker": "Daria",
+    "text": "I overslept."
+  },
+  "ch2_002": {
+    "text": "Daria thought and immediately got out from under the warm blanket. The morning of the next day did not start as expected. Probably due to the fact that she managed to get a lot of emotions yesterday, her sleep was sound. She didn't hear the first alarm, so now she was anxiously hurrying to the class. On the way, while finishing a cup of aromatic coffee, Daria said goodbye to her neighbors, wondering if they would ever be able to make her wake up if she didn't hear any of the calls.",
+    "speaker": ""
+  },
+  "ch2_003": {
+    "speaker": "Daria",
+    "text": "I would like to believe that it is."
+  },
+  "ch2_004": {
+    "text": "At least she herself was ready to lend them her voice of help instead of an alarm clock if needed. However, it was better to avoid such situations.",
+    "speaker": ""
+  },
+  "ch2_005": {
+    "text": "At the building, she was met by a long line to the entrance, and Daria immediately realized all the disadvantages of coming to the university late.",
+    "speaker": ""
+  },
+  "ch2_006": {
+    "speaker": "Daria",
+    "text": "He who gets up early gets through the door without a fight."
+  },
+  "ch2_007": {
+    "text": "Finally, it was possible to enter and the girl sadly looked at the hands of the clock, which told her that in the end she would inevitably be late. It remains to be hoped that the teacher will be late too. However, Daria didn't like it very much.",
+    "speaker": ""
+  },
+  "ch2_008": {
+    "speaker": "Daria",
+    "text": "The very first class, and already such a mess!"
+  },
+  "ch2_009": {
+    "text": "She rushed up the stairs, chastising herself for this small failure. Her heart was beating wildly in her chest, she was short of breath, and Daria raced against time, stubbornly continuing to move on. Then someone shouted her name.",
+    "speaker": ""
+  },
+  "ch2_010": {
+    "speaker": "Daria",
+    "text": "Maybe it was heard."
+  },
+  "ch2_011": {
+    "text": "But it happened again and, turning back, Daria saw a blushing Melania flying headlong towards her.",
+    "speaker": ""
+  },
+  "ch2_012": {
+    "speaker": "Melania",
+    "text": "How lucky, today I am not the only one like that."
+  },
+  "ch2_013": {
+    "text": "She smiled as she continued to breathe heavily.",
+    "speaker": ""
+  },
+  "ch2_014": {
+    "speaker": "Daria",
+    "text": "I guess being late will become your tradition?"
+  },
+  "ch2_015": {
+    "text": "Melania made a serious expression on her face, slightly raised her head.",
+    "speaker": ""
+  },
+  "ch2_016": {
+    "speaker": "Melania",
+    "text": "This will not happen again, Daria Batkivna."
+  },
+  "ch2_017": {
+    "text": "Daria was amused by the answer.",
+    "speaker": ""
+  },
+  "ch2_018": {
+    "speaker": "Daria",
+    "text": "Oh, I have my hopes up for you, Melania."
+  },
+  "ch2_019": {
+    "speaker": "Melania",
+    "text": "I don't think they will kill us right away. Later, of course, is quite possible."
+  },
+  "ch2_020": {
+    "speaker": "Daria",
+    "text": "You are very optimistic."
+  },
+  "ch2_021": {
+    "speaker": "Melania",
+    "text": "Realistic."
+  },
+  "ch2_022": {
+    "text": "The girls finally found the right classroom. Melania dared to come in first, as usual.",
+    "speaker": ""
+  },
+  "ch2_023": {
+    "text": "She gathered her breath, inhaled and exhaled before knocking. Opening the door, they both saw what they hoped not to see at that moment: Olena Sergeyevna was looking straight into their eyes.",
+    "speaker": ""
+  },
+  "ch2_024": {
+    "text": "Melania turned to Daria in a whisper.",
+    "speaker": ""
+  },
+  "ch2_025": {
+    "speaker": "Melania",
+    "text": "Well, no luck. Maybe there will be free places."
+  },
+  "ch2_026": {
+    "text": "Daria was frankly afraid of the teacher's next words, it is not known how she feels about being late. But Melania has already crossed the threshold of the classroom, that's why",
+    "speaker": ""
+  },
+  "ch2_027": {
+    "text": "I just had to rely on the fact that they can get away with a smaller \"reprimand\" the first time.",
+    "speaker": ""
+  },
+  "ch2_028": {
+    "speaker": "Melania",
+    "text": "Please excuse me for being late."
+  },
+  "ch2_029": {
+    "speaker": "Olena Serhiivna",
+    "text": "Nothing, my good ones, find free seats and let's get started."
+  },
+  "ch2_030": {
+    "text": "The girls breathed a sigh of relief.",
+    "speaker": ""
+  },
+  "ch2_031": {
+    "speaker": "Olena Serhiivna",
+    "text": "It will be Czech."
+  },
+  "ch2_032": {
+    "text": "The calmness was removed as if by hand. What was just said? Did they get the classroom wrong?",
+    "speaker": ""
+  },
+  "ch2_033": {
+    "speaker": "Daria",
+    "text": "I checked the schedule before leaving... God, what a shame!"
+  },
+  "ch2_034": {
+    "text": "An unbidden blush spread across Daria’s face. She silently lowered her gaze. Melania, meanwhile, quickly surveyed the students in the classroom; some of them were strangers.",
+    "speaker": ""
+  },
+  "ch2_035": {
+    "speaker": "Melania",
+    "text": "Sorry again, we must have washed.."
+  },
+  "ch2_036": {
+    "text": "Recognizing her fellow group member, and then finding her whole group with her eyes, Melania stopped, looking at the teacher with a frank lack of understanding of what was happening.",
+    "speaker": ""
+  },
+  "ch2_037": {
+    "speaker": "Olena Serhiivna",
+    "text": "Now excuse me, because I was joking. However, your reaction was worth it."
+  },
+  "ch2_038": {
+    "text": "Daria, with her anxiety of incredible proportions, experienced all possible spectrums of negative emotions in just a minute. Melania seemed surprised, but not frightened. So she quickly recovered, even joking.",
+    "speaker": ""
+  },
+  "ch2_039": {
+    "speaker": "Melania",
+    "text": "But I would love to listen to Czech."
+  },
+  "ch2_040": {
+    "speaker": "Olena Serhiivna",
+    "text": "You will still have the opportunity to do this in your senior year."
+  },
+  "ch2_041": {
+    "text": "There were not many places left, but their availability already made us happy. The discipline they met today was called \"Introduction to Slavic Philology\". The name itself meant absolutely nothing to most students. The introductory lecture clarified everything, although instead it increased the number of questions. Daria noted for herself that it would most likely be difficult for her, since this subject was related to other Slavic languages. Strangers at the lecture turned out to be students studying these languages. For Ukrainian philologists, it seemed difficult, at least now. Everything was complicated by the fact that the subject did not touch languages ​​directly in their modern form, but explained this modern form with laws from the past. Daria had no idea how much had happened for the words to become like that. It caused huge interest. Of course, the freshman decided to do everything possible to really learn such difficult topics well.",
+    "speaker": ""
+  },
+  "ch2_042": {
+    "speaker": "Daria",
+    "text": "And who said that language is easy."
+  },
+  "ch2_043": {
+    "text": "Melania remembered the teacher's words the most.",
+    "speaker": ""
+  },
+  "ch2_044": {
+    "speaker": "Melania",
+    "text": "Language is as exact a science as mathematics. Can it be considered that we exchanged an awl for soap?"
+  },
+  "ch2_045": {
+    "speaker": "Daria",
+    "text": "Mel haha ​​this is definitely the best option for me."
+  },
+  "ch2_046": {
+    "text": "The next class was Introduction to Literary Studies. Some might have expected an ordinary literature course, but that idea quickly proved mistaken. Daria was delighted by the lecture. She had always loved books and searched for meaning in texts, yet she had never imagined how many meanings could be hidden or explicit: symbols, structures, contexts... Reading between the lines; truly living through a work.",
+    "speaker": ""
+  },
+  "ch2_047": {
+    "speaker": "Daria",
+    "text": "Now I will see in front of me not just history, but the pulse of an era, traces of feelings, a cipher of reality in the unreal. Every sentence is a key. Sometimes it sounds scary to think so deeply. But here I will learn not only to read the text, but also to hear it."
+  },
+  "ch2_048": {
+    "text": "After classes, the first-year students were due for a tour. Marta had announced the meeting place in advance: first the lobby, then everyone would go together to the assembly hall. It was a little nerve-racking, but curiosity outweighed every worry. Daria walked beside Melania.",
+    "speaker": ""
+  },
+  "ch2_049": {
+    "text": "When the group entered the hall, they were not alone. It turned out to be quite large, with velvet seats, equipped with the necessary lighting and an incredibly spacious stage.",
+    "speaker": ""
+  },
+  "ch2_050": {
+    "speaker": "Melania",
+    "text": "Massively.."
+  },
+  "ch2_051": {
+    "speaker": "Oksana",
+    "text": "Impressive, huh? Can't wait to perform here!"
+  },
+  "ch2_052": {
+    "text": "The air smelled of hundreds of stories. We imagined evenings where someone recited poems for the first time, someone overcame the corrosive fear of the stage. They were necessarily supported by smiles from behind the scenes or caring, admiring glances from the hall. An elegant piano stood in the corner of the stage. How many nervous rehearsals, unexpected improvisations touched his strings. It seemed that the good spirit of the university lives in this assembly hall - the one that preserves the warmest moments: loud ovations, sincere greetings, the first attempts to declare oneself, to say something truly out loud.",
+    "speaker": ""
+  },
+  "ch2_053": {
+    "text": "Students continued to come to the hall.",
+    "speaker": ""
+  },
+  "ch2_054": {
+    "speaker": "Daria",
+    "text": "I didn't think there were so many of us."
+  },
+  "ch2_055": {
+    "speaker": "Marta",
+    "text": "I am sure that it is not all of them."
+  },
+  "ch2_056": {
+    "text": "They already knew some students, because they had a joint lecture. However, the majority remained strangers. A group, led by a tall black guy, entered the room. There was resolute confidence in his gait. But he was not the only one who attracted attention. A red-haired girl, whose charisma could be felt even from such a distance, was walking cheerfully from the side. They took places in the row above.",
+    "speaker": ""
+  },
+  "ch2_057": {
+    "speaker": "Melania",
+    "text": "Who is this?"
+  },
+  "ch2_058": {
+    "speaker": "Daria",
+    "text": "People."
+  },
+  "ch2_059": {
+    "speaker": "Melania",
+    "text": "Witty, Daria."
+  },
+  "ch2_060": {
+    "speaker": "Marta",
+    "text": "Journalists. This guy is their headman."
+  },
+  "ch2_061": {
+    "text": "Without hiding her curiosity, Melania turned to see what seats they had taken.",
+    "speaker": ""
+  },
+  "ch2_062": {
+    "speaker": "Melania",
+    "text": "Is it possible to somehow transfer to journalists?"
+  },
+  "ch2_063": {
+    "speaker": "Marta",
+    "text": "You can be a journalist with a philology degree."
+  },
+  "ch2_064": {
+    "text": "Daria and Oksana looked at each other, barely holding back their laughter.",
+    "speaker": ""
+  },
+  "ch2_065": {
+    "speaker": "Oksana",
+    "text": "Marta, I think you didn't understand."
+  },
+  "ch2_066": {
+    "speaker": "Marta",
+    "text": "What?.."
+  },
+  "ch2_067": {
+    "text": "The girl did not guess right away.",
+    "speaker": ""
+  },
+  "ch2_068": {
+    "speaker": "Marta",
+    "text": "You have to stop being so serious."
+  },
+  "ch2_069": {
+    "speaker": "Melania",
+    "text": "Yes, definitely."
+  },
+  "ch2_070": {
+    "text": "It became quite loud in the room. Many students got to know each other, others continued conversations with people they already knew.",
+    "speaker": ""
+  },
+  "ch2_071": {
+    "text": "Finally, the curators who served as tour guides today took the stage.",
+    "speaker": ""
+  },
+  "ch2_072": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "We are glad to welcome you all to the walls of our university and thank you for this choice. Today you will get to know more about the building in which you will spend at least four wonderful years. But first, let's turn to the history of the institution."
+  },
+  "ch2_073": {
+    "text": "Most of the information contained in this section is true. You can check it using sources on the Internet or by visiting our university.",
+    "speaker": ""
+  },
+  "ch2_074": {
+    "text": "The opening part was exciting. Freshmen learned a lot of new information. Melania insisted that she was proud to have the opportunity to study at one of the best universities in Ukraine, this was confirmed by the official ratings, Oksana was attracted by the arboretum and made it her goal to visit it, and Daria was impressed by the observatory on Mount Pip Ivan.",
+    "speaker": ""
+  },
+  "ch2_075": {
+    "text": "When the theoretical part was finished, all first-year students were divided into subgroups, mixing different specialties. Such a proposal seemed really original, because it would allow the majority of students to get to know each other. Daria, Melania and Oksana from the side of philologists got into one of these subgroups. They were joined by two students from the specialty \"Secondary education. Ukrainian language and literature\".",
+    "speaker": ""
+  },
+  "ch2_076": {
+    "text": "Interestingly, both were very similar to each other. The girl had hair the color of light wheat, which framed her face with delicate strands. Perfect symmetry, sky-gray eyes with a blue sheen. Everything about her spoke of grace and calmness. She introduced herself.",
+    "speaker": ""
+  },
+  "ch2_077": {
+    "speaker": "Vira",
+    "text": "Hi, I'm Vira."
+  },
+  "ch2_078": {
+    "text": "After her, her teammate did the same.",
+    "speaker": ""
+  },
+  "ch2_079": {
+    "speaker": "Luka",
+    "text": "And I'm Luka."
+  },
+  "ch2_080": {
+    "text": "A bright smile immediately graced his face. He confidently but unobtrusively extended his hand for a handshake. Golden-ash hair fell awkwardly on the forehead. His look is pure openness without an iota of fear.",
+    "speaker": ""
+  },
+  "ch2_081": {
+    "text": "How to say hello to Vira and Luka?",
+    "choices": [
+      {
+        "target": "ch2_084",
+        "text": "Say hello more discreetly"
+      },
+      {
+        "target": "ch2_087",
+        "text": "Say hello more emotionally"
+      }
+    ],
+    "speaker": ""
+  },
+  "ch2_084": {
+    "text": "Daria gave them a restrained handshake, nodded, and introduced herself. Judging by their reactions, Vira and Luka had expected something more openly enthusiastic, and now they seemed noticeably self-conscious. Their bodies drew inward and their shoulders rose as though shielding them from invisible pressure. It felt as if they would now scrutinize every word and gesture, afraid of doing too much. Something inside them had closed off.",
+    "speaker": ""
+  },
+  "ch2_085": {
+    "text": "The choice made affected the behavior of Vira and Luka with Daria in the future.",
+    "speaker": ""
+  },
+  "ch2_087": {
+    "text": "Daria held out her hand with a kind of childlike joy that did not require any words.",
+    "speaker": ""
+  },
+  "ch2_088": {
+    "speaker": "Daria",
+    "text": "And my name is Daria."
+  },
+  "ch2_089": {
+    "text": "Vira and Luka exchanged a smile that probably meant, ‘We’ve just made another great new acquaintance — cool, right?’ The silence somehow felt fuller, like a step they were about to cross before discovering the secrets of these new personalities.",
+    "speaker": ""
+  },
+  "ch2_090": {
+    "text": "The choice made affected the behavior of Vira and Luka with Daria in the future.",
+    "speaker": ""
+  },
+  "ch2_092": {
+    "text": "Unexpectedly, the same journalists who the girls drew attention to at the beginning of the meeting joined the group. Melania managed to whisper to Daria.",
+    "speaker": ""
+  },
+  "ch2_093": {
+    "speaker": "Melania",
+    "text": "Maybe buy a lottery ticket today? Unexpectedly lucky."
+  },
+  "ch2_094": {
+    "text": "As it was already known, the group representative approached first, but was in no hurry to introduce himself. I was waiting for my groupmate or further instructions",
+    "speaker": ""
+  },
+  "ch2_095": {
+    "text": "curators? It was impossible to say exactly. His face showed no emotion. Daria in any other situation would call it nothing but indifference. But was it possible to be indifferent now? Maybe later. And now it's hard to believe. Dark hair framed a pale face with well-defined cheekbones. Over time, it became clear: the guy was too focused, so he seemed cold and detached. Daria concluded that he probably belongs to that category of people who are silent a lot because they observe and see more than others. Be that as it may, it was too early to confidently declare this.",
+    "speaker": ""
+  },
+  "ch2_096": {
+    "speaker": "Daria",
+    "text": "It will become clearer later."
+  },
+  "ch2_097": {
+    "speaker": "But Daria could not deny it",
+    "text": "there was something about this guy that stuck. I wanted to know more about him."
+  },
+  "ch2_098": {
+    "speaker": "Daria",
+    "text": "To begin with, at least the name. Is he going to remain Mr. Mayor of Journalists?"
+  },
+  "ch2_099": {
+    "text": "At that moment, the last member of the group appeared. A girl whose hair seemed like a flame against a pale background. Tall, with a good posture and graceful movements of the cat.",
+    "speaker": ""
+  },
+  "ch2_100": {
+    "speaker": "Roksolana",
+    "text": "Hello, I'm sorry I'm late, I had to give something to a groupmate. Probably, after the excursion, we will all go home. I am Roksolana."
+  },
+  "ch2_101": {
+    "text": "The girls and Luka greeted each other, assuring her that the short wait had not hurt them. Everyone looked strangely at the student, who still had not even mentioned his name. Roksolana guessed what the matter was.",
+    "speaker": ""
+  },
+  "ch2_102": {
+    "speaker": "Roksolana",
+    "text": "I guess he hasn't introduced himself yet?"
+  },
+  "ch2_103": {
+    "text": "She looked at him with displeasure. Instead, he looked somewhere in the direction of the curators, but feeling the piercing gaze of his fellow group member, returned to the company.",
+    "speaker": ""
+  },
+  "ch2_104": {
+    "speaker": "Demian",
+    "text": "My name is Demian."
+  },
+  "ch2_105": {
+    "speaker": "Melania",
+    "text": "What a beautiful name."
+  },
+  "ch2_106": {
+    "text": "But he didn't seem to hear. Or he didn't want to hear it. His gaze returned to the teachers.",
+    "speaker": ""
+  },
+  "ch2_107": {
+    "speaker": "Roksolana",
+    "text": "Demian, you just received a compliment, can you thank me? OK, I'll speak for him. Thank you, I think Demian is pleased. He's not angry, if anything."
+  },
+  "ch2_108": {
+    "text": "The scene resembled a dialogue between a caring mother and a somewhat passive son, who still did not want to \"return\" to the real world.",
+    "speaker": ""
+  },
+  "ch2_109": {
+    "speaker": "Demian",
+    "text": "I don't know who said it, but I was going to say thank you now because I was actually listening to our subgroup's itinerary and we're going to head to the library first."
+  },
+  "ch2_110": {
+    "text": "Everyone began to look at each other in silence. Indeed, no one, except Demian, heard it. So such concentration and responsibility deserved respect, instead of condemning the so-called indifference. Roksolana spoke up first. It was not surprising, because they were definitely closer, it seemed appropriate.",
+    "speaker": ""
+  },
+  "ch2_111": {
+    "speaker": "Roksolana",
+    "text": "I appreciate your attention. You are simply incredible at this. In just two days, I managed to convince myself so many times. We were lucky with the old lady."
+  },
+  "ch2_112": {
+    "speaker": "Demian",
+    "text": "Of course, but I won't smear you anyway."
+  },
+  "ch2_113": {
+    "text": "Roksolana laughed.",
+    "speaker": ""
+  },
+  "ch2_114": {
+    "speaker": "Roksolana",
+    "text": "Also, how will you be?"
+  },
+  "ch2_115": {
+    "speaker": "Demian",
+    "text": "We'll see about that."
+  },
+  "ch2_116": {
+    "text": "The girl lowered her voice.",
+    "speaker": ""
+  },
+  "ch2_117": {
+    "speaker": "Roksolana",
+    "text": "Well, Demian-eh... What if it's chocolate?"
+  },
+  "ch2_118": {
+    "speaker": "Demian",
+    "text": "I only take protein bars."
+  },
+  "ch2_119": {
+    "speaker": "Roksolana",
+    "text": "Two and we part ways."
+  },
+  "ch2_120": {
+    "speaker": "Demian",
+    "text": "Three and not more often than once a month."
+  },
+  "ch2_121": {
+    "speaker": "Roksolana",
+    "text": "Four and you can sometimes be late for classes."
+  },
+  "ch2_122": {
+    "speaker": "Demian",
+    "text": "The offer becomes extremely unprofitable for me. Don't be impudent."
+  },
+  "ch2_123": {
+    "text": "Roksolana slyly winked.",
+    "speaker": ""
+  },
+  "ch2_124": {
+    "speaker": "Roksolana",
+    "text": "Five?"
+  },
+  "ch2_125": {
+    "text": "Demian exhaled heavily, as if he was tired of the argument.",
+    "speaker": ""
+  },
+  "ch2_126": {
+    "speaker": "Demian",
+    "text": "Let's see."
+  },
+  "ch2_127": {
+    "speaker": "Roksolana",
+    "text": "Oh God, I didn't think you were capable of such a typically masculine answer."
+  },
+  "ch2_128": {
+    "text": "For the first time, the corners of Demian's lips stretched upwards. In an instant, his figure did not seem so detached.",
+    "speaker": ""
+  },
+  "ch2_129": {
+    "speaker": "Roksolana",
+    "text": "By the way, Melania made a compliment."
+  },
+  "ch2_130": {
+    "text": "The gaze of Melania and Demian crossed. Daria saw for the first time how the girl was confused in a certain way. Her eyes are somewhat ironic, his are calm. She looked at him with a silent challenge. And he was not going to compete. The look lasted a second, maybe two. But this was enough to remember.",
+    "speaker": ""
+  },
+  "ch2_131": {
+    "speaker": "Demian",
+    "text": "Melania is also a very beautiful name. Haven't heard it before."
+  },
+  "ch2_132": {
+    "text": "Melania only smiled in response. A normal greeting gesture. And nothing more.",
+    "speaker": ""
+  },
+  "ch2_133": {
+    "speaker": "Demian",
+    "text": "It's time for us. The curator is waiting."
+  },
+  "ch2_134": {
+    "text": "Everyone followed the boy in silence.",
+    "speaker": ""
+  },
+  "ch2_135": {
+    "text": "The library premises were almost nearby. Demian politely held the door while the girls went inside. The library met with silence. Not dead, but alive. It was a silence in which you can hear the turning of pages, the creaking of the floor under someone's careful steps.",
+    "speaker": ""
+  },
+  "ch2_136": {
+    "text": "The light penetrated through the high windows with soft rays, covering the shelves with golden dust. There was a familiar smell of old paper in the air. The shelves rose to the very ceiling. It seemed that there were not several hundred, but several thousand books on them. Some were worn beyond recognition, with tattered bindings and names of long-forgotten authors. But this did not make them less valuable.",
+    "speaker": ""
+  },
+  "ch2_137": {
+    "text": "Next, students had the opportunity to see the reading room. Rows of massive oak tables where sat those who were worried before the session and those who wrote poems in love.",
+    "speaker": ""
+  },
+  "ch2_138": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "For philologists, there is no more sacred place than the library. Therefore, the excursion for your subgroup begins quite symbolically."
+  },
+  "ch2_139": {
+    "text": "Daria as never agreed with what was said. She always felt like she was in a temple in the library. The air there was always thicker, not from dust, but from stories. Daria inhaled them to her full chest and a real smile appeared on her face.",
+    "speaker": ""
+  },
+  "ch2_140": {
+    "text": "The curator announced the rules for using the university library. Then came the turn of questions.",
+    "speaker": ""
+  },
+  "ch2_141": {
+    "speaker": "Demian",
+    "text": "Could we issue a reader's ticket today? Do I need to apply on another day?"
+  },
+  "ch2_142": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "In my opinion, a great idea for those who want to. It won't take long, it can be crowded on other days."
+  },
+  "ch2_143": {
+    "text": "Everyone liked the proposal and gladly supported it. The required forms for filling appeared on the table. Soon, students could officially call themselves users of the university library.",
+    "speaker": ""
+  },
+  "ch2_144": {
+    "text": "After finishing in the library, the first-year students got acquainted with the favorite place of students who do not like excessive noise - the courtyard. It seemed like a separate world, separated from the bustling Ivano-Frankivsk and the Hominy Corps. A dozen benches were located along the avenue, on which Daria had already planned to spend most of her time during breaks on nice days. Some under the Christmas trees, some just in the sun - the perfect place to relax after a long steam. As the curator said, the courtyard was never empty, and these words were confirmed in a minute. Luka waited until the teacher was far enough away to report his observations.",
+    "speaker": ""
+  },
+  "ch2_145": {
+    "speaker": "Luka",
+    "text": "Of course, they won't tell us this, but most often they secretly smoke cigarettes right here."
+  },
+  "ch2_146": {
+    "text": "The girls squinted at the boy, not knowing what to say. Personally for Daria and after the day spent together with Melania, she was sure that for her too, this information seemed simply... unnecessary. There was an awkward silence. Luka looked at Demian with an unspoken request to save him from such an awkward situation, to support the conversation. He took his time, but still decided to add a comment.",
+    "speaker": ""
+  },
+  "ch2_147": {
+    "speaker": "Demian",
+    "text": "You must have seen me yesterday."
+  },
+  "ch2_148": {
+    "text": "The corners of his lips turned up slyly. Luka was a little worried, as if he really recalled a non-existent memory.",
+    "speaker": ""
+  },
+  "ch2_149": {
+    "speaker": "Demian",
+    "text": "Just kidding."
+  },
+  "ch2_150": {
+    "text": "Melania picked up the conversation.",
+    "speaker": ""
+  },
+  "ch2_151": {
+    "speaker": "Melania",
+    "text": "I don't know about you, but I plan to drink a can of valerian here before the exam."
+  },
+  "ch2_152": {
+    "text": "Roksolana smiled, cheerfully adding..",
+    "speaker": ""
+  },
+  "ch2_153": {
+    "speaker": "Roksolana",
+    "text": "Will you call me too, please?"
+  },
+  "ch2_154": {
+    "speaker": "Melania",
+    "text": "Oh, no problem, but entrance only with your sedatives."
+  },
+  "ch2_155": {
+    "text": "During the conversations, the students did not notice how they reached the main decoration of the alley - the majestic monument to Vasyl Stefanyk. He seems to be silently observing the youth, stern and wise as a professor.",
+    "speaker": ""
+  },
+  "ch2_156": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "I don't think I need to explain who that is. Instead, I would like to hear facts about our patron from you! And before you recover, we have a group representative among us... please tell me, when is Vasyl Semenovych's birthday?"
+  },
+  "ch2_157": {
+    "text": "Demian was not surprised by the question.",
+    "speaker": ""
+  },
+  "ch2_158": {
+    "speaker": "Demian",
+    "text": "The fourteenth of May."
+  },
+  "ch2_159": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "Perfectly! We have good news for you. That's when our university celebrates its day. This is a large-scale event with many activities. And most importantly - no classes."
+  },
+  "ch2_160": {
+    "text": "The first-year students rejoiced at this news. It was especially interesting to visit the events. It was at such moments that students felt like they were part of a large friendly community.",
+    "speaker": ""
+  },
+  "ch2_161": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "I’m sorry you were the first one put on the spot, Demian. Such is the lot of a group representative. Now a question for the rest of you: what can you tell us about Stefanyk?"
+  },
+  "ch2_162": {
+    "speaker": "Roksolana",
+    "text": "I am attracted to the concept of \"short, strong and scary\". I dream of writing in the same way."
+  },
+  "ch2_163": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "This is the true art of writing. It takes a lot of work on the texts to achieve a similar result."
+  },
+  "ch2_164": {
+    "speaker": "Roksolana",
+    "text": "That's what I'm here for."
+  },
+  "ch2_165": {
+    "speaker": "Melania",
+    "text": "I really like his novels. At one time, \"Mother\" helped me make an important choice. More precisely, dare to do it."
+  },
+  "ch2_166": {
+    "speaker": "Lidiia Ivanivna",
+    "text": "This is a difficult work, however, like all the works of this incredible writer. His texts are alive and this is confirmed by your thoughts that constantly arise in your head after reading."
+  },
+  "ch2_167": {
+    "speaker": "Vira",
+    "text": "Yes, his short stories touch the soul. In me, they cause emotions so deep, unlike others.. \"News\" was shocking for me at school."
+  },
+  "ch2_168": {
+    "speaker": "Luka",
+    "text": "You made a few mistakes in the word, because you definitely wanted to say \"this is my injury\"."
+  },
+  "ch2_169": {
+    "text": "Laughter rang out in the group.",
+    "speaker": ""
+  },
+  "ch2_170": {
+    "speaker": "Luka",
+    "text": "And don't say it's not for you. Are you as stone as that cross, if it was still \"nothing\"."
+  },
+  "ch2_171": {
+    "speaker": "Daria",
+    "text": "It is difficult to read precisely because there is no room for indifference."
+  },
+  "ch2_172": {
+    "speaker": "Oksana",
+    "text": "He is a genius. Who else could write about people like that?"
+  },
+  "ch2_173": {
+    "text": "The first-year students’ answers and even their brief discussion pleased the curator. She described several other places that would be useful during their studies. After a few questions, the university tour officially ended. Before leaving, the curator wished them success and mentioned a nearby youth center that was also holding tours for newcomers today. She strongly recommended visiting it, because student life was the best time to grow as a person in many different areas. So everyone followed her directions.",
+    "speaker": ""
+  },
+  "ch2_174": {
+    "text": "route I almost didn't have to search. The facility was really located nearby.",
+    "speaker": ""
+  },
+  "ch2_175": {
+    "text": "There were many young people inside and the company joined the tour. They managed to find out that the center was founded by students of the Vasyl Stefanyk Precarpathian National University. And also about an incredible number of clubs and leisure activities. It became clear that this is not just a place for rest, but an environment for creativity, development and socialization of young people.",
+    "speaker": ""
+  },
+  "ch2_176": {
+    "text": "Everyone was interested in something for themselves. Demian, as it turned out, plays chess well, so he thought about visiting the chess club. Roksolana was attracted to evenings with board games, Daria showed interest in the writing club. Melania and Vira shared it for movie nights. Luka remained in limbo for now.",
+    "speaker": ""
+  },
+  "ch2_177": {
+    "speaker": "Roksolana",
+    "text": "An amazing place full of creativity. They always inspire me."
+  },
+  "ch2_178": {
+    "text": "Daria came out a little puzzled by the amount of information received during the whole day. She liked activities, but she could not promise herself that they would be a mandatory part of her life. Daria really wanted to find time for them during the study period. She hoped she could.",
+    "speaker": ""
+  },
+  "ch2_179": {
+    "text": "Suddenly, the girl noticed that she had not yet heard any comments from Oksana, and she seemed to her to be an extraordinary person who should like such events. Daria turned around in search of her groupmate. And did not see her.",
+    "speaker": ""
+  },
+  "ch2_180": {
+    "text": "She stopped abruptly while the company was talking about something.",
+    "speaker": ""
+  },
+  "ch2_181": {
+    "speaker": "Daria",
+    "text": "Oh god, is it really cheese?"
+  },
+  "ch2_182": {
+    "text": "Everyone else stopped too. Incomprehension and anxiety were visible in their eyes.",
+    "speaker": ""
+  },
+  "ch2_183": {
+    "speaker": "Melania",
+    "text": "What happened, Daria?"
+  },
+  "ch2_184": {
+    "speaker": "Luka",
+    "text": "Is it something like Eureka?"
+  },
+  "ch2_185": {
+    "speaker": "Daria",
+    "text": "How long has it been since you saw Oksana?"
+  },
+  "ch2_186": {
+    "speaker": "Demian",
+    "text": "A difficult question."
+  },
+  "ch2_187": {
+    "speaker": "Roksolana",
+    "text": "Maybe she stayed in the center?"
+  },
+  "ch2_188": {
+    "speaker": "Melania",
+    "text": "I don't remember her next to us in the center.."
+  },
+  "ch2_189": {
+    "speaker": "Luka",
+    "text": "So what does cheese mean anyway?"
+  },
+  "ch2_190": {
+    "text": "Now everyone looked at Luka with displeasure.",
+    "speaker": ""
+  },
+  "ch2_191": {
+    "speaker": "Demian",
+    "text": "Ok, is she local?"
+  },
+  "ch2_192": {
+    "speaker": "Melania",
+    "text": "How to look From the region, theoretically - yes, but not from IF, so practically - no."
+  },
+  "ch2_193": {
+    "speaker": "Demian",
+    "text": "Okay, we haven't gone that far. It is worth checking the center. I'll go there, and you, Daria, call her."
+  },
+  "ch2_194": {
+    "text": "Luka didn't look too interested. Vira noticed this.",
+    "speaker": ""
+  },
+  "ch2_195": {
+    "speaker": "Vira",
+    "text": "Something wrong?"
+  },
+  "ch2_196": {
+    "speaker": "Luka",
+    "text": "Just thought I'd get home early."
+  },
+  "ch2_197": {
+    "speaker": "Daria",
+    "text": "You can go, because you are not obliged to stay here."
+  },
+  "ch2_198": {
+    "speaker": "Vira",
+    "text": "No, I would like to help."
+  },
+  "ch2_199": {
+    "speaker": "Roksolana",
+    "text": "Demian and I will help. You really don't need to stay."
+  },
+  "ch2_200": {
+    "text": "Vira still doubted a little and eventually gave up.",
+    "speaker": ""
+  },
+  "ch2_201": {
+    "speaker": "Vira",
+    "text": "Good, I was very glad to meet you."
+  },
+  "ch2_202": {
+    "speaker": "Roksolana",
+    "text": "Each other"
+  },
+  "ch2_203": {
+    "speaker": "Vira",
+    "text": "Write how you find it."
+  },
+  "ch2_204": {
+    "speaker": "Daria",
+    "text": "Oh, and until Luka left. Satisfy your curiosity. Oksana warned that she might get lost and told her to shout \"cheese\" in such a case."
+  },
+  "ch2_205": {
+    "text": "Since Melania was late yesterday, this information was new to her as well.",
+    "speaker": ""
+  },
+  "ch2_206": {
+    "speaker": "Luka",
+    "text": "Originally. Well, good luck in your search. Although she must have already gone home. Don't waste your time."
+  },
+  "ch2_207": {
+    "text": "After saying goodbye, two students left for their homes, while four more remained in search of the \"lost\".",
+    "speaker": ""
+  },
+  "ch2_208": {
+    "text": "Demian returned and said Oksana was not at the center and most likely had never been there, since none of the staff remembered her bright red hair. Daria called while Melania sent several messages. They waited five minutes for a reply. In the meantime, Roksolana told Demian how they had solved the mystery of the shout. When no answer came, Demian stood and said...",
+    "speaker": ""
+  },
+  "ch2_209": {
+    "speaker": "Demian",
+    "text": "I think she is fine. Judging by what she told you, this is far from the first such situation. However, we have only one unverified location where Oksana was definitely part of the subgroup. The only question is whether she has left her by now. So, I will still go into the courtyard, and you do as you wish. Anyway, I'll let you know."
+  },
+  "ch2_210": {
+    "speaker": "Daria",
+    "text": "Can I have a question?"
+  },
+  "ch2_211": {
+    "speaker": "Demian",
+    "text": "Yes."
+  },
+  "ch2_212": {
+    "speaker": "Daria",
+    "text": "Why are you helping? You and Roksolana. You don't know her at all."
+  },
+  "ch2_213": {
+    "text": "Demian shrugged his shoulders.",
+    "speaker": ""
+  },
+  "ch2_214": {
+    "speaker": "Demian",
+    "text": "You actually are too. To be honest, I don't know. Probably because I feel responsible for all members of the subgroup."
+  },
+  "ch2_215": {
+    "speaker": "Roksolana",
+    "text": "Personally, I'm used to helping if I can."
+  },
+  "ch2_216": {
+    "speaker": "Demian",
+    "text": "In general, it is an incorrect question for journalists. We have a professional sense of smell. Did someone say \"man is missing\"? We are here as here. Not bad material, by the way. I don't think that people really get lost in the corps so often. We will use the story for our faculty radio. Let's turn Oksana into a real ghost star who still wanders somewhere near the university."
+  },
+  "ch2_217": {
+    "text": "Roksolana pointedly rolled her eyes before loudly smacking her lips. Demian was somewhat amused by what he saw.",
+    "speaker": ""
+  },
+  "ch2_218": {
+    "speaker": "Demian",
+    "text": "Well, let's go look for your Mouse. are you coming with me"
+  },
+  "ch2_219": {
+    "speaker": "Daria",
+    "text": "Yes, of course."
+  },
+  "ch2_220": {
+    "text": "Daria was grateful to Demian for helping. His calmness meant a lot in such anxious situations. She herself, probably, would have come up with the worst scenarios of the development of events now, if it were not for his cold logical comments. \"Friends are known in trouble.\" But Demian was not even a friend for her. And yet this situation spoke volumes about him as a person.",
+    "speaker": ""
+  },
+  "ch2_221": {
+    "speaker": "Daria",
+    "text": "Which you can definitely rely on."
+  },
+  "ch2_222": {
+    "text": "When they almost reached the entrance, Roksolana suddenly spoke directly to Demian's back.",
+    "speaker": ""
+  },
+  "ch2_223": {
+    "speaker": "Roksolana",
+    "text": "By the way, mice do not like cheese. This is all a marketing stereotype. I think if you are going to make a report, you should know about such things."
+  },
+  "ch2_224": {
+    "text": "Demian, it seems, was amused only more.",
+    "speaker": ""
+  },
+  "ch2_225": {
+    "speaker": "Demian",
+    "text": "Good revenge, but why so late?"
+  },
+  "ch2_226": {
+    "speaker": "Roksolana",
+    "text": "I considered how reasonable it was to have a conflict with the headmaster from the very first week of school."
+  },
+  "ch2_227": {
+    "speaker": "Demian",
+    "text": "It's not smart, you're lucky that in just one bar, my memory erases certain moments.."
+  },
+  "ch2_228": {
+    "speaker": "Roksolana",
+    "text": "I knew that! You are going to use your position. Also corruption. That's low, Damian."
+  },
+  "ch2_229": {
+    "speaker": "Demian",
+    "text": "Well, a conflict is a conflict."
+  },
+  "ch2_230": {
+    "text": "That was enough to make me laugh. And not only them, Daria and Melania were amused by these verbal fights and they did not take any of them seriously. As well as the participants of the \"fights\". It relieved the tension of the situation well.",
+    "speaker": ""
+  },
+  "ch2_231": {
+    "speaker": "Melania",
+    "text": "And weren’t you the first to offer them to him in exchange for the group representative’s favor?"
+  },
+  "ch2_232": {
+    "speaker": "Demian",
+    "text": "A valid remark. You see, Roxas, you have made a fatal mistake. There were witnesses everywhere."
+  },
+  "ch2_233": {
+    "speaker": "Roksolana",
+    "text": "Oh, it will be a science for me. And I will still remember you."
+  },
+  "ch2_234": {
+    "speaker": "Melania",
+    "text": "I probably said it in vain."
+  },
+  "ch2_235": {
+    "text": "A new wave of laughter. Daria even thought about whether this \"adventure\" would benefit their relationship.",
+    "speaker": ""
+  },
+  "ch2_236": {
+    "speaker": "Daria",
+    "text": "We became quite close with Roksolana and Demian. If, of course, they think so."
+  },
+  "ch2_237": {
+    "text": "The atmosphere in the company was incredibly comfortable. It seemed that they had known each other for more than one day or two.",
+    "speaker": ""
+  },
+  "ch2_238": {
+    "text": "At the end of the alley, something reddish became visible.",
+    "speaker": ""
+  },
+  "ch2_239": {
+    "speaker": "Demian",
+    "text": "And here she is."
+  },
+  "ch2_240": {
+    "text": "Oksana was sitting near the monument, diligently writing something in her notebook. Daria responded to the girl and she raised her head. Oksana was surprised to see them.",
+    "speaker": ""
+  },
+  "ch2_241": {
+    "speaker": "Oksana",
+    "text": "Did something happen?"
+  },
+  "ch2_242": {
+    "speaker": "Daria",
+    "text": "Cheese."
+  },
+  "ch2_243": {
+    "speaker": "Oksana",
+    "text": "Gods.. Am I lost?"
+  },
+  "ch2_244": {
+    "speaker": "Roksolana",
+    "text": "Already found."
+  },
+  "ch2_245": {
+    "speaker": "Oksana",
+    "text": "Did you really come back for me?"
+  },
+  "ch2_246": {
+    "text": "Colors of gratitude shone in her green eyes. She hugged everyone in turn.",
+    "speaker": ""
+  },
+  "ch2_247": {
+    "speaker": "Oksana",
+    "text": "Thank you. I just sat down. Today was so interesting that it inspired me. And I decided that I would just \"throw\" a sketch. A few minutes and I'll catch up with you."
+  },
+  "ch2_248": {
+    "speaker": "Daria",
+    "text": "Warn next time or at least answer the call."
+  },
+  "ch2_249": {
+    "speaker": "Oksana",
+    "text": "Good. And about the call, oh, my phone is always on silent."
+  },
+  "ch2_250": {
+    "speaker": "Melania",
+    "text": "A great combo with the ability to get lost."
+  },
+  "ch2_251": {
+    "text": "Oksana somehow smiled sadly.",
+    "speaker": ""
+  },
+  "ch2_252": {
+    "speaker": "Oksana",
+    "text": "I will correct myself. Anyway, thanks again!"
+  },
+  "ch2_253": {
+    "text": "Everyone slowly went home.",
+    "speaker": ""
+  },
+  "ch2_254": {
+    "speaker": "Melania",
+    "text": "It was a busy day.."
+  },
+  "ch2_255": {
+    "speaker": "Roksolana",
+    "text": "Yes, but we will definitely have something to remember."
+  },
+  "ch2_256": {
+    "text": "Everyone stopped at the gate to say goodbye. The sun shone kindly in the sky. The day was clear and warm. Not a cloud in the sky, now not a single anxiety in the soul. Daria, full of bright feelings, returned to her new home.",
+    "speaker": ""
+  },
+  "ch2_summary": {
+    "summary_title": "Chapter 2 Complete",
+    "continue_label": "Credits",
+    "save_label": "Save",
+    "summary_lines": [
+      "Daria survived a second full day and a full university tour.",
+      "She met Vira, Luka, Roksolana and Demian.",
+      "Oksana was found near the monument, and the day ended with a warm sense of community."
+    ]
+  },
+  "ch2_credits": {
+    "summary_title": "Credits",
+    "continue_label": "Main Menu",
+    "save_label": "Save",
+    "summary_lines": [
+      "Screenwriter: Yana Vasylivna Siradchuk",
+      "Developer: Oleksandr Vasylovych Hoian"
+    ]
+  }
+}

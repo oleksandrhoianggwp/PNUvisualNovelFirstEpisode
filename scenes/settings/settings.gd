@@ -30,13 +30,8 @@ var _tab_pages: Array[PanelContainer] = []
 var _tab_buttons: Array[Button] = []
 var _active_tab := -1
 var _ambient_started := false
+var language_option: OptionButton
 
-const DISPLAY_MODE_NAMES = ["У вікні", "Повний екран", "Без рамки"]
-const DISPLAY_MODE_HINTS = [
-	"Звичайне вікно Windows. Зручно, якщо треба швидко перемикатись між програмами.",
-	"Exclusive fullscreen. Гра займає весь екран і може перемкнути режим дисплея.",
-	"Вікно без рамки на весь екран. Виглядає як fullscreen, але Alt+Tab зазвичай м'якший.",
-]
 const FONT_FAMILY_NAMES = [
 	"Default",
 	"Segoe UI",
@@ -50,9 +45,11 @@ const FONT_FAMILY_NAMES = [
 
 
 func _ready() -> void:
+	_apply_localized_ui()
 	display_mode_option.clear()
-	for mode_name in DISPLAY_MODE_NAMES:
+	for mode_name in _display_mode_names():
 		display_mode_option.add_item(mode_name)
+	_setup_language_option()
 
 	font_family_option.clear()
 	for font_name in FONT_FAMILY_NAMES:
@@ -87,12 +84,14 @@ func _ready() -> void:
 	inactive_alpha_slider.value_changed.connect(_on_inactive_alpha_changed)
 	display_mode_option.item_selected.connect(_on_display_mode_changed)
 	resolution_option.item_selected.connect(_on_resolution_changed)
+	language_option.item_selected.connect(_on_language_changed)
 	btn_back.pressed.connect(_on_back)
 
 	_setup_dark_button(btn_back)
 	_setup_dark_option_button(display_mode_option)
 	_setup_dark_option_button(font_family_option)
 	_setup_dark_option_button(resolution_option)
+	_setup_dark_option_button(language_option)
 	_style_settings_screen()
 	_setup_tabs()
 	_play_entrance()
@@ -122,8 +121,9 @@ func _update_resolution_visibility() -> void:
 
 
 func _update_display_hint() -> void:
-	var index = clampi(display_mode_option.selected, 0, DISPLAY_MODE_HINTS.size() - 1)
-	display_hint.text = DISPLAY_MODE_HINTS[index]
+	var hints := _display_mode_hints()
+	var index = clampi(display_mode_option.selected, 0, hints.size() - 1)
+	display_hint.text = hints[index]
 
 
 func _setup_dark_button(button: Button) -> void:
@@ -186,10 +186,10 @@ func _setup_tabs() -> void:
 	_tab_pages = [%AudioPanel, %TextPanel, %VisualPanel, %DisplayPanel]
 	_tab_buttons = [tab_audio, tab_text, tab_visual, tab_display]
 	var descriptions := [
-		"Збалансуй фонову музику та звуки інтерфейсу.",
-		"Налаштуй темп і читабельність діалогів.",
-		"Зміни прозорість, масштаб і фокус персонажів.",
-		"Обери зручний режим вікна та роздільність.",
+		Localization.t("settings.audio_desc"),
+		Localization.t("settings.text_desc"),
+		Localization.t("settings.visual_desc"),
+		Localization.t("settings.display_desc"),
 	]
 	var content_boxes := [
 		%AudioPanel.get_node("Margin/AudioBox"),
@@ -315,6 +315,78 @@ func _on_resolution_changed(index: int) -> void:
 		GameManager.apply_settings()
 
 
+func _on_language_changed(index: int) -> void:
+	var code := "en" if index == 1 else "uk"
+	if code == Localization.current_language:
+		return
+	GameManager.settings["language"] = code
+	Localization.set_language(code)
+	GameManager.save_settings()
+	get_tree().reload_current_scene()
+
+
 func _on_back() -> void:
 	GameManager.save_settings()
 	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
+
+
+func _setup_language_option() -> void:
+	var box := VBoxContainer.new()
+	box.name = "LanguageBox"
+	box.add_theme_constant_override("separation", 6)
+	var label := Label.new()
+	label.text = Localization.t("settings.language")
+	label.add_theme_font_size_override("font_size", 16)
+	label.add_theme_color_override("font_color", WarmUI.INK_SOFT)
+	box.add_child(label)
+	language_option = OptionButton.new()
+	language_option.name = "LanguageOption"
+	language_option.custom_minimum_size = Vector2(0, 46)
+	language_option.add_item(Localization.t("language.uk"))
+	language_option.add_item(Localization.t("language.en"))
+	language_option.selected = 1 if Localization.current_language == "en" else 0
+	box.add_child(language_option)
+	%DisplayPanel.get_node("Margin/DisplayBox").add_child(box)
+
+
+func _display_mode_names() -> Array[String]:
+	return [
+		Localization.t("settings.mode_windowed"),
+		Localization.t("settings.mode_fullscreen"),
+		Localization.t("settings.mode_borderless"),
+	]
+
+
+func _display_mode_hints() -> Array[String]:
+	return [
+		Localization.t("settings.hint_windowed"),
+		Localization.t("settings.hint_fullscreen"),
+		Localization.t("settings.hint_borderless"),
+	]
+
+
+func _apply_localized_ui() -> void:
+	$CenterContainer/Shell/OuterMargin/Root/Header/HeaderText/Title.text = Localization.t("settings.title")
+	$CenterContainer/Shell/OuterMargin/Root/Header/HeaderText/Subtitle.text = Localization.t("settings.subtitle")
+	tab_audio.text = Localization.t("settings.tab_audio")
+	tab_text.text = Localization.t("settings.tab_text")
+	tab_visual.text = Localization.t("settings.tab_visual")
+	tab_display.text = Localization.t("settings.tab_display")
+	%AudioPanel.get_node("Margin/AudioBox/AudioTitle").text = Localization.t("settings.audio_title")
+	%AudioPanel.get_node("Margin/AudioBox/MusicBox/MusicLabel").text = Localization.t("settings.music_volume")
+	%AudioPanel.get_node("Margin/AudioBox/SfxBox/SfxLabel").text = Localization.t("settings.sfx_volume")
+	%DisplayPanel.get_node("Margin/DisplayBox/DisplayTitle").text = Localization.t("settings.display_title")
+	%DisplayPanel.get_node("Margin/DisplayBox/DisplayModeBox/DisplayLabel").text = Localization.t("settings.display_mode")
+	%DisplayPanel.get_node("Margin/DisplayBox/ResolutionBox/ResolutionLabel").text = Localization.t("settings.resolution")
+	%SettingsNote.get_node("Margin/NoteBox/NoteTitle").text = Localization.t("settings.note_title")
+	%SettingsNote.get_node("Margin/NoteBox/NoteText").text = Localization.t("settings.note_text")
+	%TextPanel.get_node("Margin/TextBox/TextTitle").text = Localization.t("settings.text_title")
+	%TextPanel.get_node("Margin/TextBox/TextSpeedBox/TextSpeedLabel").text = Localization.t("settings.text_speed")
+	%TextPanel.get_node("Margin/TextBox/AutoDelayBox/AutoDelayLabel").text = Localization.t("settings.auto_delay")
+	%TextPanel.get_node("Margin/TextBox/DialogueFontSizeBox/DialogueFontSizeLabel").text = Localization.t("settings.font_size")
+	%TextPanel.get_node("Margin/TextBox/FontFamilyBox/FontFamilyLabel").text = Localization.t("settings.font_family")
+	%VisualPanel.get_node("Margin/VisualBox/VisualTitle").text = Localization.t("settings.visual_title")
+	%VisualPanel.get_node("Margin/VisualBox/TextboxOpacityBox/TextboxOpacityLabel").text = Localization.t("settings.textbox_opacity")
+	%VisualPanel.get_node("Margin/VisualBox/UiScaleBox/UiScaleLabel").text = Localization.t("settings.ui_scale")
+	%VisualPanel.get_node("Margin/VisualBox/InactiveAlphaBox/InactiveAlphaLabel").text = Localization.t("settings.inactive_alpha")
+	btn_back.text = Localization.t("settings.save_back")

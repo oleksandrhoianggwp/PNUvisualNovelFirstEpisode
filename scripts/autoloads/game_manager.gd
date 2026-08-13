@@ -32,6 +32,7 @@ var relationships: Dictionary = {
 }
 
 var settings: Dictionary = {
+	"language": "uk",
 	"music_volume": 0.8,
 	"sfx_volume": 0.8,
 	"text_speed": 0.025,
@@ -136,13 +137,17 @@ func _build_resolutions() -> void:
 
 
 func get_scene_name(dialogue_idx: int = current_dialogue_index) -> String:
-	if current_chapter == 2:
-		return "Розділ 2"
-	if current_dialogue_id.begins_with("ch2_"):
-		return "Розділ 2"
-	if current_dialogue_id.begins_with("ch1_"):
-		return "Розділ 1"
-	return "Сцена " + str(dialogue_idx + 1)
+	return _localized_scene_name(current_dialogue_id, current_chapter, dialogue_idx)
+
+
+func _localized_scene_name(dialogue_id: String, chapter: int, dialogue_idx: int) -> String:
+	if chapter == 2:
+		return Localization.t("common.chapter") % 2
+	if dialogue_id.begins_with("ch2_"):
+		return Localization.t("common.chapter") % 2
+	if dialogue_id.begins_with("ch1_"):
+		return Localization.t("common.chapter") % 1
+	return Localization.t("common.scene") % (dialogue_idx + 1)
 
 
 func update_current_entry(entry: Dictionary, index: int, page: int = 0) -> void:
@@ -166,10 +171,10 @@ func apply_effects(effects: Dictionary) -> Array[Dictionary]:
 			continue
 		if key == "reputation":
 			reputation += value
-			notifications.append({"text": "Репутація", "value": value, "current": reputation})
+			notifications.append({"text": Localization.t("common.reputation"), "value": value, "current": reputation})
 		elif relationships.has(key):
 			relationships[key] += value
-			var display_name = RELATIONSHIP_NAMES.get(key, key)
+			var display_name = Localization.relationship_name(key)
 			notifications.append({"text": display_name, "value": value, "current": relationships[key]})
 	return notifications
 
@@ -240,7 +245,8 @@ func replay_from_choice(choice_id: String) -> bool:
 func get_choice_flow() -> Array[Dictionary]:
 	var made_choices = _get_choice_map_from_progress()
 	var flow: Array[Dictionary] = []
-	for entry in DialogueData.DIALOGUES:
+	for source_entry in DialogueData.DIALOGUES:
+		var entry := Localization.localize_entry(source_entry)
 		if not entry.has("choices"):
 			continue
 		var entry_id = str(entry.get("id", ""))
@@ -253,7 +259,7 @@ func get_choice_flow() -> Array[Dictionary]:
 		flow.append({
 			"id": entry_id,
 			"chapter": int(entry.get("chapter", 1)),
-			"question": str(entry.get("text", "Вибір")),
+			"question": str(entry.get("text", Localization.t("common.choice"))),
 			"background": str(entry.get("bg", "")),
 			"choices": entry.get("choices", []),
 			"selected_target": selected_target,
@@ -486,10 +492,13 @@ func get_slot_info(slot_id: int) -> Dictionary:
 		)
 		if db.query_result.size() > 0:
 			var row = db.query_result[0]
+			var row_dialogue_id := str(row.get("dialogue_id", ""))
+			var row_chapter := int(row.get("chapter", 1))
+			var row_index := int(row.get("dialogue_index", 0))
 			return {
 				"slot_id": slot_id,
 				"empty": false,
-				"scene_name": row.get("scene_name", ""),
+				"scene_name": _localized_scene_name(row_dialogue_id, row_chapter, row_index),
 				"dialogue_index": row.get("dialogue_index", 0),
 				"dialogue_id": row.get("dialogue_id", ""),
 				"chapter": row.get("chapter", 1),
@@ -502,10 +511,13 @@ func get_slot_info(slot_id: int) -> Dictionary:
 	if config.load(SAVE_PATH) == OK:
 		var section = "slot_" + str(slot_id)
 		if config.has_section(section):
+			var config_dialogue_id := str(config.get_value(section, "dialogue_id", ""))
+			var config_chapter := int(config.get_value(section, "chapter", 1))
+			var config_index := int(config.get_value(section, "dialogue_index", 0))
 			return {
 				"slot_id": slot_id,
 				"empty": false,
-				"scene_name": config.get_value(section, "scene_name", ""),
+				"scene_name": _localized_scene_name(config_dialogue_id, config_chapter, config_index),
 				"dialogue_index": config.get_value(section, "dialogue_index", 0),
 				"dialogue_id": config.get_value(section, "dialogue_id", ""),
 				"chapter": config.get_value(section, "chapter", 1),
@@ -564,6 +576,7 @@ func load_settings() -> void:
 			for key in settings:
 				if row.has(key):
 					settings[key] = row[key]
+	Localization.set_language(str(settings.get("language", "uk")))
 
 
 func apply_settings() -> void:

@@ -4,6 +4,7 @@ const WarmUI = preload("res://scripts/ui/warm_ui.gd")
 const DialoguePaginator = preload("res://scripts/dialogue/dialogue_paginator.gd")
 const CharacterPresentation = preload("res://scripts/characters/character_presentation.gd")
 const STAT_CHANGE_CARD = preload("res://scenes/components/stat_change_card.tscn")
+const CREDITS_OVERLAY = preload("res://scenes/credits/credits_overlay.tscn")
 
 @onready var background: TextureRect = $Background
 @onready var background_next: TextureRect = $BackgroundNext
@@ -101,9 +102,10 @@ var _typing_tween: Tween
 
 
 func _ready() -> void:
-	dialogue_data = DialogueData.DIALOGUES
+	dialogue_data = Localization.localize_dialogues(DialogueData.DIALOGUES)
 	_build_id_map()
 	_apply_runtime_layout()
+	_apply_localized_ui()
 
 	current_index = clampi(GameManager.current_dialogue_index, 0, max(dialogue_data.size() - 1, 0))
 	if GameManager.current_dialogue_id != "":
@@ -321,6 +323,13 @@ func _show_dialogue() -> void:
 		_show_summary(entry)
 		GameManager.save_game()
 		return
+	if entry_type == "credits":
+		dialogue_box.visible = false
+		system_plaque.visible = false
+		choice_container.visible = false
+		_show_credits()
+		GameManager.save_game()
+		return
 
 	summary_overlay.visible = false
 	if entry_type == "system":
@@ -356,7 +365,7 @@ func _apply_background(bg_key: String, transition: String) -> void:
 
 func _apply_characters(entry: Dictionary) -> void:
 	var chars := CharacterPresentation.normalize_slots(entry)
-	var targets := _character_targets(str(entry.get("speaker", "")), chars, entry)
+	var targets := _character_targets(str(entry.get("_source_speaker", entry.get("speaker", ""))), chars, entry)
 	_animate_character(character_left, chars["left"], _prev_chars["left"], targets["left"])
 	_animate_character(character_center, chars["center"], _prev_chars["center"], targets["center"])
 	_animate_character(character_right, chars["right"], _prev_chars["right"], targets["right"])
@@ -418,7 +427,7 @@ func _render_text_page(entry: Dictionary) -> void:
 	if entry_type == "narrator":
 		dialogue_text.text = "[i]" + full_text + "[/i]"
 	elif entry_type == "thought":
-		dialogue_text.text = "[i]«" + full_text + "»[/i]"
+		dialogue_text.text = ("[i]“" + full_text + "”[/i]") if Localization.current_language == "en" else ("[i]«" + full_text + "»[/i]")
 	else:
 		dialogue_text.text = full_text
 	dialogue_text.visible_ratio = 0.0
@@ -487,7 +496,7 @@ func _show_summary(entry: Dictionary) -> void:
 		child.queue_free()
 
 	var title = Label.new()
-	title.text = str(entry.get("summary_title", "Розділ завершено"))
+	title.text = str(entry.get("summary_title", Localization.t("game.summary_default")))
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 34)
 	title.add_theme_color_override("font_color", Color(0.92, 0.78, 0.42, 1))
@@ -504,7 +513,7 @@ func _show_summary(entry: Dictionary) -> void:
 		summary_box.add_child(label)
 
 	var rel_title = Label.new()
-	rel_title.text = "Стосунки"
+	rel_title.text = Localization.t("game.relationships")
 	rel_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	rel_title.add_theme_font_size_override("font_size", 24)
 	rel_title.add_theme_color_override("font_color", Color(0.72, 0.84, 1.0, 1))
@@ -514,7 +523,7 @@ func _show_summary(entry: Dictionary) -> void:
 	var rel_lines = _relationship_summary_lines()
 	if rel_lines.is_empty():
 		var empty = Label.new()
-		empty.text = "Поки без помітних змін."
+		empty.text = Localization.t("game.no_changes")
 		empty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		empty.add_theme_font_size_override("font_size", 19)
 		empty.add_theme_color_override("font_color", Color(0.72, 0.72, 0.8, 1))
@@ -536,19 +545,19 @@ func _show_summary(entry: Dictionary) -> void:
 	summary_box.add_child(actions)
 
 	var save_btn = Button.new()
-	save_btn.text = str(entry.get("save_label", "Зберегти"))
+	save_btn.text = str(entry.get("save_label", Localization.t("common.save")))
 	save_btn.custom_minimum_size = Vector2(220, 56)
 	save_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_setup_pause_button(save_btn)
 	_apply_selected_font(save_btn)
 	save_btn.pressed.connect(func():
 		GameManager.save_game()
-		save_btn.text = "Збережено"
+		save_btn.text = Localization.t("common.saved")
 	)
 	actions.add_child(save_btn)
 
 	var continue_btn = Button.new()
-	continue_btn.text = str(entry.get("continue_label", "Продовжити"))
+	continue_btn.text = str(entry.get("continue_label", Localization.t("common.continue")))
 	continue_btn.custom_minimum_size = Vector2(260, 56)
 	continue_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_setup_pause_button(continue_btn)
@@ -562,7 +571,7 @@ func _show_summary(entry: Dictionary) -> void:
 
 	if str(entry.get("continue_target", "main_menu")) != "main_menu":
 		var menu_btn = Button.new()
-		menu_btn.text = "У головне меню"
+		menu_btn.text = Localization.t("common.main_menu")
 		menu_btn.custom_minimum_size = Vector2(240, 56)
 		menu_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		_setup_pause_button(menu_btn)
@@ -588,6 +597,11 @@ func _close_summary_overlay() -> void:
 		child.queue_free()
 
 
+func _show_credits() -> void:
+	var credits := CREDITS_OVERLAY.instantiate()
+	add_child(credits)
+
+
 func _relationship_summary_lines() -> Array[String]:
 	var lines: Array[String] = []
 	for key in GameManager.relationships:
@@ -595,7 +609,7 @@ func _relationship_summary_lines() -> Array[String]:
 		if value == 0:
 			continue
 		var sign = "+" if value > 0 else ""
-		lines.append(GameManager.RELATIONSHIP_NAMES.get(key, key) + ": " + sign + str(value))
+		lines.append(Localization.relationship_name(key) + ": " + sign + str(value))
 	return lines
 
 
@@ -1004,7 +1018,7 @@ func _show_slot_panel(mode: String) -> void:
 	btn_main_menu.visible = false
 	_get_pause_menu().get_node("ActionGrid").visible = false
 	_get_pause_menu().get_node("PauseSubtitle").visible = false
-	_get_pause_menu().get_node("PauseTitle").text = "Зберегти" if mode == "save" else "Завантажити"
+	_get_pause_menu().get_node("PauseTitle").text = Localization.t("common.save") if mode == "save" else Localization.t("common.load")
 
 	var slots = GameManager.get_all_slots()
 	for i in range(slots.size()):
@@ -1016,7 +1030,7 @@ func _show_slot_panel(mode: String) -> void:
 		if mode == "save":
 			btn.pressed.connect(func():
 				GameManager.save_to_slot(slot_id)
-				_refresh_pause_slot_button(btn, GameManager.get_slot_info(slot_id), slot_id, "Збережено")
+				_refresh_pause_slot_button(btn, GameManager.get_slot_info(slot_id), slot_id, Localization.t("common.saved"))
 				var tw = create_tween()
 				tw.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 				tw.tween_interval(0.55)
@@ -1036,7 +1050,7 @@ func _show_slot_panel(mode: String) -> void:
 
 	var back_btn = Button.new()
 	back_btn.name = "SlotBack"
-	back_btn.text = "Назад"
+	back_btn.text = Localization.t("common.back")
 	back_btn.custom_minimum_size = Vector2(320, 54)
 	_setup_pause_button(back_btn)
 	back_btn.pressed.connect(_hide_slot_panel)
@@ -1109,12 +1123,12 @@ func _build_pause_slot_content(btn: Button, info: Dictionary, slot_id: int, stat
 	text_box.add_child(meta)
 
 	if bool(info.get("empty", true)):
-		title.text = "Слот " + str(slot_id + 1)
-		meta.text = "Порожній"
+		title.text = Localization.t("common.slot") % (slot_id + 1)
+		meta.text = Localization.t("common.empty")
 	else:
-		title.text = "Слот " + str(slot_id + 1) + " - " + str(info.get("scene_name", "?"))
+		title.text = Localization.t("common.slot_scene") % [slot_id + 1, str(info.get("scene_name", "?"))]
 		var saved_at = _format_saved_at(str(info.get("saved_at", "")))
-		meta.text = status if status != "" else "Розділ " + str(int(info.get("chapter", 1))) + "   " + saved_at
+		meta.text = status if status != "" else (Localization.t("common.chapter") % int(info.get("chapter", 1))) + "   " + saved_at
 
 
 func _setup_slot_card_style(button: Button) -> void:
@@ -1179,7 +1193,7 @@ func _hide_slot_panel() -> void:
 	btn_main_menu.visible = true
 	_get_pause_menu().get_node("ActionGrid").visible = true
 	_get_pause_menu().get_node("PauseSubtitle").visible = true
-	_get_pause_menu().get_node("PauseTitle").text = "Пауза"
+	_get_pause_menu().get_node("PauseTitle").text = Localization.t("game.pause")
 	_update_pause_toggles()
 
 
@@ -1194,6 +1208,17 @@ func _setup_pause_button(button: Button) -> void:
 
 func _update_pause_toggles() -> void:
 	if is_instance_valid(btn_auto):
-		btn_auto.text = "Авто: увімкнено" if _auto_mode else "Авто"
+		btn_auto.text = Localization.t("game.auto_on") if _auto_mode else Localization.t("game.auto")
 	if is_instance_valid(btn_skip):
-		btn_skip.text = "Пропуск: увімкнено" if _skip_mode else "Пропуск"
+		btn_skip.text = Localization.t("game.skip_on") if _skip_mode else Localization.t("game.skip")
+
+
+func _apply_localized_ui() -> void:
+	_get_pause_menu().get_node("PauseTitle").text = Localization.t("game.pause")
+	_get_pause_menu().get_node("PauseSubtitle").text = Localization.t("game.pause_subtitle")
+	btn_resume.text = Localization.t("game.resume")
+	btn_save.text = Localization.t("common.save")
+	btn_load.text = Localization.t("common.load")
+	btn_auto.text = Localization.t("game.auto")
+	btn_skip.text = Localization.t("game.skip")
+	btn_main_menu.text = Localization.t("game.menu")

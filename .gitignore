@@ -13,3 +13,5 @@
 
 # Local generation and visual QA workspace
 /tmp/
+/Godot/
+addons/godot-sqlite/bin/~*.dll

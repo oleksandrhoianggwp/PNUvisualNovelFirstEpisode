@@ -48,6 +48,8 @@ const LEGACY_BACKGROUND_ALIASES := {
 
 func _ready() -> void:
 	GameManager.play_music("res://music/main menu/forget_me_not_looped.ogg")
+	_apply_localized_ui()
+	_create_language_switcher()
 	btn_continue.visible = GameManager.has_save()
 	btn_load.visible = GameManager.has_any_save()
 
@@ -157,7 +159,7 @@ func _on_load_slots() -> void:
 
 	var back = Button.new()
 	back.name = "SlotBack"
-	back.text = "Назад"
+	back.text = Localization.t("common.back")
 	back.custom_minimum_size = Vector2(330, 54)
 	_setup_button_style(back)
 	back.pressed.connect(_hide_slots)
@@ -218,15 +220,15 @@ func _create_slot_button(info: Dictionary, slot_id: int) -> Button:
 	text_box.add_child(meta)
 
 	if btn.disabled:
-		title.text = "Слот " + str(slot_id + 1)
-		meta.text = "Порожній"
+		title.text = Localization.t("common.slot") % (slot_id + 1)
+		meta.text = Localization.t("common.empty")
 	else:
 		var scene = str(info.get("scene_name", "?"))
 		var saved_at = _format_saved_at(str(info.get("saved_at", "")))
 		var chapter = int(info.get("chapter", 1))
 		var rep = int(info.get("reputation", 0))
-		title.text = "Слот " + str(slot_id + 1) + " - " + scene
-		meta.text = "Розділ " + str(chapter) + "   реп. " + str(rep) + "   " + saved_at
+		title.text = Localization.t("common.slot_scene") % [slot_id + 1, scene]
+		meta.text = Localization.t("common.slot_meta") % [chapter, rep, saved_at]
 
 	return btn
 
@@ -310,7 +312,7 @@ func _on_choice_flow() -> void:
 
 	var header = Label.new()
 	header.name = "ChoiceHeader"
-	header.text = "Зроблені вибори"
+	header.text = Localization.t("main.choice_history")
 	header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	header.add_theme_font_size_override("font_size", 30)
 	header.add_theme_color_override("font_color", WarmUI.TERRACOTTA_DARK)
@@ -323,7 +325,7 @@ func _on_choice_flow() -> void:
 
 	var back = Button.new()
 	back.name = "ChoiceBack"
-	back.text = "Назад"
+	back.text = Localization.t("common.back")
 	back.custom_minimum_size = Vector2(340, 52)
 	_setup_button_style(back)
 	back.pressed.connect(_hide_choice_flow)
@@ -358,7 +360,7 @@ func _create_choice_card(info: Dictionary, index: int) -> Button:
 	node_label.custom_minimum_size = Vector2(74, 0)
 	node_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	node_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	node_label.text = "Вузол\n" + str(index + 1)
+	node_label.text = Localization.t("main.node") % (index + 1)
 	node_label.add_theme_font_size_override("font_size", 15)
 	node_label.add_theme_color_override("font_color", WarmUI.TERRACOTTA_DARK if not btn.disabled else Color(0.35, 0.3, 0.27, 0.46))
 	row.add_child(node_label)
@@ -375,7 +377,7 @@ func _create_choice_card(info: Dictionary, index: int) -> Button:
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	title.add_theme_font_size_override("font_size", 18)
 	title.add_theme_color_override("font_color", WarmUI.INK if not btn.disabled else Color(0.35, 0.3, 0.27, 0.46))
-	title.text = "Розділ " + str(int(info.get("chapter", 1))) + " - " + str(info.get("question", "Вибір"))
+	title.text = Localization.t("main.choice_title") % [int(info.get("chapter", 1)), str(info.get("question", Localization.t("common.choice")))]
 	text_box.add_child(title)
 
 	var selected = Label.new()
@@ -383,7 +385,7 @@ func _create_choice_card(info: Dictionary, index: int) -> Button:
 	selected.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	selected.add_theme_font_size_override("font_size", 15)
 	selected.add_theme_color_override("font_color", WarmUI.SAGE if not btn.disabled else Color(0.35, 0.3, 0.27, 0.4))
-	selected.text = "Обрано: " + str(info.get("selected_text", "")) if not btn.disabled else "Ще не відкрито в поточному проходженні"
+	selected.text = (Localization.t("main.selected") % str(info.get("selected_text", ""))) if not btn.disabled else Localization.t("main.not_unlocked")
 	text_box.add_child(selected)
 
 	var choice_id = str(info.get("id", ""))
@@ -445,3 +447,40 @@ func _on_settings() -> void:
 
 func _on_exit() -> void:
 	get_tree().quit()
+
+
+func _apply_localized_ui() -> void:
+	$TitleContainer/Eyebrow.text = Localization.t("main.eyebrow")
+	$TitleContainer/Title.text = Localization.t("main.title")
+	$TitleContainer/Subtitle.text = Localization.t("main.subtitle")
+	btn_new_game.text = Localization.t("main.new_game")
+	btn_continue.text = Localization.t("main.continue")
+	btn_load.text = Localization.t("main.load")
+	btn_choices.text = Localization.t("main.choices")
+	btn_settings.text = Localization.t("main.settings")
+	btn_exit.text = Localization.t("main.exit")
+
+
+func _create_language_switcher() -> void:
+	var row := HBoxContainer.new()
+	row.name = "LanguageSwitcher"
+	row.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	row.position = Vector2(-242, 28)
+	row.size = Vector2(210, 48)
+	row.add_theme_constant_override("separation", 8)
+	add_child(row)
+	for code in ["uk", "en"]:
+		var button := Button.new()
+		button.text = Localization.t("language.short_uk" if code == "uk" else "language.short_en")
+		button.custom_minimum_size = Vector2(96, 44)
+		button.disabled = Localization.current_language == code
+		WarmUI.style_button(button, Localization.current_language == code, 16)
+		button.pressed.connect(_change_language.bind(code))
+		row.add_child(button)
+
+
+func _change_language(code: String) -> void:
+	GameManager.settings["language"] = code
+	Localization.set_language(code)
+	GameManager.save_settings()
+	get_tree().reload_current_scene()

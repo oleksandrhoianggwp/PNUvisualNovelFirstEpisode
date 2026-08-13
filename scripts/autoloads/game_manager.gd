@@ -57,22 +57,19 @@ const DISPLAY_MODES = [
 	Window.MODE_FULLSCREEN,
 ]
 
-const RELATIONSHIP_NAMES = {
-	"daria": "Дарія",
-	"maria": "Марія",
-	"anna": "Анна",
-	"melania": "Меланія",
-	"marta": "Марта",
-	"oksana": "Оксана",
-	"lidiya": "Лідія Іванівна",
-	"watchwoman": "Вахтерка",
-	"silhouette_boy": "Хлопець",
-	"vira": "Віра",
-	"luka": "Лука",
-	"demyan": "Дем'ян",
-	"roksolana": "Роксолана",
-	"olena_serhiivna": "Олена Сергіївна",
-	"curator": "Кураторка",
+const CHARACTER_REVEAL_SCENES := {
+	"maria": "ch1_071",
+	"marta": "ch1_151",
+	"oksana": "ch1_152",
+	"melania": "ch1_182",
+	"vira": "ch2_077",
+	"luka": "ch2_079",
+	"roksolana": "ch2_100",
+	"demyan": "ch2_104",
+}
+
+const ALWAYS_UNKNOWN_CHARACTERS := {
+	"silhouette_boy": true,
 }
 
 var RESOLUTIONS: Array[Vector2i] = []
@@ -166,6 +163,14 @@ func update_current_entry(entry: Dictionary, index: int, page: int = 0) -> void:
 func apply_effects(effects: Dictionary) -> Array[Dictionary]:
 	var notifications: Array[Dictionary] = []
 	for key in effects:
+		if key == "reveal_character":
+			var revealed = effects[key]
+			if revealed is Array:
+				for character_key in revealed:
+					reveal_character(str(character_key))
+			else:
+				reveal_character(str(revealed))
+			continue
 		var value = int(effects[key])
 		if value == 0:
 			continue
@@ -174,9 +179,29 @@ func apply_effects(effects: Dictionary) -> Array[Dictionary]:
 			notifications.append({"text": Localization.t("common.reputation"), "value": value, "current": reputation})
 		elif relationships.has(key):
 			relationships[key] += value
-			var display_name = Localization.relationship_name(key)
+			var display_name = relationship_display_name(key)
 			notifications.append({"text": display_name, "value": value, "current": relationships[key]})
 	return notifications
+
+
+func reveal_character(character_key: String) -> void:
+	if relationships.has(character_key):
+		flags["character_known_" + character_key] = true
+
+
+func is_character_known(character_key: String) -> bool:
+	if bool(flags.get("character_known_" + character_key, false)):
+		return true
+	if ALWAYS_UNKNOWN_CHARACTERS.has(character_key):
+		return false
+	if not CHARACTER_REVEAL_SCENES.has(character_key):
+		return true
+	var reveal_index := _find_dialogue_index(str(CHARACTER_REVEAL_SCENES[character_key]))
+	return reveal_index >= 0 and current_dialogue_index >= reveal_index
+
+
+func relationship_display_name(character_key: String) -> String:
+	return Localization.relationship_name(character_key, is_character_known(character_key))
 
 
 func reset_progress() -> void:

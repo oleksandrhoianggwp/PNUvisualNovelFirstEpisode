@@ -106,6 +106,18 @@ const RELATIONSHIP_NAMES := {
 	"curator": {"uk": "Кураторка", "en": "Curator"},
 }
 
+const UNKNOWN_RELATIONSHIP_NAMES := {
+	"maria": {"uk": "Незнайомка", "en": "Stranger"},
+	"melania": {"uk": "Незнайомка", "en": "Stranger"},
+	"marta": {"uk": "Незнайомка", "en": "Stranger"},
+	"oksana": {"uk": "Незнайомка", "en": "Stranger"},
+	"silhouette_boy": {"uk": "Незнайомець", "en": "Stranger"},
+	"vira": {"uk": "Незнайомка", "en": "Stranger"},
+	"luka": {"uk": "Незнайомець", "en": "Stranger"},
+	"demyan": {"uk": "Незнайомець", "en": "Stranger"},
+	"roksolana": {"uk": "Незнайомка", "en": "Stranger"},
+}
+
 var current_language := DEFAULT_LANGUAGE
 var _english_dialogues: Dictionary = {}
 
@@ -128,8 +140,9 @@ func t(key: String, fallback: String = "") -> String:
 	return str(translations.get(current_language, fallback if fallback != "" else key))
 
 
-func relationship_name(key: String) -> String:
-	var translations: Dictionary = RELATIONSHIP_NAMES.get(key, {})
+func relationship_name(key: String, is_known: bool = true) -> String:
+	var source := RELATIONSHIP_NAMES if is_known else UNKNOWN_RELATIONSHIP_NAMES
+	var translations: Dictionary = source.get(key, RELATIONSHIP_NAMES.get(key, {}))
 	return str(translations.get(current_language, key))
 
 

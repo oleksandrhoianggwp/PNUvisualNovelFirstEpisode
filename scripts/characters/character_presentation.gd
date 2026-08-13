@@ -1,8 +1,8 @@
 class_name CharacterPresentation
 extends RefCounted
 
-const CHARACTER_SCALES := {
-	"strangerNearTheHostel": 1.26,
+const RELATIONSHIP_KEYS_BY_FOLDER := {
+	"strangerNearTheHostel": "silhouette_boy",
 }
 
 
@@ -36,7 +36,11 @@ static func folder_for(character_key: String) -> String:
 
 
 static func scale_for(character_key: String) -> float:
-	return float(CHARACTER_SCALES.get(folder_for(character_key), 1.0))
+	return 1.0
+
+
+static func relationship_key_for(character_key: String) -> String:
+	return str(RELATIONSHIP_KEYS_BY_FOLDER.get(folder_for(character_key), ""))
 
 
 static func concealed_slots(entry: Dictionary) -> Array:

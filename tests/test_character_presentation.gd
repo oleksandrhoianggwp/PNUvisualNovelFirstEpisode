@@ -80,7 +80,9 @@ func _test_stranger_scale() -> void:
 	var left: TextureRect = game.get_node("CharacterLeft")
 	var right: TextureRect = game.get_node("CharacterRight")
 	_assert_true(absf(left.scale.x - 1.0) < 0.03, "Daria base scale changed unexpectedly")
-	_assert_true(absf(right.scale.x - 1.26) < 0.04, "Stranger presentation scale is not normalized")
+	_assert_true(absf(right.scale.x - 1.0) < 0.03, "Stranger presentation scale is not normalized")
+	_assert_true(maxf(right.modulate.r, maxf(right.modulate.g, right.modulate.b)) < 0.06, "Unknown dorm character is not concealed on first appearance")
+	_assert_true(right.texture.get_size().y > 3000.0, "Dorm silhouette no longer preserves the source character dimensions")
 
 
 func _test_concealed_reveal() -> void:

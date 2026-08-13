@@ -89,7 +89,6 @@ var is_paused: bool = false
 var _choice_time_left: float = 0.0
 var _slot_mode: String = ""
 var _loaded_textures: Dictionary = {}
-var _generic_silhouette_texture: Texture2D
 var _prev_chars: Dictionary = {"left": "", "center": "", "right": ""}
 var _auto_mode: bool = false
 var _skip_mode: bool = false
@@ -609,7 +608,7 @@ func _relationship_summary_lines() -> Array[String]:
 		if value == 0:
 			continue
 		var sign = "+" if value > 0 else ""
-		lines.append(Localization.relationship_name(key) + ": " + sign + str(value))
+		lines.append(GameManager.relationship_display_name(key) + ": " + sign + str(value))
 	return lines
 
 
@@ -632,11 +631,11 @@ func _show_notification(stat_name: String, value: int, current_value: int) -> vo
 
 	var tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(card, "modulate:a", 1.0, 0.25).set_ease(Tween.EASE_OUT)
-	tween.tween_property(card, "position:y", 0.0, 0.3).set_ease(Tween.EASE_OUT)
+	tween.tween_property(card, "modulate:a", 1.0, 0.16).set_ease(Tween.EASE_OUT)
+	tween.tween_property(card, "position:y", 0.0, 0.18).set_ease(Tween.EASE_OUT)
 	tween.set_parallel(false)
-	tween.tween_interval(2.0)
-	tween.tween_property(card, "modulate:a", 0.0, 0.45).set_ease(Tween.EASE_IN)
+	tween.tween_interval(0.9)
+	tween.tween_property(card, "modulate:a", 0.0, 0.22).set_ease(Tween.EASE_IN)
 	tween.tween_callback(card.queue_free)
 
 
@@ -681,7 +680,8 @@ func _animate_character(node: TextureRect, char_key: String, prev_key: String, t
 		node.visible = false
 		return
 
-	node.texture = _get_generic_silhouette_texture() if bool(target.get("concealed", false)) else tex
+	# Conceal the exact source sprite so its pose and dimensions do not change.
+	node.texture = tex
 	node.visible = true
 	node.z_index = int(target.get("z_index", 1))
 	node.pivot_offset = Vector2(node.size.x * 0.5, node.size.y)
@@ -738,31 +738,18 @@ func _character_targets(speaker: String, chars: Dictionary, entry: Dictionary) -
 		var folder := CharacterPresentation.folder_for(char_key)
 		var active := show_all or active_folders.has(folder)
 		var base_scale := CharacterPresentation.scale_for(char_key)
+		var relationship_key := CharacterPresentation.relationship_key_for(char_key)
+		var concealed := hidden_slots.has(pos) or (relationship_key != "" and not GameManager.is_character_known(relationship_key))
 		var color := Color.WHITE if active else Color(0.24, 0.22, 0.2, 0)
-		if active and hidden_slots.has(pos):
-			color = Color(0.018, 0.02, 0.028, 0.98)
+		if active and concealed:
+			color = Color(0.0, 0.0, 0.0, 0.98)
 		targets[pos] = {
 			"color": color,
 			"scale": Vector2.ONE * base_scale * (1.0 if active else 0.965),
 			"z_index": 2 if active else 1,
-			"concealed": active and hidden_slots.has(pos),
+			"concealed": active and concealed,
 		}
 	return targets
-
-
-func _get_generic_silhouette_texture() -> Texture2D:
-	if _generic_silhouette_texture:
-		return _generic_silhouette_texture
-	var svg := """<svg xmlns="http://www.w3.org/2000/svg" width="512" height="1024" viewBox="0 0 512 1024">
-		<ellipse cx="256" cy="174" rx="92" ry="112" fill="#050609"/>
-		<path d="M156 298 C184 274 216 260 256 260 C296 260 328 274 356 298 C404 340 424 430 438 538 L474 936 L38 936 L74 538 C88 430 108 340 156 298 Z" fill="#050609"/>
-		<path d="M86 430 C28 518 14 650 34 760 L104 742 C92 648 108 548 154 478 Z" fill="#050609"/>
-		<path d="M426 430 C484 518 498 650 478 760 L408 742 C420 648 404 548 358 478 Z" fill="#050609"/>
-	</svg>"""
-	var image := Image.new()
-	if image.load_svg_from_string(svg, 1.0) == OK:
-		_generic_silhouette_texture = ImageTexture.create_from_image(image)
-	return _generic_silhouette_texture
 
 
 func _get_texture(path: String) -> Texture2D:

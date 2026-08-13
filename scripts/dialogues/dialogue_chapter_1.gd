@@ -1069,18 +1069,17 @@ const CHAPTER_1_DIALOGUES: Array = [
 	{
 		"id": "ch1_124",
 		"chapter": 1,
-		"bg": "01_09_room_morning",
+		"bg": "01_07_room_evening",
 		"speaker": "Анна",
 		"type": "dialogue",
 		"text": "Страх - це нормально. Проте постарайся сфокусуватися на хорошому. Починається нова сторінка твого життя. Якщо буде потрібно, ти завжди можеш звернутися до мене.",
 		"left": "daria_main/daria_neutral",
-		"right": "anna/anna",
-		"transition": "fade"
+		"right": "anna/anna"
 	},
 	{
 		"id": "ch1_125",
 		"chapter": 1,
-		"bg": "01_09_room_morning",
+		"bg": "01_07_room_evening",
 		"speaker": "",
 		"type": "narrator",
 		"text": "Дарію розчулили ці слова. Ось, яка чудесна мить! Вона вперше заручилася чиєюсь підтримкою. Тепер таки не одна!"
@@ -1091,7 +1090,8 @@ const CHAPTER_1_DIALOGUES: Array = [
 		"bg": "01_09_room_morning",
 		"speaker": "",
 		"type": "narrator",
-		"text": "Ніч пройшла безсонно. Не можна сказати, що юначці завадив саме страх."
+		"text": "Ніч пройшла безсонно. Не можна сказати, що юначці завадив саме страх.",
+		"transition": "fade"
 	},
 	{
 		"id": "ch1_127",

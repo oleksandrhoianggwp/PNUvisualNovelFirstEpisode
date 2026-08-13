@@ -2337,9 +2337,8 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "summary",
 		"summary_title": "Титри",
 		"summary_lines": [
-			"Студенти КНУВС",
-			"Сценаристка: Яна",
-			"Розробник: Саша"
+			"Сценаристка: Сірадчук Яна Василівна",
+			"Розробник: Гоян Олександр Васильович"
 		],
 		"continue_label": "У головне меню",
 		"continue_target": "main_menu",

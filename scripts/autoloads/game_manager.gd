@@ -4,6 +4,7 @@ const DialogueData = preload("res://scripts/dialogue/dialogue_data.gd")
 
 var current_dialogue_index: int = 0
 var current_dialogue_id: String = "ch1_001"
+var current_dialogue_page: int = 0
 var current_chapter: int = 1
 var current_background: String = ""
 var visible_characters: Dictionary = {"left": "", "center": "", "right": ""}
@@ -144,9 +145,10 @@ func get_scene_name(dialogue_idx: int = current_dialogue_index) -> String:
 	return "Сцена " + str(dialogue_idx + 1)
 
 
-func update_current_entry(entry: Dictionary, index: int) -> void:
+func update_current_entry(entry: Dictionary, index: int, page: int = 0) -> void:
 	current_dialogue_index = index
 	current_dialogue_id = str(entry.get("id", current_dialogue_id))
+	current_dialogue_page = maxi(page, 0)
 	current_chapter = int(entry.get("chapter", current_chapter))
 	current_background = str(entry.get("bg", current_background))
 	visible_characters = {
@@ -164,17 +166,18 @@ func apply_effects(effects: Dictionary) -> Array[Dictionary]:
 			continue
 		if key == "reputation":
 			reputation += value
-			notifications.append({"text": "Репутація", "value": value})
+			notifications.append({"text": "Репутація", "value": value, "current": reputation})
 		elif relationships.has(key):
 			relationships[key] += value
 			var display_name = RELATIONSHIP_NAMES.get(key, key)
-			notifications.append({"text": display_name, "value": value})
+			notifications.append({"text": display_name, "value": value, "current": relationships[key]})
 	return notifications
 
 
 func reset_progress() -> void:
 	current_dialogue_index = 0
 	current_dialogue_id = DialogueData.get_start_id(1)
+	current_dialogue_page = 0
 	current_chapter = 1
 	current_background = ""
 	visible_characters = {"left": "", "center": "", "right": ""}
@@ -192,6 +195,7 @@ func start_chapter_1() -> void:
 func start_chapter_2() -> void:
 	current_dialogue_id = DialogueData.get_start_id(2)
 	current_dialogue_index = _find_dialogue_index(current_dialogue_id)
+	current_dialogue_page = 0
 	current_chapter = 2
 	current_background = ""
 	visible_characters = {"left": "", "center": "", "right": ""}
@@ -202,6 +206,7 @@ func jump_to_scene(scene_id: String) -> void:
 	if idx >= 0:
 		current_dialogue_index = idx
 		current_dialogue_id = scene_id
+		current_dialogue_page = 0
 		var entry = DialogueData.DIALOGUES[idx]
 		current_chapter = int(entry.get("chapter", current_chapter))
 		current_background = str(entry.get("bg", current_background))
@@ -333,6 +338,7 @@ func _init_db() -> void:
 			visible_characters TEXT DEFAULT '{}',
 			choices_made TEXT DEFAULT '{}',
 			flags TEXT DEFAULT '{}',
+			dialogue_page INTEGER DEFAULT 0,
 			reputation INTEGER DEFAULT 0,
 			relationships TEXT DEFAULT '{}',
 			saved_at TEXT DEFAULT (datetime('now'))
@@ -342,6 +348,7 @@ func _init_db() -> void:
 	_ensure_save_column("background", "TEXT DEFAULT ''")
 	_ensure_save_column("visible_characters", "TEXT DEFAULT '{}'")
 	_ensure_save_column("flags", "TEXT DEFAULT '{}'")
+	_ensure_save_column("dialogue_page", "INTEGER DEFAULT 0")
 
 	db.query("""
 		CREATE TABLE IF NOT EXISTS game_settings (
@@ -373,6 +380,7 @@ func save_to_slot(slot_id: int) -> void:
 	config.load(SAVE_PATH)
 	config.set_value(section, "dialogue_index", current_dialogue_index)
 	config.set_value(section, "dialogue_id", current_dialogue_id)
+	config.set_value(section, "dialogue_page", current_dialogue_page)
 	config.set_value(section, "chapter", current_chapter)
 	config.set_value(section, "background", current_background)
 	config.set_value(section, "visible_characters", visible_characters)
@@ -388,12 +396,12 @@ func save_to_slot(slot_id: int) -> void:
 		db.query_with_bindings("""
 			INSERT OR REPLACE INTO save_slots
 				(slot_id, dialogue_index, dialogue_id, chapter, scene_name, background,
-				 visible_characters, choices_made, flags, reputation, relationships, saved_at)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'));
+				 visible_characters, choices_made, flags, dialogue_page, reputation, relationships, saved_at)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'));
 		""", [
 			slot_id, current_dialogue_index, current_dialogue_id, current_chapter, scene,
 			current_background, JSON.stringify(visible_characters), JSON.stringify(choices_made),
-			JSON.stringify(flags), reputation, JSON.stringify(relationships)
+			JSON.stringify(flags), current_dialogue_page, reputation, JSON.stringify(relationships)
 		])
 
 
@@ -412,6 +420,7 @@ func _load_slot_local(slot_id: int) -> bool:
 		return false
 	current_dialogue_id = str(config.get_value(section, "dialogue_id", ""))
 	current_dialogue_index = int(config.get_value(section, "dialogue_index", 0))
+	current_dialogue_page = int(config.get_value(section, "dialogue_page", 0))
 	if current_dialogue_id != "":
 		current_dialogue_index = _find_dialogue_index(current_dialogue_id)
 	current_chapter = int(config.get_value(section, "chapter", 1))
@@ -434,6 +443,7 @@ func _load_slot_from_db(slot_id: int) -> bool:
 	var row = db.query_result[0]
 	current_dialogue_id = str(row.get("dialogue_id", ""))
 	current_dialogue_index = int(row.get("dialogue_index", 0))
+	current_dialogue_page = int(row.get("dialogue_page", 0))
 	if current_dialogue_id != "":
 		current_dialogue_index = _find_dialogue_index(current_dialogue_id)
 	current_chapter = int(row.get("chapter", 1))

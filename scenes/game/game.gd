@@ -1,6 +1,8 @@
 extends Control
 
 const WarmUI = preload("res://scripts/ui/warm_ui.gd")
+const DialoguePaginator = preload("res://scripts/dialogue/dialogue_paginator.gd")
+const STAT_CHANGE_CARD = preload("res://scenes/components/stat_change_card.tscn")
 
 @onready var background: TextureRect = $Background
 @onready var background_next: TextureRect = $BackgroundNext
@@ -91,6 +93,9 @@ var _skip_mode: bool = false
 var _auto_elapsed: float = 0.0
 var _skip_elapsed: float = 0.0
 var _dialogue_was_visible_before_pause: bool = false
+var _text_pages: PackedStringArray = PackedStringArray()
+var _text_page_index: int = 0
+var _typing_tween: Tween
 
 
 func _ready() -> void:
@@ -101,6 +106,7 @@ func _ready() -> void:
 	current_index = clampi(GameManager.current_dialogue_index, 0, max(dialogue_data.size() - 1, 0))
 	if GameManager.current_dialogue_id != "":
 		current_index = _target_to_index(GameManager.current_dialogue_id, current_index)
+	_text_page_index = maxi(GameManager.current_dialogue_page, 0)
 	choices_made = GameManager.choices_made.duplicate()
 
 	choice_container.visible = false
@@ -178,6 +184,8 @@ func _input(event: InputEvent) -> void:
 			_advance_dialogue()
 			return
 		if is_typing:
+			if _typing_tween and _typing_tween.is_valid():
+				_typing_tween.kill()
 			dialogue_text.visible_ratio = 1.0
 			is_typing = false
 			_show_advance_hint()
@@ -219,7 +227,7 @@ func _apply_runtime_layout() -> void:
 	if selected_font:
 		dialogue_text.add_theme_font_override("normal_font", selected_font)
 	dialogue_text.add_theme_constant_override("line_separation", 6)
-	dialogue_text.fit_content = true
+	dialogue_text.fit_content = false
 	speaker_name.add_theme_font_size_override("font_size", maxi(20, dialogue_font_size - 7))
 	speaker_name.add_theme_color_override("font_color", WarmUI.CREAM)
 	if selected_font:
@@ -250,6 +258,15 @@ func _advance_dialogue() -> void:
 		_go_to_main_menu()
 		return
 	var entry = dialogue_data[current_index]
+	if dialogue_box.visible and _text_page_index + 1 < _text_pages.size():
+		_text_page_index += 1
+		GameManager.current_dialogue_page = _text_page_index
+		_render_text_page(entry)
+		GameManager.save_game()
+		return
+	if entry.has("choices") and not choice_container.visible:
+		_show_choices(entry["choices"])
+		return
 	_go_to_target(entry.get("target", entry.get("next", current_index + 1)))
 
 
@@ -281,7 +298,10 @@ func _show_dialogue() -> void:
 		_go_to_target(entry.get("next", current_index + 1))
 		return
 
-	GameManager.update_current_entry(entry, current_index)
+	var entry_id := str(entry.get("id", ""))
+	if entry_id != GameManager.current_dialogue_id:
+		_text_page_index = 0
+	GameManager.update_current_entry(entry, current_index, _text_page_index)
 	GameManager.choices_made = choices_made.duplicate()
 
 	var entry_type = entry.get("type", "dialogue")
@@ -297,6 +317,7 @@ func _show_dialogue() -> void:
 		system_plaque.visible = false
 		choice_container.visible = false
 		_show_summary(entry)
+		GameManager.save_game()
 		return
 
 	summary_overlay.visible = false
@@ -305,6 +326,7 @@ func _show_dialogue() -> void:
 		_show_system_plaque(str(entry.get("text", "")))
 		if entry.has("choices"):
 			_show_choices(entry["choices"])
+		GameManager.save_game()
 		return
 
 	system_plaque.visible = false
@@ -312,6 +334,7 @@ func _show_dialogue() -> void:
 	choice_timer_label.visible = false
 	_setup_text_style(entry_type)
 	_show_text_entry(entry)
+	GameManager.save_game()
 
 
 func _apply_background(bg_key: String, transition: String) -> void:
@@ -354,17 +377,9 @@ func _show_text_entry(entry: Dictionary) -> void:
 	speaker_name.text = speaker
 	speaker_badge.visible = speaker != ""
 	advance_hint.modulate.a = 0.0
-	full_text = str(entry["text"])
-	var entry_type = str(entry.get("type", "dialogue"))
-	if entry_type == "narrator":
-		dialogue_text.text = "[i]" + full_text + "[/i]"
-	elif entry_type == "thought":
-		dialogue_text.text = "[i]«" + full_text + "»[/i]"
-	else:
-		dialogue_text.text = full_text
-
-	dialogue_text.visible_ratio = 0.0
-	is_typing = true
+	_text_pages = DialoguePaginator.paginate(str(entry["text"]), _dialogue_page_limit())
+	_text_page_index = clampi(_text_page_index, 0, maxi(_text_pages.size() - 1, 0))
+	GameManager.current_dialogue_page = _text_page_index
 	_auto_elapsed = 0.0
 	_skip_elapsed = 0.0
 
@@ -375,17 +390,42 @@ func _show_text_entry(entry: Dictionary) -> void:
 	tween.set_parallel(true)
 	tween.tween_property(dialogue_box, "modulate:a", 1.0, 0.2).set_ease(Tween.EASE_OUT)
 	tween.tween_property(dialogue_box, "scale", Vector2.ONE * clampf(float(GameManager.settings.get("ui_scale", 1.0)), 0.85, 1.2), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	tween.chain().tween_callback(_type_text)
+	tween.chain().tween_callback(func(): _render_text_page(entry))
 
 	if entry.has("choices"):
 		await get_tree().process_frame
-		await _wait_for_typing_finished()
+		await _wait_for_text_entry_finished()
 		_show_choices(entry["choices"])
 
 
-func _wait_for_typing_finished() -> void:
-	while is_typing:
+func _wait_for_text_entry_finished() -> void:
+	while is_typing or _text_page_index + 1 < _text_pages.size():
 		await get_tree().process_frame
+
+
+func _dialogue_page_limit() -> int:
+	var font_size := maxi(int(GameManager.settings.get("dialogue_font_size", 28)), 18)
+	var ui_scale := clampf(float(GameManager.settings.get("ui_scale", 1.0)), 0.85, 1.2)
+	return maxi(180, roundi(420.0 * 28.0 / float(font_size) / ui_scale))
+
+
+func _render_text_page(entry: Dictionary) -> void:
+	if _text_pages.is_empty():
+		return
+	if _typing_tween and _typing_tween.is_valid():
+		_typing_tween.kill()
+	full_text = _text_pages[_text_page_index]
+	var entry_type = str(entry.get("type", "dialogue"))
+	if entry_type == "narrator":
+		dialogue_text.text = "[i]" + full_text + "[/i]"
+	elif entry_type == "thought":
+		dialogue_text.text = "[i]«" + full_text + "»[/i]"
+	else:
+		dialogue_text.text = full_text
+	dialogue_text.visible_ratio = 0.0
+	is_typing = true
+	advance_hint.text = (str(_text_page_index + 1) + "/" + str(_text_pages.size()) + "  ⌄") if _text_pages.size() > 1 else "⌄"
+	_type_text()
 
 
 func _setup_text_style(entry_type: String) -> void:
@@ -427,7 +467,7 @@ func _entry_effect_already_applied(entry: Dictionary) -> bool:
 func _apply_entry_effects(entry: Dictionary) -> void:
 	var notifs = GameManager.apply_effects(entry["effects"])
 	for n in notifs:
-		_show_notification(n["text"], n["value"])
+		_show_notification(n["text"], n["value"], n["current"])
 	var entry_id = str(entry.get("id", str(current_index)))
 	GameManager.flags["effect_" + entry_id] = true
 
@@ -570,21 +610,21 @@ func _choice_time_expired() -> void:
 		_select_choice(entry["choices"][0])
 
 
-func _show_notification(stat_name: String, value: int) -> void:
-	var label = Label.new()
-	var sign = "+" if value > 0 else ""
-	label.text = sign + str(value) + " " + stat_name
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	label.add_theme_font_size_override("font_size", 20)
-	label.add_theme_color_override("font_color", Color(0.45, 0.9, 0.58, 1) if value > 0 else Color(0.95, 0.45, 0.45, 1))
-	label.modulate = Color(1, 1, 1, 0)
-	notification_container.add_child(label)
+func _show_notification(stat_name: String, value: int, current_value: int) -> void:
+	var card: StatChangeCard = STAT_CHANGE_CARD.instantiate()
+	notification_container.add_child(card)
+	card.setup(stat_name, current_value, value, _selected_ui_font())
+	card.modulate = Color(1, 1, 1, 0)
+	card.position.y = -10.0
 
 	var tween = create_tween()
-	tween.tween_property(label, "modulate:a", 1.0, 0.25).set_ease(Tween.EASE_OUT)
+	tween.set_parallel(true)
+	tween.tween_property(card, "modulate:a", 1.0, 0.25).set_ease(Tween.EASE_OUT)
+	tween.tween_property(card, "position:y", 0.0, 0.3).set_ease(Tween.EASE_OUT)
+	tween.set_parallel(false)
 	tween.tween_interval(2.0)
-	tween.tween_property(label, "modulate:a", 0.0, 0.45).set_ease(Tween.EASE_IN)
-	tween.tween_callback(label.queue_free)
+	tween.tween_property(card, "modulate:a", 0.0, 0.45).set_ease(Tween.EASE_IN)
+	tween.tween_callback(card.queue_free)
 
 
 func _crossfade_bg(new_tex: Texture2D) -> void:
@@ -707,9 +747,9 @@ func _trim_character_texture(texture: Texture2D) -> Texture2D:
 func _type_text() -> void:
 	var speed = float(GameManager.settings["text_speed"])
 	var duration = max(0.08, full_text.length() * speed)
-	var tween = create_tween()
-	tween.tween_property(dialogue_text, "visible_ratio", 1.0, duration)
-	tween.finished.connect(func():
+	_typing_tween = create_tween()
+	_typing_tween.tween_property(dialogue_text, "visible_ratio", 1.0, duration)
+	_typing_tween.finished.connect(func():
 		is_typing = false
 		_show_advance_hint()
 	)
@@ -752,8 +792,12 @@ func _show_choices(choices: Array) -> void:
 		var choice = choices[i]
 		var btn = Button.new()
 		btn.text = str(choice["text"])
-		btn.custom_minimum_size = Vector2(560, 64)
+		var estimated_lines := maxi(1, ceili(float(btn.text.length()) / 54.0))
+		btn.custom_minimum_size = Vector2(0, 58 + (estimated_lines - 1) * 28)
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		btn.text_overrun_behavior = TextServer.OVERRUN_NO_TRIMMING
+		btn.clip_text = false
 		WarmUI.style_button(btn, false, 21)
 		_apply_selected_font(btn)
 		_apply_choice_style(btn)
@@ -772,11 +816,10 @@ func _select_choice(choice: Dictionary) -> void:
 	if choice.has("effects"):
 		var notifs = GameManager.apply_effects(choice["effects"])
 		for n in notifs:
-			_show_notification(n["text"], n["value"])
+			_show_notification(n["text"], n["value"], n["current"])
 	GameManager.choices_made = choices_made.duplicate()
 	GameManager.flags["choice_" + choice_id] = true
 	choice_container.visible = false
-	GameManager.save_game()
 	_go_to_target(choice["target"])
 
 

@@ -436,7 +436,8 @@ const CHAPTER_1_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Бу!",
 		"left": "daria_main/daria_neutral",
-		"right": "maria/maria_cheerful"
+		"right": "maria/maria_neutral",
+		"concealed_slots": ["right"]
 	},
 	{
 		"id": "ch1_052",
@@ -476,7 +477,7 @@ const CHAPTER_1_DIALOGUES: Array = [
 		"bg": "01_07_room_evening",
 		"speaker": "",
 		"type": "narrator",
-		"text": "Та раптом яскраве світло заливає приміщення,, боляче вдаряючи в очі."
+		"text": "Та раптом яскраве світло заливає приміщення, боляче вдаряючи в очі."
 	},
 	{
 		"id": "ch1_057",
@@ -486,7 +487,7 @@ const CHAPTER_1_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Вибач, налякала тебе?",
 		"left": "daria_main/daria_neutral",
-		"right": "maria/maria_cheerful"
+		"right": "maria/maria_neutral"
 	},
 	{
 		"id": "ch1_058",
@@ -580,7 +581,7 @@ const CHAPTER_1_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Вибач, не думала, що це так сильно засмутить тебе.",
 		"left": "daria_main/daria_neutral",
-		"right": "maria/maria_cheerful"
+		"right": "maria/maria_neutral"
 	},
 	{
 		"id": "ch1_069",
@@ -599,7 +600,7 @@ const CHAPTER_1_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Мене звати Марія. Я, як ти вже зрозуміла, твоя сусідка.",
 		"left": "daria_main/daria_neutral",
-		"right": "maria/maria_cheerful"
+		"right": "maria/maria_neutral"
 	},
 	{
 		"id": "ch1_072",
@@ -1296,7 +1297,7 @@ const CHAPTER_1_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Ти, певно, Дарія?",
 		"left": "daria_main/daria_neutral",
-		"right": "melania/melania_serious"
+		"right": "marta/marta_neutral"
 	},
 	{
 		"id": "ch1_150",
@@ -1314,7 +1315,7 @@ const CHAPTER_1_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Привіт, мене звати Марта. Я староста групи.",
 		"left": "daria_main/daria_neutral",
-		"right": "melania/melania_serious"
+		"right": "marta/marta_smile"
 	},
 	{
 		"id": "ch1_152",
@@ -1391,7 +1392,7 @@ const CHAPTER_1_DIALOGUES: Array = [
 		"speaker": "Марта",
 		"type": "dialogue",
 		"text": "Не всі є, але вже зовсім скоро розпочнуться пари. Можливо, пошукаємо аудиторію, а іншим допоможемо і направимо їх текстовими повідомленнями?",
-		"right": "marta/marta_smile"
+		"right": "marta/marta_neutral"
 	},
 	{
 		"id": "ch1_161",

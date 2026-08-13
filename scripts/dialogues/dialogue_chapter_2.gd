@@ -259,7 +259,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Нічого, мої хороші, знайдіть вільні місця і розпочнемо.",
 		"left": "daria_main/daria_neutral",
-		"right": "olena_serhiivna/olena_serhiivna_neutral"
+		"right": "olena_serhiivna/olena_serhiivna_smile"
 	},
 	{
 		"id": "ch2_030",
@@ -330,7 +330,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "А тепер вибачте ви мене, бо я пожартувала. Проте ваша реакція цього вартувала.",
 		"left": "daria_main/daria_neutral",
-		"right": "olena_serhiivna/olena_serhiivna_neutral"
+		"right": "olena_serhiivna/olena_serhiivna_smile"
 	},
 	{
 		"id": "ch2_038",
@@ -528,7 +528,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Дотепно, Даріє.",
 		"left": "daria_main/daria_neutral",
-		"right": "melania/melania_serious"
+		"right": "melania/melania_playful"
 	},
 	{
 		"id": "ch2_060",
@@ -538,7 +538,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Журналісти. Цей хлопець їхній староста.",
 		"left": "daria_main/daria_neutral",
-		"right": "marta/marta_smile"
+		"right": "marta/marta_neutral"
 	},
 	{
 		"id": "ch2_061",
@@ -556,7 +556,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "А можна якось перевестись до журналістів?",
 		"left": "daria_main/daria_neutral",
-		"right": "melania/melania_serious"
+		"right": "melania/melania_playful"
 	},
 	{
 		"id": "ch2_063",
@@ -594,7 +594,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Що?..",
 		"left": "daria_main/daria_neutral",
-		"right": "marta/marta_smile"
+		"right": "marta/marta_neutral"
 	},
 	{
 		"id": "ch2_067",
@@ -622,7 +622,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Так, однозначно.",
 		"left": "daria_main/daria_neutral",
-		"right": "melania/melania_serious"
+		"right": "melania/melania_playful"
 	},
 	{
 		"id": "ch2_070",
@@ -690,7 +690,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Привіт, я Віра.",
 		"left": "daria_main/daria_neutral",
-		"right": "vira/vira_warm"
+		"right": "vira/vira_shy"
 	},
 	{
 		"id": "ch2_078",
@@ -708,7 +708,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "А я Лука.",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka"
+		"right": "luka/luka_smile"
 	},
 	{
 		"id": "ch2_080",
@@ -811,7 +811,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Може б це сьогодні купити лотерейний квиток? Несподівано щастить.",
 		"left": "daria_main/daria_neutral",
-		"right": "melania/melania_serious"
+		"right": "melania/melania_playful"
 	},
 	{
 		"id": "ch2_094",
@@ -917,7 +917,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Яке гарне ім'я.",
 		"left": "daria_main/daria_neutral",
-		"right": "melania/melania_serious"
+		"right": "melania/melania_smile"
 	},
 	{
 		"id": "ch2_106",
@@ -1365,7 +1365,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "О, без проблем, але вхід тільки зі своїми заспокійливими.",
 		"left": "daria_main/daria_neutral",
-		"right": "melania/melania_serious"
+		"right": "melania/melania_playful"
 	},
 	{
 		"id": "ch2_155",
@@ -1500,7 +1500,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Ти помилилась кількома літерами у слові, бо однозначно хотіла сказати «це моя травма».",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka"
+		"right": "luka/luka_smile"
 	},
 	{
 		"id": "ch2_169",
@@ -1518,7 +1518,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "І не кажіть, що для вас ні. Ви хіба такі ж кам’яні як той хрест, якщо це було ще «нічогенько».",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka"
+		"right": "luka/luka_smile"
 	},
 	{
 		"id": "ch2_171",
@@ -1641,7 +1641,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Це щось на кшталт «Еврика»?",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka"
+		"right": "luka/luka_awkward"
 	},
 	{
 		"id": "ch2_185",
@@ -1690,7 +1690,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Так що все-таки означає сир?",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka"
+		"right": "luka/luka_awkward"
 	},
 	{
 		"id": "ch2_190",
@@ -1746,7 +1746,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Щось не так?",
 		"left": "daria_main/daria_neutral",
-		"right": "vira/vira_warm"
+		"right": "vira/vira_neutral"
 	},
 	{
 		"id": "ch2_196",
@@ -1756,7 +1756,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Просто думав потрапити додому раніше.",
 		"left": "daria_main/daria_neutral",
-		"right": "luka/luka"
+		"right": "luka/luka_awkward"
 	},
 	{
 		"id": "ch2_197",
@@ -1823,7 +1823,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Напишіть як знайдете її.",
 		"left": "daria_main/daria_neutral",
-		"right": "vira/vira_warm"
+		"right": "vira/vira_neutral"
 	},
 	{
 		"id": "ch2_204",
@@ -2032,7 +2032,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Зважувала наскільки розумно мати конфлікт зі старостою з першого ж тижня навчання.",
 		"left": "daria_main/daria_neutral",
-		"right": "roksolana/roksolana_smile"
+		"right": "roksolana/roksolana_neutral"
 	},
 	{
 		"id": "ch2_227",
@@ -2052,7 +2052,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Я так і знала! Ти збираєшся користуватись своєю посадою. Ще й корупція. Це низько, Дем'яне.",
 		"left": "daria_main/daria_neutral",
-		"right": "roksolana/roksolana_smile"
+		"right": "roksolana/roksolana_neutral"
 	},
 	{
 		"id": "ch2_229",
@@ -2100,7 +2100,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Ох, буде мені наукою. А тебе я ще запам'ятаю.",
 		"left": "daria_main/daria_neutral",
-		"right": "roksolana/roksolana_smile"
+		"right": "roksolana/roksolana_neutral"
 	},
 	{
 		"id": "ch2_234",
@@ -2172,7 +2172,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Щось сталось?",
 		"left": "daria_main/daria_neutral",
-		"right": "oksana/oksana_grateful"
+		"right": "oksana/oksana_sad"
 	},
 	{
 		"id": "ch2_242",
@@ -2191,7 +2191,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Боги.. То я загубилась?",
 		"left": "daria_main/daria_neutral",
-		"right": "oksana/oksana_grateful"
+		"right": "oksana/oksana_sad"
 	},
 	{
 		"id": "ch2_244",
@@ -2258,7 +2258,7 @@ const CHAPTER_2_DIALOGUES: Array = [
 		"type": "dialogue",
 		"text": "Чудове комбо разом з умінням губитися.",
 		"left": "daria_main/daria_neutral",
-		"right": "melania/melania_serious"
+		"right": "melania/melania_playful"
 	},
 	{
 		"id": "ch2_251",

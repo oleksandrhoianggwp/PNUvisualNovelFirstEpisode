@@ -117,9 +117,15 @@ func _test_speaker_badge_and_reputation_card() -> void:
 	_assert_true(speaker.text == "Дарія", "Narration fragment is still rendered as a speaker name")
 	var localization := root.get_node("Localization")
 	game.call("_show_notification", localization.t("common.reputation"), 1, 1)
-	await process_frame
+	await create_timer(0.4).timeout
 	var container: VBoxContainer = game.get_node("NotificationContainer")
 	_assert_true(container.get_child_count() == 1, "Reputation feedback card was not shown")
 	if container.get_child_count() == 1:
 		var card := container.get_child(0)
 		_assert_true(card.get_node("Margin/Row/Copy/ChangeLabel").text == localization.t("game.reputation_improved"), "Reputation card exposes raw numbers instead of atmospheric feedback")
+		_assert_true(card.modulate.a > 0.95, "Reputation feedback starts fading before its hold period")
+	game.call("_advance_dialogue")
+	await create_timer(0.7).timeout
+	_assert_true(container.get_child_count() == 1, "Reputation feedback disappears when the next dialogue starts")
+	if container.get_child_count() == 1:
+		_assert_true(container.get_child(0).modulate.a > 0.95, "Reputation feedback fades while the next dialogue is shown")

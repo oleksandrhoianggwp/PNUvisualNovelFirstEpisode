@@ -627,16 +627,12 @@ func _show_notification(stat_name: String, value: int, current_value: int) -> vo
 	card.position.x = 24.0
 
 	var tween = create_tween()
-	tween.set_parallel(true)
 	tween.tween_property(card, "modulate:a", 1.0, 0.24).set_ease(Tween.EASE_OUT)
-	tween.tween_property(card, "position:x", 0.0, 0.28).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	tween.set_parallel(false)
+	tween.parallel().tween_property(card, "position:x", 0.0, 0.28).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	# Keep choice feedback readable long enough to notice without interrupting play.
 	tween.tween_interval(3.0)
-	tween.set_parallel(true)
 	tween.tween_property(card, "modulate:a", 0.0, 0.3).set_ease(Tween.EASE_IN)
-	tween.tween_property(card, "position:x", 16.0, 0.3).set_ease(Tween.EASE_IN)
-	tween.set_parallel(false)
+	tween.parallel().tween_property(card, "position:x", 16.0, 0.3).set_ease(Tween.EASE_IN)
 	tween.tween_callback(card.queue_free)
 
 

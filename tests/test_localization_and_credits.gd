@@ -17,7 +17,7 @@ func _run() -> void:
 	localization = LocalizationScript.new()
 	get_root().add_child(localization)
 	await process_frame
-	_assert_equal(DialogueData.DIALOGUES.size(), 485, "Unexpected source dialogue count")
+	_assert_equal(DialogueData.DIALOGUES.size(), 486, "Unexpected source dialogue count")
 	_assert_equal(localization.english_translation_count(), DialogueData.DIALOGUES.size(), "English translation coverage is incomplete")
 	for key in localization.UI:
 		var values: Dictionary = localization.UI[key]
@@ -56,7 +56,7 @@ func _run() -> void:
 
 	localization.set_language("uk")
 	if failures.is_empty():
-		print("PASS test_localization_and_credits: 485/485 entries, bilingual UI, credits and attribution")
+		print("PASS test_localization_and_credits: %d/%d entries, bilingual UI, credits and attribution" % [DialogueData.DIALOGUES.size(), localization.english_translation_count()])
 		quit(0)
 	else:
 		for failure in failures:
